@@ -1,5 +1,4 @@
-# microservice-template
-This is a template repository for creating microservice using Spring Boot.This project consists the configuration for tools for managing microservices.
+# API-SCRAPER
 
 ## Configuration
 - Discover Server
