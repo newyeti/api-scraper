@@ -14,7 +14,7 @@ tasks:
       EUREKA_USERNAME: eureka
       EUREKA_PASSWORD: password
     command: 
-      export DISCOVERY_SERVER_HOSTNAME=8761-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
+      export DISCOVERY_SERVER_HOSTNAME=https://8761-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
    
 image:
   file: .gitpod.Dockerfile
