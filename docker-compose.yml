@@ -123,8 +123,17 @@ services:
     restart: always
     ports:
       - "4000:4000"
+    networks:
+      - infra-network
+    depends_on:
+      - config-server
+      - api-gateway
+    environment:
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
+      - CONFIG_SERVER_URI=http://config-server
+      - CONFIG_SERVER_PORT=9091
+      - CONFIG_SERVER_TIMEOUT=300
     
-
 networks:
   infra-network:
     driver: bridge
