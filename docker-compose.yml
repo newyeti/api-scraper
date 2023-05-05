@@ -114,6 +114,17 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=password
 
+  ## Applications
+
+  beakon:
+    container_name: Beakon-Service 
+    image: sachindramaharjan/newyeti-beakon:latest
+    pull_policy: always
+    restart: always
+    ports:
+      - "4000:4000"
+    
+
 networks:
   infra-network:
     driver: bridge

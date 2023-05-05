@@ -1,8 +1,8 @@
 ## Build image only
 
-build-image:
+build:
 	mvn clean compile jib:dockerBuild
-gitpod-build-image:
+gitpod-build:
 	mvn -s maven-settings.xml clean compile jib:dockerBuild
 
 ## Build and push image to registry
