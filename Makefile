@@ -1,5 +1,11 @@
-## Build image only
+## Compile Source code
+compile:
+	mvn -s maven-settings.xml clean compile
 
+gitpod-compile:
+	mvn -s maven-settings.xml clean compile
+
+## Build image only
 build:
 	mvn clean compile jib:dockerBuild
 gitpod-build:
