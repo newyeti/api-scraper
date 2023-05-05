@@ -29,6 +29,7 @@
   </properties>
 
   <modules>
+    <module>common</module>
     <module>beakon</module>
   </modules>
 
