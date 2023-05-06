@@ -1,0 +1,8 @@
+server:
+  port: 4000
+
+spring:
+  application:
+    name: BEAKON-SERVICE
+  config:
+    import: "optional:configserver:http://config-server:9091"
