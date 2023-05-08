@@ -1,0 +1,30 @@
+{
+  "type" : "record",
+  "name" : "League",
+  "namespace" : "com.newyeti.common.avro.schema",
+  "fields" : [ {
+    "name" : "id",
+    "type" : {
+      "type" : "long",
+      "java-class" : "java.lang.Long"
+    }
+  }, {
+    "name" : "name",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "country",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "logo",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "flag",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "season",
+    "type" : {
+      "type" : "int",
+      "java-class" : "java.lang.Integer"
+    }
+  } ]
+}
