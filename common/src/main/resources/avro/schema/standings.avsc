@@ -1,0 +1,29 @@
+{
+  "type": "record",
+  "name": "Standings",
+  "namespace": "com.newyeti.common.avro.schema"
+  "fields": [{
+      "name": "rank",
+      "type": ["null", { 
+        "type": "long",
+        "java-class" : "java.lang.Long"
+      }]
+    },
+    {
+      "name": "team",
+      "type": [null, {
+          "type": "record",
+          "namespace": "com.newyeti.common.avro.schema",
+          "fields": [{
+            "name": "id",
+            "type": ["null", "type": "long", "java-class" : "java.lang.Long"]
+          },
+          {
+            "name": "name",
+            "type": ["null", "type": "string"]
+          }
+          ]
+      }]
+    }
+  ]
+}
