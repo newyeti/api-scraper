@@ -1,0 +1,17 @@
+{
+    "type": "record",
+    "name": "Team",
+    "namespace": "com.newyeti.common.avro.schema",
+    "fields": [
+      {
+        "name": "id",
+        "type": "int",
+        "default": -1
+      },
+      {
+        "name": "name",
+        "type": ["null","string"],
+        "default": null
+      }
+    ]
+}
