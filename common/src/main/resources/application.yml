@@ -1,4 +1,0 @@
-
-avro:
-  topic:
-    name: "datahub.team.avro.topic.v1"
