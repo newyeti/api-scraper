@@ -33,7 +33,7 @@
   <modules>
     <module>domain</module>
     <module>application</module>
-    <!-- <module>adapter/beakon</module> -->
+    <module>adapter/beakon</module>
   </modules>
   
   <dependencyManagement>
