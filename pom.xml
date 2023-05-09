@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.0.2</version>
     <relativePath/>
   </parent>
-
   <groupId>com.newyeti</groupId>
   <artifactId>main</artifactId>
   <packaging>pom</packaging>
@@ -29,10 +27,10 @@
   </properties>
 
   <modules>
-    <module>common</module>
+    <module>domain</module>
     <module>beakon</module>
   </modules>
-
+  
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -50,10 +48,10 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-          <groupId>io.micrometer</groupId>
-          <artifactId>micrometer-bom</artifactId>
-          <version>{micrometer.version}</version>
-          <type>pom</type>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-bom</artifactId>
+        <version>{micrometer.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>io.micrometer</groupId>
@@ -86,7 +84,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
   <repositories>
     <repository>
       <id>confluent</id>
@@ -99,15 +96,13 @@
       </snapshots>
     </repository>
   </repositories>
-
   <pluginRepositories>
-      <pluginRepository> 
-          <id>confluent</id> 
-          <name>Confluent</name> 
-          <url>https://packages.confluent.io/maven/</url> 
-      </pluginRepository> 
+    <pluginRepository>
+      <id>confluent</id>
+      <name>Confluent</name>
+      <url>https://packages.confluent.io/maven/</url>
+    </pluginRepository>
   </pluginRepositories>
-
   <build>
     <plugins>
       <plugin>

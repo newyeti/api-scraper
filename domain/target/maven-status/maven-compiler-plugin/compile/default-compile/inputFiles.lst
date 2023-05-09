@@ -1,0 +1,8 @@
+/workspace/api-scraper/domain/src/main/java/com/newyeti/apiscraper/domain/model/avro/schema/Away.java
+/workspace/api-scraper/domain/src/main/java/com/newyeti/apiscraper/domain/model/avro/schema/Home.java
+/workspace/api-scraper/domain/src/main/java/com/newyeti/apiscraper/domain/model/avro/schema/League.java
+/workspace/api-scraper/domain/src/main/java/com/newyeti/apiscraper/domain/model/avro/schema/Team.java
+/workspace/api-scraper/domain/src/main/java/com/newyeti/apiscraper/domain/model/avro/schema/Standing.java
+/workspace/api-scraper/domain/src/main/java/com/newyeti/apiscraper/domain/model/avro/schema/All.java
+/workspace/api-scraper/domain/src/main/java/com/newyeti/apiscraper/domain/model/avro/schema/Goals.java
+/workspace/api-scraper/domain/src/main/java/com/newyeti/apiscraper/App.java
