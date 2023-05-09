@@ -28,7 +28,8 @@
 
   <modules>
     <module>domain</module>
-    <module>beakon</module>
+    <module>application</module>
+    <module>adapter/beakon</module>
   </modules>
   
   <dependencyManagement>
