@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.application.service.standings.dto;
+package com.newyeti.apiscraper.beakon.adapter.rest.standings.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
