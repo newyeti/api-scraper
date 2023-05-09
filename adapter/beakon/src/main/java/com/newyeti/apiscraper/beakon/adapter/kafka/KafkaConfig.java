@@ -1,13 +1,17 @@
 package com.newyeti.apiscraper.beakon.adapter.kafka;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Configuration
-@Data
+@Component
+@Getter
+@Setter
 public class KafkaConfig {
+
     @Value("${avro.topic.name}")
     private String topic;
+
 }

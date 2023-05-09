@@ -6,3 +6,7 @@ spring:
     name: BEAKON-SERVICE
   config:
     import: "configserver:http://config-server:9091"
+
+avro:
+  topic:
+    name: "apiscraper.standings.avro.topic.v1"

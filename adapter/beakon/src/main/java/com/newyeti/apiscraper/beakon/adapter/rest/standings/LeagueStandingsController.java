@@ -20,7 +20,7 @@ import static com.newyeti.apiscraper.beakon.adapter.rest.standings.mapper.League
 @RequiredArgsConstructor
 public class LeagueStandingsController {
     
-    private AvroProducerPort<League> avroProducerPort;
+    //private AvroProducerPort<League> avroProducerPort;
     private WebClient.Builder webClientBuilder;
 
     @GetMapping
@@ -28,6 +28,10 @@ public class LeagueStandingsController {
         LeagueDto leagueDto = webClientBuilder.build()
             .get()
             .uri("https://api-football-v1.p.rapidapi.com/v3/standings?season=2020&league=39")
+            .headers(httpHeaders -> {
+                httpHeaders.set("X-RapidAPI-Key", "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk");
+                httpHeaders.set("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com");
+            })
             .retrieve()
             .bodyToMono(LeagueDto.class)
             .block();

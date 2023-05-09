@@ -117,7 +117,7 @@ services:
   ## Applications
 
   beakon:
-    container_name: Beakon-Service 
+    container_name: beakon-service 
     image: sachindramaharjan/newyeti-beakon:latest
     pull_policy: always
     restart: always
