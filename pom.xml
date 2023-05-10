@@ -33,6 +33,7 @@
   <modules>
     <module>domain</module>
     <module>application</module>
+    <module>adapter</module>
     <module>adapter/beakon</module>
   </modules>
   

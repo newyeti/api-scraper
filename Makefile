@@ -13,10 +13,10 @@ gitpod-build:
 
 ## Build and push image to registry
 build-image:
-	mvn clean compile jib:build
+	mvn clean package jib:build
 
 gitpod-build-image:
-	mvn -s maven-settings.xml clean compile jib:build
+	mvn -s maven-settings.xml clean package jib:build
 
 ## Run docker containers defined in docker-compose.yml
 up:
