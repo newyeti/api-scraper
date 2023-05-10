@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.beakon.adapter.rest.standings.dto;
+package com.newyeti.apiscraper.adapter.beakon.rest.standings.dto;
 
 import java.util.List;
 
