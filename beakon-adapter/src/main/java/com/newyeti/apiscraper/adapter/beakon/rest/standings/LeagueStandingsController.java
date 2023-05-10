@@ -1,29 +1,32 @@
-package com.newyeti.apiscraper.beakon.adapter.rest.standings;
+package com.newyeti.apiscraper.adapter.beakon.rest.standings;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.newyeti.apiscraper.beakon.adapter.rest.standings.dto.LeagueDto;
+import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.LeagueDto;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 import com.newyeti.apiscraper.domain.port.api.spi.kafka.AvroProducerPort;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-import static com.newyeti.apiscraper.beakon.adapter.rest.standings.mapper.LeagueStandingsMapper.LEAGUE_STANDING_MAPPER;
+import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueStandingsMapper.LEAGUE_STANDING_MAPPER;
 
 @Tag(name="standings", description = "Pull data from api and put in a kafka topic")
 @RestController
-@RequestMapping("standings")
+@RequestMapping("/standings")
 @RequiredArgsConstructor
 public class LeagueStandingsController {
     
-    //private AvroProducerPort<League> avroProducerPort;
     private WebClient.Builder webClientBuilder;
 
-    @GetMapping
+    @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
     public void consumeAndSend() {
         LeagueDto leagueDto = webClientBuilder.build()
             .get()
@@ -37,6 +40,12 @@ public class LeagueStandingsController {
             .block();
 
         System.out.println(LEAGUE_STANDING_MAPPER.toDomain(leagueDto));
+    }
+
+    @GetMapping("/health")
+    @ResponseStatus(HttpStatus.OK)
+    public String health() {
+        return "OK";
     }
 
 }

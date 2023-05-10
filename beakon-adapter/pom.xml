@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.newyeti.apiscraper</groupId>
-		<artifactId>adapter</artifactId>
+		<artifactId>main</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.newyeti.apiscraper</groupId>
+	<groupId>com.newyeti.apiscraper.adapter</groupId>
 	<artifactId>beakon</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>beakon</name>
@@ -112,21 +112,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
+				<!-- <configuration>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<!-- <executions>
-						<execution>
-							<goals>
-								<goal>repackage</goal>
-							</goals>
-						</execution>
-            		</executions> -->
-				</configuration>
+				</configuration> -->
 			</plugin>
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>

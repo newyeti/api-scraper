@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.beakon.adapter.kafka;
+package com.newyeti.apiscraper.adapter.beakon.kafka;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
