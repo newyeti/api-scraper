@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.0.2</version>
     <relativePath/>
   </parent>
-
-  <groupId>com.newyeti</groupId>
+  
+  <groupId>com.newyeti.apiscraper</groupId>
   <artifactId>main</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
@@ -26,15 +25,32 @@
     <schema-registry.version>7.3.3</schema-registry.version>
     <apache.avro.version>1.11.1</apache.avro.version>
     <avro-maven-plugin.version>1.8.2</avro-maven-plugin.version>
+    <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
+    <springdoc.openapi.version>1.6.9</springdoc.openapi.version>
+    <apache.commons.version>4.4</apache.commons.version>
   </properties>
 
   <modules>
-    <module>common</module>
+    <module>domain</module>
+    <module>application</module>
     <module>beakon</module>
   </modules>
-
+  
   <dependencyManagement>
     <dependencies>
+      <!-- Internal Dependencies -->
+      <dependency>
+        <groupId>com.newyeti.apiscraper</groupId>
+        <artifactId>domain</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.newyeti.apiscraper</groupId>
+        <artifactId>application</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- External Dependencies -->
       <dependency>
         <groupId>org.testcontainers</groupId>
         <artifactId>testcontainers-bom</artifactId>
@@ -50,10 +66,10 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-          <groupId>io.micrometer</groupId>
-          <artifactId>micrometer-bom</artifactId>
-          <version>{micrometer.version}</version>
-          <type>pom</type>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-bom</artifactId>
+        <version>{micrometer.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>io.micrometer</groupId>
@@ -84,9 +100,23 @@
         <artifactId>avro</artifactId>
         <version>${apache.avro.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${org.mapstruct.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>${springdoc.openapi.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${apache.commons.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
-
   <repositories>
     <repository>
       <id>confluent</id>
@@ -98,16 +128,22 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
+    <repository>
+			<id>netflix-candidates</id>
+			<name>Netflix Candidates</name>
+			<url>https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
   </repositories>
-
   <pluginRepositories>
-      <pluginRepository> 
-          <id>confluent</id> 
-          <name>Confluent</name> 
-          <url>https://packages.confluent.io/maven/</url> 
-      </pluginRepository> 
+    <pluginRepository>
+      <id>confluent</id>
+      <name>Confluent</name>
+      <url>https://packages.confluent.io/maven/</url>
+    </pluginRepository>
   </pluginRepositories>
-
   <build>
     <plugins>
       <plugin>
