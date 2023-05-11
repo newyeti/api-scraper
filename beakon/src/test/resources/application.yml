@@ -9,4 +9,4 @@ spring:
 
 avro:
   topic:
-    name: "apiscraper.standings.avro.topic.v1"
+    standings: "apiscraper.standings.avro.topic.v1"
