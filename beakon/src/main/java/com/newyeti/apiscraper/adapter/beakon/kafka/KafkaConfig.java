@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class KafkaConfig {
 
-    @Value("${avro.topic.name}")
-    private String topic;
+    @Value("${avro.topic.standings}")
+    private String standings;
 
 }

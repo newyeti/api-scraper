@@ -11,7 +11,9 @@ public class WebClientConfig {
     @Bean
     @LoadBalanced
     public WebClient.Builder webClientBuilder() {
-        return WebClient.builder();
+        return WebClient
+                .builder()
+                .baseUrl("https://v3.football.api-sports.io");
     }
 
 }

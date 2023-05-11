@@ -1,19 +1,20 @@
 package com.newyeti.apiscraper.adapter.beakon.rest.standings;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.LeagueDto;
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
-import com.newyeti.apiscraper.domain.port.api.spi.kafka.AvroProducerPort;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueStandingsMapper.LEAGUE_STANDING_MAPPER;
 
@@ -21,31 +22,28 @@ import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.League
 @RestController
 @RequestMapping("/standings")
 @RequiredArgsConstructor
+@Slf4j
 public class LeagueStandingsController {
     
-    private WebClient.Builder webClientBuilder;
+    private final WebClient.Builder webClientBuilder;
 
-    @GetMapping("/")
+    @PostMapping("/{season}/{league}")
     @ResponseStatus(HttpStatus.OK)
-    public void consumeAndSend() {
-        LeagueDto leagueDto = webClientBuilder.build()
+    public void pullData(@RequestHeader MultiValueMap<String, String> httpHeaders, @PathVariable String season, @PathVariable String league) {
+        String result = webClientBuilder.build()
             .get()
-            .uri("https://api-football-v1.p.rapidapi.com/v3/standings?season=2020&league=39")
-            .headers(httpHeaders -> {
-                httpHeaders.set("X-RapidAPI-Key", "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk");
-                httpHeaders.set("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com");
-            })
+            .uri(uriBuilder -> uriBuilder
+                .path("/standings")
+                .queryParam("season", season)
+                .queryParam("league", league)
+                .build())
+            .headers(headers -> headers.addAll(httpHeaders))
             .retrieve()
-            .bodyToMono(LeagueDto.class)
+            .bodyToMono(String.class)
             .block();
-
-        System.out.println(LEAGUE_STANDING_MAPPER.toDomain(leagueDto));
-    }
-
-    @GetMapping("/health")
-    @ResponseStatus(HttpStatus.OK)
-    public String health() {
-        return "OK";
+        
+        log.info(result);
+        // System.out.println(LEAGUE_STANDING_MAPPER.toDomain(leagueDto));
     }
 
 }
