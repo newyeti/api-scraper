@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.beakon;
+package com.newyeti.apiscraper.adapter.beakon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

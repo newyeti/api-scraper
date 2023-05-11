@@ -1,6 +1,6 @@
 ## Compile Source code
 compile:
-	mvn -s maven-settings.xml clean compile
+	mvn clean compile
 
 gitpod-compile:
 	mvn -s maven-settings.xml clean compile
