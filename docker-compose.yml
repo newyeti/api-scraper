@@ -202,7 +202,7 @@ services:
 
   beakon:
     container_name: beakon-service 
-    image: sachindramaharjan/newyeti-beakon:latest
+    image: sachindramaharjan/newyeti-apiscraper-beakon:latest
     pull_policy: always
     restart: always
     ports:
