@@ -219,6 +219,7 @@ services:
       - CONFIG_SERVER_TIMEOUT=300
       - DISCOVERY_SERVER_HOSTNAME=${DISCOVERY_SERVER_HOSTNAME}
       - SPRING_APPLICATION_JSON={"logging.level.org.springframework.cloud.gateway":"DEBUG","logging.level.org.springframework.boot.autoconfigure.web":"DEBUG", "logging.level.web":"DEBUG"}
+      - SPRING_PROFILES_ACTIVE=docker
     
 networks:
   infra-network:
