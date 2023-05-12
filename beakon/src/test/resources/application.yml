@@ -1,11 +1,17 @@
 server:
-  port: 4000
+  port: 7001
 
 spring:
+  profiles:
+    active:
+    - test
   application:
     name: BEAKON-SERVICE
-  config:
-    import: "optional:configserver:http://config-server:9091"
+  cloud:
+    discovery:
+        enabled: false
+    config:
+      enabled: false
 
 avro:
   topic:
