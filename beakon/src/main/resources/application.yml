@@ -16,6 +16,12 @@ avro:
   topic:
     standings: "apiscraper.standings.avro.topic.v1"
 
+football-api:
+  baseUrl: "https://api-football-v1.p.rapidapi.com/v3"
+  apiHost: "api-football-v1.p.rapidapi.com"
+  apiKeys: 
+    - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
+
 ---
 
 spring:
