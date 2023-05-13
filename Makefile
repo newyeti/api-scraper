@@ -1,18 +1,18 @@
 ## Compile Source code
 compile:
 ifeq ($(strip $(module)),)
-	mvn clean compile 
+	mvn clean install 
 else
 	@echo "Build image for $(module)"
-	mvn clean compile -f $(module)
+	mvn clean install -f $(module)
 endif
 
 gitpod-compile:
 ifeq ($(strip $(module)),)
-	mvn -s maven-settings.xml clean compile 
+	mvn -s maven-settings.xml clean install 
 else
 	@echo "Build image for $(module)"
-	mvn -s maven-settings.xml clean compile -f $(module)
+	mvn -s maven-settings.xml clean install -f $(module)
 endif
 
 ## Build image only

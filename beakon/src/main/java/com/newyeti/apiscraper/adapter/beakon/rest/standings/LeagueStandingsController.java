@@ -37,7 +37,6 @@ public class LeagueStandingsController {
                 .queryParam("season", season)
                 .queryParam("league", league)
                 .build())
-            .headers(headers -> headers.addAll(httpHeaders))
             .retrieve()
             .bodyToMono(String.class)
             .block();
