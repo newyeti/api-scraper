@@ -4,7 +4,46 @@ server:
 spring:
   application:
     name: BEAKON-SERVICE
+  # config:
+  #   import: "configserver:http://config-server:9091"
+  cloud:
+    discovery:
+      enabled: false
+    config:
+      enabled: false
+
+avro:
+  topic:
+    standings: "apiscraper.standings.avro.topic.v1"
+
+football-api:
+  baseUrl: "https://api-football-v1.p.rapidapi.com/v3"
+  apiHost: "api-football-v1.p.rapidapi.com"
+  apiKeys: 
+    - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
+
+---
+
+spring:
   config:
+    activate:
+      on-profile:
+      - dev
+  cloud:
+    discovery:
+      enabled: false
+    config:
+      enabled: false
+server:
+  port: 7001
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile:
+      - docker
     import: "configserver:http://config-server:9091"
   kafka:
     bootstrap-servers: broker-1:9092
@@ -17,7 +56,3 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
-
-avro:
-  topic:
-    standings: "apiscraper.standings.avro.topic.v1"

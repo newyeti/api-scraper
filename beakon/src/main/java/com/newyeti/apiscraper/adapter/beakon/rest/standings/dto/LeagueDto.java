@@ -16,5 +16,5 @@ public class LeagueDto {
     String logo;
     String flag;
     int season;
-    List<StandingsDto> standings;
+    List<List<StandingsDto>> standings;
 }
