@@ -32,7 +32,7 @@ public class HttpClient {
                         default -> Mono.error(new Exception("something went wrong"));
                     })
                 .bodyToMono(classz)
-                .onErrorMap(Throwable.class, throwble -> new Exception("plain exception"))
+                //.onErrorMap(Throwable.class, throwble -> new Exception("plain exception"))
                 ;
     }
 

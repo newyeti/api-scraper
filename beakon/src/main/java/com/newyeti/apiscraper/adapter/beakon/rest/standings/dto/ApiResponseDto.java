@@ -3,7 +3,7 @@ package com.newyeti.apiscraper.adapter.beakon.rest.standings.dto;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+
 
 import lombok.Data;
 
@@ -18,14 +18,14 @@ public class ApiResponseDto {
     private List<Response> response;   
 
     @Data
-    static class Value {
+    public static class Value {
         String season;
         String league;
     }
 
     @Data
-    static class Response {
-        private League league;  
+    public static class Response {
+        private LeagueDto league;  
     }
 
 }
