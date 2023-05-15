@@ -2,6 +2,7 @@ package com.newyeti.apiscraper.adapter.beakon.rest.standings;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,13 +13,14 @@ import com.newyeti.apiscraper.adapter.beakon.rest.http.HttpClient;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ApiResponseDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.RequestDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ResponseDto;
+import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-//import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueStandingsMapper.LEAGUE_STANDING_MAPPER;
+import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueStandingsMapper.LEAGUE_STANDING_MAPPER;
 
 @Tag(name="standings", description = "Pull data from api and put in a kafka topic")
 @RestController
@@ -41,8 +43,14 @@ public class LeagueStandingsController {
             .build(), ApiResponseDto.class)
             .block();
             
-        log.info(result.toString());
-        // System.out.println(LEAGUE_STANDING_MAPPER.toDomain(leagueDto));
+        //log.info(result.toString());
+
+        if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
+            ApiResponseDto.Response response = result.getResponse().get(0);
+            League league = LEAGUE_STANDING_MAPPER.toDomain(response.getLeague());
+            log.info(league.toString());
+        }
+
         return ResponseDto.builder()
             .status("success")
             .build();
