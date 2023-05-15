@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import com.newyeti.apiscraper.adapter.beakon.config.WebClientConfig;
 import com.newyeti.apiscraper.adapter.beakon.rest.http.HttpClient;
+import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ApiResponseDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.RequestDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ResponseDto;
 
@@ -34,15 +33,15 @@ public class LeagueStandingsController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseDto pullData(@Valid @RequestBody RequestDto requestDto) {
         
-        String result = httpClient
+        ApiResponseDto result = httpClient
             .get(uriBuilder -> uriBuilder
             .path("/standings")
             .queryParam("season", requestDto.getSeason())
             .queryParam("league", requestDto.getLeague())
-            .build(), String.class)
+            .build(), ApiResponseDto.class)
             .block();
             
-        log.info(result);
+        log.info(result.toString());
         // System.out.println(LEAGUE_STANDING_MAPPER.toDomain(leagueDto));
         return ResponseDto.builder()
             .status("success")

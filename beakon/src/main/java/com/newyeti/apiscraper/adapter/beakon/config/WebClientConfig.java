@@ -1,19 +1,11 @@
 package com.newyeti.apiscraper.adapter.beakon.config;
 
-import java.net.URI;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
-
-import jakarta.ws.rs.BadRequestException;
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Mono;
+
 
 @Configuration
 @RequiredArgsConstructor
