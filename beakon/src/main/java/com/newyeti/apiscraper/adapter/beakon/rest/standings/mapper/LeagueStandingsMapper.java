@@ -1,7 +1,6 @@
 package com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Named;
 
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.LeagueDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.StandingsDto;
@@ -17,17 +16,10 @@ public interface LeagueStandingsMapper {
     
     LeagueStandingsMapper LEAGUE_STANDING_MAPPER = getMapper(LeagueStandingsMapper.class);
 
-    LeagueDto toDto(League league);
-
     League toModel(LeagueDto leagueDto);
 
-    // @Named("mapToStandingDto")
-    // default List<StandingsDto> mapToStandingDto(Standing standings) {
+    List<List<Standing>> mapToListOfStanding(List<List<StandingsDto>> value);
 
-    // }
-
-    // default List<Standing> mapToStandingModel(StandingsDto standings) {
-
-    // }
-
+    List<Standing> mapToStanding(List<StandingsDto> value);
+   
 }

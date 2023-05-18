@@ -9,7 +9,7 @@ public class StandingsDto {
     int rank;
     TeamDto team;
     int points;
-    int goalDiff;
+    int goalsDiff;
     String group;
     String form;
     String status;
