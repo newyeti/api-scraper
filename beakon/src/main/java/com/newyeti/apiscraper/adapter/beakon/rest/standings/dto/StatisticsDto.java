@@ -14,7 +14,7 @@ public class StatisticsDto {
     Goals goals;
 
     @Data
-    static class Goals {
+    public static class Goals {
         @JsonProperty("for")
         int goalFor;
         @JsonProperty(value="against")

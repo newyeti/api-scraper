@@ -14,7 +14,7 @@ import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.League
 public class LeagueStandingsMapperTest {
     
     @Test
-    private void givenLeagueDto_whenMapToLeague_thenCorrect() {
+    public void givenLeagueDto_whenMapToLeague_thenCorrect() {
         LeagueDto leagueDto = LeagueDto.builder()
             .id(123)
             .name("Premier League")
@@ -27,7 +27,7 @@ public class LeagueStandingsMapperTest {
         assertEquals(league.getId(), leagueDto.getId());
         assertEquals(league.getName(), leagueDto.getName());
         assertEquals(league.getCountry(), leagueDto.getCountry());
-        assertEquals(league.getFlag(), leagueDto.getFlag());        
+        assertEquals(league.getFlag(), leagueDto.getFlag());   
     }
 
 }
