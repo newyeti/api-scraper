@@ -14,7 +14,7 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class League extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = -4449576595659218704L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"League\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"country\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"flag\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"season\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"standings\",\"type\":[\"null\",{\"type\":\"array\",\"items\":[\"null\",{\"type\":\"array\",\"items\":[\"null\",{\"type\":\"record\",\"name\":\"Standing\",\"fields\":[{\"name\":\"all\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"All\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Goals\",\"fields\":[{\"name\":\"against\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"for\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"away\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Away\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"form\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"goalsDiff\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"group\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"home\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Home\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"points\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"rank\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"team\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Team\",\"fields\":[{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",\"string\"],\"default\":null}]}],\"default\":null},{\"name\":\"update\",\"type\":[\"null\",\"string\"],\"default\":null}]}]}]}],\"default\":null}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"League\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"country\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"flag\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"season\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"standings\",\"type\":[\"null\",{\"type\":\"array\",\"items\":[\"null\",{\"type\":\"array\",\"items\":[\"null\",{\"type\":\"record\",\"name\":\"Standing\",\"fields\":[{\"name\":\"all\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"All\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Goals\",\"fields\":[{\"name\":\"against\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"for\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"away\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Away\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"form\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"goalsDiff\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"group\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"home\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Home\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"points\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"rank\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"status\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"team\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Team\",\"fields\":[{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}],\"default\":null},{\"name\":\"update\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}]}]}],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -51,11 +51,11 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
     return DECODER.decode(b);
   }
 
-  @Deprecated public java.lang.CharSequence country;
-  @Deprecated public java.lang.CharSequence flag;
+  @Deprecated public java.lang.String country;
+  @Deprecated public java.lang.String flag;
   @Deprecated public java.lang.Integer id;
-  @Deprecated public java.lang.CharSequence logo;
-  @Deprecated public java.lang.CharSequence name;
+  @Deprecated public java.lang.String logo;
+  @Deprecated public java.lang.String name;
   @Deprecated public java.lang.Integer season;
   @Deprecated public java.util.List<java.util.List<com.newyeti.apiscraper.domain.model.avro.schema.Standing>> standings;
 
@@ -76,7 +76,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
    * @param season The new value for season
    * @param standings The new value for standings
    */
-  public League(java.lang.CharSequence country, java.lang.CharSequence flag, java.lang.Integer id, java.lang.CharSequence logo, java.lang.CharSequence name, java.lang.Integer season, java.util.List<java.util.List<com.newyeti.apiscraper.domain.model.avro.schema.Standing>> standings) {
+  public League(java.lang.String country, java.lang.String flag, java.lang.Integer id, java.lang.String logo, java.lang.String name, java.lang.Integer season, java.util.List<java.util.List<com.newyeti.apiscraper.domain.model.avro.schema.Standing>> standings) {
     this.country = country;
     this.flag = flag;
     this.id = id;
@@ -105,11 +105,11 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: country = (java.lang.CharSequence)value$; break;
-    case 1: flag = (java.lang.CharSequence)value$; break;
+    case 0: country = (java.lang.String)value$; break;
+    case 1: flag = (java.lang.String)value$; break;
     case 2: id = (java.lang.Integer)value$; break;
-    case 3: logo = (java.lang.CharSequence)value$; break;
-    case 4: name = (java.lang.CharSequence)value$; break;
+    case 3: logo = (java.lang.String)value$; break;
+    case 4: name = (java.lang.String)value$; break;
     case 5: season = (java.lang.Integer)value$; break;
     case 6: standings = (java.util.List<java.util.List<com.newyeti.apiscraper.domain.model.avro.schema.Standing>>)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
@@ -120,7 +120,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
    * Gets the value of the 'country' field.
    * @return The value of the 'country' field.
    */
-  public java.lang.CharSequence getCountry() {
+  public java.lang.String getCountry() {
     return country;
   }
 
@@ -128,7 +128,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
    * Sets the value of the 'country' field.
    * @param value the value to set.
    */
-  public void setCountry(java.lang.CharSequence value) {
+  public void setCountry(java.lang.String value) {
     this.country = value;
   }
 
@@ -136,7 +136,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
    * Gets the value of the 'flag' field.
    * @return The value of the 'flag' field.
    */
-  public java.lang.CharSequence getFlag() {
+  public java.lang.String getFlag() {
     return flag;
   }
 
@@ -144,7 +144,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
    * Sets the value of the 'flag' field.
    * @param value the value to set.
    */
-  public void setFlag(java.lang.CharSequence value) {
+  public void setFlag(java.lang.String value) {
     this.flag = value;
   }
 
@@ -168,7 +168,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
    * Gets the value of the 'logo' field.
    * @return The value of the 'logo' field.
    */
-  public java.lang.CharSequence getLogo() {
+  public java.lang.String getLogo() {
     return logo;
   }
 
@@ -176,7 +176,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
    * Sets the value of the 'logo' field.
    * @param value the value to set.
    */
-  public void setLogo(java.lang.CharSequence value) {
+  public void setLogo(java.lang.String value) {
     this.logo = value;
   }
 
@@ -184,7 +184,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
    * Gets the value of the 'name' field.
    * @return The value of the 'name' field.
    */
-  public java.lang.CharSequence getName() {
+  public java.lang.String getName() {
     return name;
   }
 
@@ -192,7 +192,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
    * Sets the value of the 'name' field.
    * @param value the value to set.
    */
-  public void setName(java.lang.CharSequence value) {
+  public void setName(java.lang.String value) {
     this.name = value;
   }
 
@@ -260,11 +260,11 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<League>
     implements org.apache.avro.data.RecordBuilder<League> {
 
-    private java.lang.CharSequence country;
-    private java.lang.CharSequence flag;
+    private java.lang.String country;
+    private java.lang.String flag;
     private java.lang.Integer id;
-    private java.lang.CharSequence logo;
-    private java.lang.CharSequence name;
+    private java.lang.String logo;
+    private java.lang.String name;
     private java.lang.Integer season;
     private java.util.List<java.util.List<com.newyeti.apiscraper.domain.model.avro.schema.Standing>> standings;
 
@@ -349,7 +349,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
       * Gets the value of the 'country' field.
       * @return The value.
       */
-    public java.lang.CharSequence getCountry() {
+    public java.lang.String getCountry() {
       return country;
     }
 
@@ -358,7 +358,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
       * @param value The value of 'country'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.League.Builder setCountry(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.League.Builder setCountry(java.lang.String value) {
       validate(fields()[0], value);
       this.country = value;
       fieldSetFlags()[0] = true;
@@ -388,7 +388,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
       * Gets the value of the 'flag' field.
       * @return The value.
       */
-    public java.lang.CharSequence getFlag() {
+    public java.lang.String getFlag() {
       return flag;
     }
 
@@ -397,7 +397,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
       * @param value The value of 'flag'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.League.Builder setFlag(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.League.Builder setFlag(java.lang.String value) {
       validate(fields()[1], value);
       this.flag = value;
       fieldSetFlags()[1] = true;
@@ -466,7 +466,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
       * Gets the value of the 'logo' field.
       * @return The value.
       */
-    public java.lang.CharSequence getLogo() {
+    public java.lang.String getLogo() {
       return logo;
     }
 
@@ -475,7 +475,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
       * @param value The value of 'logo'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.League.Builder setLogo(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.League.Builder setLogo(java.lang.String value) {
       validate(fields()[3], value);
       this.logo = value;
       fieldSetFlags()[3] = true;
@@ -505,7 +505,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
       * Gets the value of the 'name' field.
       * @return The value.
       */
-    public java.lang.CharSequence getName() {
+    public java.lang.String getName() {
       return name;
     }
 
@@ -514,7 +514,7 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
       * @param value The value of 'name'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.League.Builder setName(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.League.Builder setName(java.lang.String value) {
       validate(fields()[4], value);
       this.name = value;
       fieldSetFlags()[4] = true;
@@ -623,11 +623,11 @@ public class League extends org.apache.avro.specific.SpecificRecordBase implemen
     public League build() {
       try {
         League record = new League();
-        record.country = fieldSetFlags()[0] ? this.country : (java.lang.CharSequence) defaultValue(fields()[0]);
-        record.flag = fieldSetFlags()[1] ? this.flag : (java.lang.CharSequence) defaultValue(fields()[1]);
+        record.country = fieldSetFlags()[0] ? this.country : (java.lang.String) defaultValue(fields()[0]);
+        record.flag = fieldSetFlags()[1] ? this.flag : (java.lang.String) defaultValue(fields()[1]);
         record.id = fieldSetFlags()[2] ? this.id : (java.lang.Integer) defaultValue(fields()[2]);
-        record.logo = fieldSetFlags()[3] ? this.logo : (java.lang.CharSequence) defaultValue(fields()[3]);
-        record.name = fieldSetFlags()[4] ? this.name : (java.lang.CharSequence) defaultValue(fields()[4]);
+        record.logo = fieldSetFlags()[3] ? this.logo : (java.lang.String) defaultValue(fields()[3]);
+        record.name = fieldSetFlags()[4] ? this.name : (java.lang.String) defaultValue(fields()[4]);
         record.season = fieldSetFlags()[5] ? this.season : (java.lang.Integer) defaultValue(fields()[5]);
         record.standings = fieldSetFlags()[6] ? this.standings : (java.util.List<java.util.List<com.newyeti.apiscraper.domain.model.avro.schema.Standing>>) defaultValue(fields()[6]);
         return record;

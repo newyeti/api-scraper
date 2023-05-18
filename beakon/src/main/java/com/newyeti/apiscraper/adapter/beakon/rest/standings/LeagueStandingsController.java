@@ -50,7 +50,7 @@ public class LeagueStandingsController {
             
         if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
             ApiResponseDto.Response response = result.getResponse().get(0);
-            League league = LEAGUE_STANDING_MAPPER.toDomain(response.getLeague());
+            League league = LEAGUE_STANDING_MAPPER.toModel(response.getLeague());
             log.info(league.toString());
         } else {
             handleError();

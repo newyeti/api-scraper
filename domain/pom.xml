@@ -61,6 +61,9 @@
           <groupId>org.apache.avro</groupId>
           <artifactId>avro-maven-plugin</artifactId>
           <version>${avro-maven-plugin.version}</version>
+          <configuration>
+            <stringType>String</stringType>
+          </configuration>
           <executions>
             <execution>
               <id>schemas</id>
