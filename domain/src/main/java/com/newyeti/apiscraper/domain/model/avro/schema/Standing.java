@@ -14,7 +14,7 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class Standing extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = 11908994878723685L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Standing\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"all\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"All\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Goals\",\"fields\":[{\"name\":\"against\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"for\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"away\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Away\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"form\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"goalsDiff\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"group\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"home\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Home\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"points\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"rank\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"team\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Team\",\"fields\":[{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",\"string\"],\"default\":null}]}],\"default\":null},{\"name\":\"update\",\"type\":[\"null\",\"string\"],\"default\":null}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Standing\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"all\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"All\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Goals\",\"fields\":[{\"name\":\"against\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"for\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"away\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Away\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"form\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"goalsDiff\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"group\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"home\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Home\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"points\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"rank\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"status\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"team\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Team\",\"fields\":[{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}],\"default\":null},{\"name\":\"update\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -53,16 +53,16 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
 
   @Deprecated public com.newyeti.apiscraper.domain.model.avro.schema.All all;
   @Deprecated public com.newyeti.apiscraper.domain.model.avro.schema.Away away;
-  @Deprecated public java.lang.CharSequence description;
-  @Deprecated public java.lang.CharSequence form;
+  @Deprecated public java.lang.String description;
+  @Deprecated public java.lang.String form;
   @Deprecated public java.lang.Integer goalsDiff;
-  @Deprecated public java.lang.CharSequence group;
+  @Deprecated public java.lang.String group;
   @Deprecated public com.newyeti.apiscraper.domain.model.avro.schema.Home home;
   @Deprecated public java.lang.Integer points;
   @Deprecated public java.lang.Integer rank;
-  @Deprecated public java.lang.CharSequence status;
+  @Deprecated public java.lang.String status;
   @Deprecated public com.newyeti.apiscraper.domain.model.avro.schema.Team team;
-  @Deprecated public java.lang.CharSequence update;
+  @Deprecated public java.lang.String update;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -86,7 +86,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * @param team The new value for team
    * @param update The new value for update
    */
-  public Standing(com.newyeti.apiscraper.domain.model.avro.schema.All all, com.newyeti.apiscraper.domain.model.avro.schema.Away away, java.lang.CharSequence description, java.lang.CharSequence form, java.lang.Integer goalsDiff, java.lang.CharSequence group, com.newyeti.apiscraper.domain.model.avro.schema.Home home, java.lang.Integer points, java.lang.Integer rank, java.lang.CharSequence status, com.newyeti.apiscraper.domain.model.avro.schema.Team team, java.lang.CharSequence update) {
+  public Standing(com.newyeti.apiscraper.domain.model.avro.schema.All all, com.newyeti.apiscraper.domain.model.avro.schema.Away away, java.lang.String description, java.lang.String form, java.lang.Integer goalsDiff, java.lang.String group, com.newyeti.apiscraper.domain.model.avro.schema.Home home, java.lang.Integer points, java.lang.Integer rank, java.lang.String status, com.newyeti.apiscraper.domain.model.avro.schema.Team team, java.lang.String update) {
     this.all = all;
     this.away = away;
     this.description = description;
@@ -127,16 +127,16 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
     switch (field$) {
     case 0: all = (com.newyeti.apiscraper.domain.model.avro.schema.All)value$; break;
     case 1: away = (com.newyeti.apiscraper.domain.model.avro.schema.Away)value$; break;
-    case 2: description = (java.lang.CharSequence)value$; break;
-    case 3: form = (java.lang.CharSequence)value$; break;
+    case 2: description = (java.lang.String)value$; break;
+    case 3: form = (java.lang.String)value$; break;
     case 4: goalsDiff = (java.lang.Integer)value$; break;
-    case 5: group = (java.lang.CharSequence)value$; break;
+    case 5: group = (java.lang.String)value$; break;
     case 6: home = (com.newyeti.apiscraper.domain.model.avro.schema.Home)value$; break;
     case 7: points = (java.lang.Integer)value$; break;
     case 8: rank = (java.lang.Integer)value$; break;
-    case 9: status = (java.lang.CharSequence)value$; break;
+    case 9: status = (java.lang.String)value$; break;
     case 10: team = (com.newyeti.apiscraper.domain.model.avro.schema.Team)value$; break;
-    case 11: update = (java.lang.CharSequence)value$; break;
+    case 11: update = (java.lang.String)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -177,7 +177,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'description' field.
    * @return The value of the 'description' field.
    */
-  public java.lang.CharSequence getDescription() {
+  public java.lang.String getDescription() {
     return description;
   }
 
@@ -185,7 +185,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'description' field.
    * @param value the value to set.
    */
-  public void setDescription(java.lang.CharSequence value) {
+  public void setDescription(java.lang.String value) {
     this.description = value;
   }
 
@@ -193,7 +193,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'form' field.
    * @return The value of the 'form' field.
    */
-  public java.lang.CharSequence getForm() {
+  public java.lang.String getForm() {
     return form;
   }
 
@@ -201,7 +201,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'form' field.
    * @param value the value to set.
    */
-  public void setForm(java.lang.CharSequence value) {
+  public void setForm(java.lang.String value) {
     this.form = value;
   }
 
@@ -225,7 +225,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'group' field.
    * @return The value of the 'group' field.
    */
-  public java.lang.CharSequence getGroup() {
+  public java.lang.String getGroup() {
     return group;
   }
 
@@ -233,7 +233,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'group' field.
    * @param value the value to set.
    */
-  public void setGroup(java.lang.CharSequence value) {
+  public void setGroup(java.lang.String value) {
     this.group = value;
   }
 
@@ -289,7 +289,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'status' field.
    * @return The value of the 'status' field.
    */
-  public java.lang.CharSequence getStatus() {
+  public java.lang.String getStatus() {
     return status;
   }
 
@@ -297,7 +297,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'status' field.
    * @param value the value to set.
    */
-  public void setStatus(java.lang.CharSequence value) {
+  public void setStatus(java.lang.String value) {
     this.status = value;
   }
 
@@ -321,7 +321,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'update' field.
    * @return The value of the 'update' field.
    */
-  public java.lang.CharSequence getUpdate() {
+  public java.lang.String getUpdate() {
     return update;
   }
 
@@ -329,7 +329,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'update' field.
    * @param value the value to set.
    */
-  public void setUpdate(java.lang.CharSequence value) {
+  public void setUpdate(java.lang.String value) {
     this.update = value;
   }
 
@@ -369,18 +369,18 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
     private com.newyeti.apiscraper.domain.model.avro.schema.All.Builder allBuilder;
     private com.newyeti.apiscraper.domain.model.avro.schema.Away away;
     private com.newyeti.apiscraper.domain.model.avro.schema.Away.Builder awayBuilder;
-    private java.lang.CharSequence description;
-    private java.lang.CharSequence form;
+    private java.lang.String description;
+    private java.lang.String form;
     private java.lang.Integer goalsDiff;
-    private java.lang.CharSequence group;
+    private java.lang.String group;
     private com.newyeti.apiscraper.domain.model.avro.schema.Home home;
     private com.newyeti.apiscraper.domain.model.avro.schema.Home.Builder homeBuilder;
     private java.lang.Integer points;
     private java.lang.Integer rank;
-    private java.lang.CharSequence status;
+    private java.lang.String status;
     private com.newyeti.apiscraper.domain.model.avro.schema.Team team;
     private com.newyeti.apiscraper.domain.model.avro.schema.Team.Builder teamBuilder;
-    private java.lang.CharSequence update;
+    private java.lang.String update;
 
     /** Creates a new Builder */
     private Builder() {
@@ -667,7 +667,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'description' field.
       * @return The value.
       */
-    public java.lang.CharSequence getDescription() {
+    public java.lang.String getDescription() {
       return description;
     }
 
@@ -676,7 +676,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'description'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setDescription(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setDescription(java.lang.String value) {
       validate(fields()[2], value);
       this.description = value;
       fieldSetFlags()[2] = true;
@@ -706,7 +706,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'form' field.
       * @return The value.
       */
-    public java.lang.CharSequence getForm() {
+    public java.lang.String getForm() {
       return form;
     }
 
@@ -715,7 +715,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'form'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setForm(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setForm(java.lang.String value) {
       validate(fields()[3], value);
       this.form = value;
       fieldSetFlags()[3] = true;
@@ -784,7 +784,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'group' field.
       * @return The value.
       */
-    public java.lang.CharSequence getGroup() {
+    public java.lang.String getGroup() {
       return group;
     }
 
@@ -793,7 +793,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'group'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setGroup(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setGroup(java.lang.String value) {
       validate(fields()[5], value);
       this.group = value;
       fieldSetFlags()[5] = true;
@@ -975,7 +975,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'status' field.
       * @return The value.
       */
-    public java.lang.CharSequence getStatus() {
+    public java.lang.String getStatus() {
       return status;
     }
 
@@ -984,7 +984,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'status'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setStatus(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setStatus(java.lang.String value) {
       validate(fields()[9], value);
       this.status = value;
       fieldSetFlags()[9] = true;
@@ -1088,7 +1088,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'update' field.
       * @return The value.
       */
-    public java.lang.CharSequence getUpdate() {
+    public java.lang.String getUpdate() {
       return update;
     }
 
@@ -1097,7 +1097,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'update'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setUpdate(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setUpdate(java.lang.String value) {
       validate(fields()[11], value);
       this.update = value;
       fieldSetFlags()[11] = true;
@@ -1138,10 +1138,10 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
         } else {
           record.away = fieldSetFlags()[1] ? this.away : (com.newyeti.apiscraper.domain.model.avro.schema.Away) defaultValue(fields()[1]);
         }
-        record.description = fieldSetFlags()[2] ? this.description : (java.lang.CharSequence) defaultValue(fields()[2]);
-        record.form = fieldSetFlags()[3] ? this.form : (java.lang.CharSequence) defaultValue(fields()[3]);
+        record.description = fieldSetFlags()[2] ? this.description : (java.lang.String) defaultValue(fields()[2]);
+        record.form = fieldSetFlags()[3] ? this.form : (java.lang.String) defaultValue(fields()[3]);
         record.goalsDiff = fieldSetFlags()[4] ? this.goalsDiff : (java.lang.Integer) defaultValue(fields()[4]);
-        record.group = fieldSetFlags()[5] ? this.group : (java.lang.CharSequence) defaultValue(fields()[5]);
+        record.group = fieldSetFlags()[5] ? this.group : (java.lang.String) defaultValue(fields()[5]);
         if (homeBuilder != null) {
           record.home = this.homeBuilder.build();
         } else {
@@ -1149,13 +1149,13 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
         }
         record.points = fieldSetFlags()[7] ? this.points : (java.lang.Integer) defaultValue(fields()[7]);
         record.rank = fieldSetFlags()[8] ? this.rank : (java.lang.Integer) defaultValue(fields()[8]);
-        record.status = fieldSetFlags()[9] ? this.status : (java.lang.CharSequence) defaultValue(fields()[9]);
+        record.status = fieldSetFlags()[9] ? this.status : (java.lang.String) defaultValue(fields()[9]);
         if (teamBuilder != null) {
           record.team = this.teamBuilder.build();
         } else {
           record.team = fieldSetFlags()[10] ? this.team : (com.newyeti.apiscraper.domain.model.avro.schema.Team) defaultValue(fields()[10]);
         }
-        record.update = fieldSetFlags()[11] ? this.update : (java.lang.CharSequence) defaultValue(fields()[11]);
+        record.update = fieldSetFlags()[11] ? this.update : (java.lang.String) defaultValue(fields()[11]);
         return record;
       } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
