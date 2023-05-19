@@ -12,6 +12,6 @@ import com.newyeti.apiscraper.domain.model.avro.schema.Standings;
 public interface StandingsMapper {
     
     List<List<Standings>> mapToListOfStanding(List<List<StandingsDto>> value);
-
+    
     List<Standings> mapToStanding(List<StandingsDto> value);
 }
