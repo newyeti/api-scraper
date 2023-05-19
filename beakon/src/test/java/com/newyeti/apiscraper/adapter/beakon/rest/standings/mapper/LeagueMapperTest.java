@@ -3,54 +3,65 @@ package com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.LeagueDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.StandingsDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.StatisticsDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.TeamDto;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
-import com.newyeti.apiscraper.domain.model.avro.schema.Standing;
+import com.newyeti.apiscraper.domain.model.avro.schema.Standings;
 
-import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueStandingsMapper.LEAGUE_STANDING_MAPPER;
+import lombok.RequiredArgsConstructor;
 
-public class LeagueStandingsMapperTest {
+@SpringBootTest
+@ComponentScan(basePackageClasses = LeagueMapper.class)
+@ActiveProfiles("test")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class LeagueMapperTest {
+
+    @Autowired
+    private LeagueMapper leagueMapper;
     
     @Test
     public void givenLeagueDto_whenMapToLeague_thenCorrect() {
         LeagueDto leagueDto = getLeagueDto();
-        League league = LEAGUE_STANDING_MAPPER.toModel(leagueDto);
+        League league = leagueMapper.toLeague(leagueDto);
 
         assertNotNull(league, "league object should not be null");
-        assertEquals(league.getId(), leagueDto.getId());
-        assertEquals(league.getName(), leagueDto.getName());
-        assertEquals(league.getCountry(), leagueDto.getCountry());
-        assertEquals(league.getFlag(), leagueDto.getFlag());   
+        assertEquals(leagueDto.getId(), league.getId());
+        assertEquals(leagueDto.getName(), league.getName());
+        assertEquals(leagueDto.getCountry(), league.getCountry());
+        assertEquals(leagueDto.getFlag(), league.getFlag());   
     }
 
     @Test
     public void givenStandingsDtoList_whenMapToStandingListModel_thenCorrect() {
         LeagueDto leagueDto = getLeagueDto();
-        League league = LEAGUE_STANDING_MAPPER.toModel(leagueDto);
+        League league = leagueMapper.toLeague(leagueDto);
        
         assertNotNull(league, "league should not be null");
-        assertEquals(league.getStandings().size(),  leagueDto.getStandings().size());
-        assertEquals(league.getStandings().get(0).size(), leagueDto.getStandings().get(0).size());
+        assertEquals(leagueDto.getStandings().size(),  league.getStandings().size());
+        assertEquals(leagueDto.getStandings().get(0).size(), league.getStandings().get(0).size());
 
         StandingsDto standingsDto = leagueDto.getStandings().get(0).get(0);
-        Standing standing = league.getStandings().get(0).get(0);
+        Standings standings = league.getStandings().get(0).get(0);
         
-        assertEquals(standing.getTeam().getName(), standingsDto.getTeam().getName());
-        assertEquals(standing.getGoalsDiff(), standingsDto.getGoalsDiff());
-        assertEquals(standing.getForm(), standingsDto.getForm());
-        assertEquals(standing.getAll().getPlayed(), standingsDto.getAll().getPlayed());
-        assertEquals(standing.getAll().getWin(), standingsDto.getAll().getWin());
-        assertEquals(standing.getAll().getLose(), standingsDto.getAll().getLose());
+        assertEquals(standingsDto.getTeam().getName(), standings.getTeam().getName());
+        assertEquals(standingsDto.getGoalsDiff(), standings.getGoalsDiff());
+        assertEquals(standingsDto.getForm(), standings.getForm());
+        assertEquals(standingsDto.getAll().getPlayed(), standings.getAll().getPlayed());
+        assertEquals(standingsDto.getAll().getWin(), standings.getAll().getWin());
+        assertEquals(standingsDto.getAll().getLose(), standings.getAll().getLose());
     
     }
 

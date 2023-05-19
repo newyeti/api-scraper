@@ -16,6 +16,7 @@ import com.newyeti.apiscraper.adapter.beakon.rest.response.ErrorResponse;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ApiResponseDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.RequestDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ResponseDto;
+import com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueMapper;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,7 +24,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueStandingsMapper.LEAGUE_STANDING_MAPPER;
+//import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueMapper.LEAGUE_STANDING_MAPPER;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 public class LeagueStandingsController {
     
     private final HttpClient httpClient;
+    private final LeagueMapper leagueMapper;
 
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -50,7 +52,7 @@ public class LeagueStandingsController {
             
         if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
             ApiResponseDto.Response response = result.getResponse().get(0);
-            League league = LEAGUE_STANDING_MAPPER.toModel(response.getLeague());
+            League league = leagueMapper.toLeague(response.getLeague());
             log.info(league.toString());
         } else {
             handleError();
@@ -69,14 +71,8 @@ public class LeagueStandingsController {
                                     .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
                                     .source(new Error.Source("league"))
                                     .reason("request body")
-                                    .message("Invalid League Id.")
+                                    .message("Invalid season or league.")
                                     .build());
-                errorResponse.getErrors().add(Error.builder()
-                                .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
-                                .source(new Error.Source("season"))
-                                .reason("request body")
-                                .message("Invalid Season Id.")
-                                .build());
 
         throw new ServiceException(HttpStatus.BAD_REQUEST, errorResponse.getErrors());
     }
