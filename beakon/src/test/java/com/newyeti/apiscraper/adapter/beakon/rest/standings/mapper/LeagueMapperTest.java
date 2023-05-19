@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -62,7 +61,10 @@ public class LeagueMapperTest {
         assertEquals(standingsDto.getAll().getPlayed(), standings.getAll().getPlayed());
         assertEquals(standingsDto.getAll().getWin(), standings.getAll().getWin());
         assertEquals(standingsDto.getAll().getLose(), standings.getAll().getLose());
-    
+        assertEquals(standingsDto.getAll().getGoals().getGoalsAgainst(), standings.getAll().getGoals().getGoalsAgainst());
+        assertEquals(standingsDto.getAll().getGoals().getGoalsFor(), standings.getAll().getGoals().getGoalsFor());
+        assertEquals(standingsDto.getAll().getGoals().getGoalsAgainst(), standings.getAll().getGoals().getGoalsAgainst());
+        
     }
 
     private LeagueDto getLeagueDto() {
@@ -85,9 +87,12 @@ public class LeagueMapperTest {
             .goalsDiff(5)
             .form("WWWWW")
             .team(TeamDto.builder().name("Manchester United").build())
-            .all(StatisticsDto.builder().played(10).win(8).draw(1).lose(1).build())
-            .home(StatisticsDto.builder().played(5).win(5).draw(0).lose(0).build())
-            .away(StatisticsDto.builder().played(5).win(3).draw(1).lose(1).build())
+            .all(StatisticsDto.builder().played(10).win(8).draw(1).lose(1)
+                .goals(StatisticsDto.Goals.builder().goalsFor(20).goalsAgainst(30).build()).build())
+            .home(StatisticsDto.builder().played(5).win(5).draw(0).lose(0)
+                .goals(StatisticsDto.Goals.builder().goalsFor(15).goalsAgainst(5).build()).build())
+            .away(StatisticsDto.builder().played(5).win(3).draw(1).lose(1)
+                .goals(StatisticsDto.Goals.builder().goalsFor(5).goalsAgainst(10).build()).build())
             .build()
         );
         standingsDtos.add(standings);
