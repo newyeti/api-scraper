@@ -92,7 +92,7 @@
                                   "name": "Goals",
                                   "fields": [
                                     {
-                                      "name": "against",
+                                      "name": "goalsAgainst",
                                       "type": [
                                         "null",
                                         "int"
@@ -100,7 +100,7 @@
                                       "default": null
                                     },
                                     {
-                                      "name": "for",
+                                      "name": "goalsFor",
                                       "type": [
                                         "null",
                                         "int"
