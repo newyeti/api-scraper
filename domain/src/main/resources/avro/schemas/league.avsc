@@ -65,7 +65,7 @@
                 "null",
                 {
                   "type": "record",
-                  "name": "Standing",
+                  "name": "Standings",
                   "fields": [
                     {
                       "name": "all",
