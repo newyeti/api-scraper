@@ -38,7 +38,7 @@ public class LeagueStandingsController {
 
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseDto pullData(@Valid @RequestBody RequestDto requestDto) throws ServiceException {
+    public ResponseDto pullData(@Valid @RequestBody RequestDto requestDto) {
         
         ApiResponseDto result = httpClient
             .get(uriBuilder -> uriBuilder

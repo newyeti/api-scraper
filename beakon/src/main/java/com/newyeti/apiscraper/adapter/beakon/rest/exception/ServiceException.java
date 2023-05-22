@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ServiceException extends Exception{
+public class ServiceException extends RuntimeException{
 
     protected HttpStatus httpStatus;
     protected List<Error> errors;
