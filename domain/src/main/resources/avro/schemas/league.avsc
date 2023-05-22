@@ -60,295 +60,289 @@
           "items": [
             "null",
             {
-              "type": "array",
-              "items": [
-                "null",
+              "type": "record",
+              "name": "Standings",
+              "fields": [
                 {
-                  "type": "record",
-                  "name": "Standings",
-                  "fields": [
+                  "name": "all",
+                  "type": [
+                    "null",
                     {
-                      "name": "all",
-                      "type": [
-                        "null",
+                      "type": "record",
+                      "name": "All",
+                      "fields": [
                         {
-                          "type": "record",
-                          "name": "All",
-                          "fields": [
+                          "name": "draw",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "goals",
+                          "type": [
+                            "null",
                             {
-                              "name": "draw",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "goals",
-                              "type": [
-                                "null",
+                              "type": "record",
+                              "name": "Goals",
+                              "fields": [
                                 {
-                                  "type": "record",
-                                  "name": "Goals",
-                                  "fields": [
-                                    {
-                                      "name": "goalsAgainst",
-                                      "type": [
-                                        "null",
-                                        "int"
-                                      ],
-                                      "default": null
-                                    },
-                                    {
-                                      "name": "goalsFor",
-                                      "type": [
-                                        "null",
-                                        "int"
-                                      ],
-                                      "default": null
-                                    }
-                                  ]
+                                  "name": "goalsAgainst",
+                                  "type": [
+                                    "null",
+                                    "int"
+                                  ],
+                                  "default": null
+                                },
+                                {
+                                  "name": "goalsFor",
+                                  "type": [
+                                    "null",
+                                    "int"
+                                  ],
+                                  "default": null
                                 }
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "lose",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "played",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "win",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
+                              ]
                             }
-                          ]
-                        }
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "away",
-                      "type": [
-                        "null",
+                          ],
+                          "default": null
+                        },
                         {
-                          "type": "record",
-                          "name": "Away",
-                          "fields": [
-                            {
-                              "name": "draw",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "goals",
-                              "type": [
-                                "null",
-                                "Goals"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "lose",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "played",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "win",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            }
-                          ]
-                        }
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "description",
-                      "type": [
-                        "null",
-                        "string"
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "form",
-                      "type": [
-                        "null",
-                        "string"
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "goalsDiff",
-                      "type": [
-                        "null",
-                        "int"
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "group",
-                      "type": [
-                        "null",
-                        "string"
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "home",
-                      "type": [
-                        "null",
+                          "name": "lose",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
                         {
-                          "type": "record",
-                          "name": "Home",
-                          "fields": [
-                            {
-                              "name": "draw",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "goals",
-                              "type": [
-                                "null",
-                                "Goals"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "lose",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "played",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "win",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            }
-                          ]
-                        }
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "points",
-                      "type": [
-                        "null",
-                        "int"
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "rank",
-                      "type": [
-                        "null",
-                        "int"
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "status",
-                      "type": [
-                        "null",
-                        "string"
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "team",
-                      "type": [
-                        "null",
+                          "name": "played",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
                         {
-                          "type": "record",
-                          "name": "Team",
-                          "fields": [
-                            {
-                              "name": "id",
-                              "type": [
-                                "null",
-                                "int"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "logo",
-                              "type": [
-                                "null",
-                                "string"
-                              ],
-                              "default": null
-                            },
-                            {
-                              "name": "name",
-                              "type": [
-                                "null",
-                                "string"
-                              ],
-                              "default": null
-                            }
-                          ]
+                          "name": "win",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
                         }
-                      ],
-                      "default": null
-                    },
-                    {
-                      "name": "update",
-                      "type": [
-                        "null",
-                        "string"
-                      ],
-                      "default": null
+                      ]
                     }
-                  ]
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "away",
+                  "type": [
+                    "null",
+                    {
+                      "type": "record",
+                      "name": "Away",
+                      "fields": [
+                        {
+                          "name": "draw",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "goals",
+                          "type": [
+                            "null",
+                            "Goals"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "lose",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "played",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "win",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        }
+                      ]
+                    }
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "description",
+                  "type": [
+                    "null",
+                    "string"
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "form",
+                  "type": [
+                    "null",
+                    "string"
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "goalsDiff",
+                  "type": [
+                    "null",
+                    "int"
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "group",
+                  "type": [
+                    "null",
+                    "string"
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "home",
+                  "type": [
+                    "null",
+                    {
+                      "type": "record",
+                      "name": "Home",
+                      "fields": [
+                        {
+                          "name": "draw",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "goals",
+                          "type": [
+                            "null",
+                            "Goals"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "lose",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "played",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "win",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        }
+                      ]
+                    }
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "points",
+                  "type": [
+                    "null",
+                    "int"
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "rank",
+                  "type": [
+                    "null",
+                    "int"
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "status",
+                  "type": [
+                    "null",
+                    "string"
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "team",
+                  "type": [
+                    "null",
+                    {
+                      "type": "record",
+                      "name": "Team",
+                      "fields": [
+                        {
+                          "name": "id",
+                          "type": [
+                            "null",
+                            "int"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "logo",
+                          "type": [
+                            "null",
+                            "string"
+                          ],
+                          "default": null
+                        },
+                        {
+                          "name": "name",
+                          "type": [
+                            "null",
+                            "string"
+                          ],
+                          "default": null
+                        }
+                      ]
+                    }
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "update",
+                  "type": [
+                    "null",
+                    "string"
+                  ],
+                  "default": null
                 }
               ]
             }
