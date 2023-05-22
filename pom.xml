@@ -29,6 +29,7 @@
     <springdoc.openapi.version>1.6.9</springdoc.openapi.version>
     <apache.commons.version>4.4</apache.commons.version>
     <lombok-mapstruct-binding>0.2.0</lombok-mapstruct-binding>
+    <okhttp.version>4.11.0</okhttp.version>
   </properties>
 
   <modules>
@@ -125,6 +126,16 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-collections4</artifactId>
         <version>${apache.commons.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>${okhttp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>mockwebserver</artifactId>
+        <version>${okhttp.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
