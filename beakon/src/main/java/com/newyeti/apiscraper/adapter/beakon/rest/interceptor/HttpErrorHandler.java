@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.newyeti.apiscraper.adapter.beakon.rest.exception.ApiException;
 import com.newyeti.apiscraper.adapter.beakon.rest.exception.ServiceException;
 import com.newyeti.apiscraper.adapter.beakon.rest.response.ErrorResponse;
 import com.newyeti.apiscraper.adapter.beakon.rest.response.Error;
@@ -20,7 +21,16 @@ public class HttpErrorHandler {
 
     @ExceptionHandler(ServiceException.class)
     public ResponseEntity<ErrorResponse> other(ServiceException exception) {
-        log.error("service exception", exception);
+        log.error("service exception: httpstatus={}", exception.getHttpStatus().value(), exception);
+        return ResponseEntity.status(exception.getHttpStatus())
+                            .body(ErrorResponse.builder()
+                                                .errors(exception.getErrors())
+                                                .build());
+    }
+
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ErrorResponse> other(ApiException exception) {
+        log.error("api exception: httpstatus={} uri={}", exception.getHttpStatus().value(), exception.getUri());
         return ResponseEntity.status(exception.getHttpStatus())
                             .body(ErrorResponse.builder()
                                                 .errors(exception.getErrors())
