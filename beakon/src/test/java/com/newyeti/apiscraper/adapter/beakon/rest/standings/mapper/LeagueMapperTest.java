@@ -50,10 +50,10 @@ public class LeagueMapperTest {
        
         assertNotNull(league, "league should not be null");
         assertEquals(leagueDto.getStandings().size(),  league.getStandings().size());
-        assertEquals(leagueDto.getStandings().get(0).size(), league.getStandings().get(0).size());
+        assertEquals(leagueDto.getStandings().get(0).size(), league.getStandings().size());
 
         StandingsDto standingsDto = leagueDto.getStandings().get(0).get(0);
-        Standings standings = league.getStandings().get(0).get(0);
+        Standings standings = league.getStandings().get(0);
         
         assertEquals(standingsDto.getTeam().getName(), standings.getTeam().getName());
         assertEquals(standingsDto.getGoalsDiff(), standings.getGoalsDiff());
