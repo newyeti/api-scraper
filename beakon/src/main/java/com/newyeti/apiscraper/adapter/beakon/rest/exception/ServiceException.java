@@ -14,8 +14,8 @@ import lombok.Setter;
 @Setter
 public class ServiceException extends Exception{
 
-    private HttpStatus httpStatus;
-    private List<Error> errors;
+    protected HttpStatus httpStatus;
+    protected List<Error> errors;
     
     public ServiceException(HttpStatus httpStatus, String message) {
         super(message);
@@ -40,14 +40,14 @@ public class ServiceException extends Exception{
         this.errors = errors;
     }
 
-    private List<Error> errors() {
+    protected List<Error> errors() {
         if (errors == null) {
             errors = new ArrayList<>();
         }
         return errors;
     }
 
-    private Error buildError(int code, String message) {
+    protected Error buildError(int code, String message) {
         return Error.builder()
                 .code(String.valueOf(code))
                 .message(message)

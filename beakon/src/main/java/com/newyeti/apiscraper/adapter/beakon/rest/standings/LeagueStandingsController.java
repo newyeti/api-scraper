@@ -24,8 +24,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-//import static com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueMapper.LEAGUE_STANDING_MAPPER;
-
 import java.util.ArrayList;
 
 @Tag(name="standings", description = "Pull data from api and put in a kafka topic")
@@ -51,10 +49,12 @@ public class LeagueStandingsController {
             .block();
             
         if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
+            log.info("API Call: GET request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
             ApiResponseDto.Response response = result.getResponse().get(0);
             League league = leagueMapper.toLeague(response.getLeague());
-            log.info(league.toString());
+            // log.info(league.toString());
         } else {
+            log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
             handleError();
         }
 
