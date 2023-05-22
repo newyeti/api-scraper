@@ -1,6 +1,5 @@
 package com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.mapstruct.Mapper;
