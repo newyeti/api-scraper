@@ -1,39 +1,26 @@
 package com.newyeti.apiscraper.adapter.beakon.rest.standings;
 
-import static org.mockito.ArgumentMatchers.any;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.newyeti.apiscraper.adapter.beakon.config.ApiClientConfig;
 import com.newyeti.apiscraper.adapter.beakon.http.HttpClient;
-import com.newyeti.apiscraper.adapter.beakon.rest.exception.ApiException;
-import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ApiResponseDto;
-import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.LeagueDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.RequestDto;
-import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ApiResponseDto.Response;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import reactor.core.publisher.Mono;
 
-import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebMvcTest(controllers = LeagueStandingsController.class)
 @ActiveProfiles("test")
@@ -71,18 +58,8 @@ public class LeagueStandingsControllerTest {
         return RequestDto.builder().league("39").season("2020").build();
     }
 
-    private ApiResponseDto getApiResponseDto() {
-        LeagueDto leagueDto = LeagueDto.builder().build();
-        Response response = Response.builder().league(leagueDto).build();
-        List<Response> responses = new ArrayList<>();
-        responses.add(response); 
-        return ApiResponseDto.builder()
-                            .response(responses)
-                            .build();
-    }
-
     @Test
-    public void whenValidInput_thenReturn200() throws Exception {
+    public void givenValidInput_whenConsumed_thenReturn200() throws Exception {
         mockWebServer.enqueue(new MockResponse()
             .setResponseCode(200)
             .setHeader("content-type", "application/json")
@@ -96,13 +73,36 @@ public class LeagueStandingsControllerTest {
     }
 
     @Test
-    public void whenInvalidAPIKey_thenReturn401() throws Exception {
+    public void givenInvalidApiKey_whenConsumed_thenReturn401() throws Exception {
       mockWebServer.enqueue(new MockResponse().setResponseCode(401));
       mockMvc.perform(post("/standings/pull")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(getRequestDto())))
         .andExpect(status().isUnauthorized());
-      
+    }
+
+    @Test
+    public void givenInvalidRequestBody_whenComsumed_thenReturn418() throws Exception {
+      mockMvc.perform(post("/standings/pull")
+        .contentType("application/json")
+        .content(objectMapper.writeValueAsString(RequestDto.builder()
+            .league("").season("").build())))
+        .andExpect(status().isIAmATeapot());
+    }
+
+    @Test
+    public void givenValidRequest_whenResponseIsBlank_thenReturn400() throws Exception {
+        mockWebServer.enqueue(new MockResponse()
+            .setResponseCode(200)
+            .setHeader("content-type", "application/json")
+            .setBody("{\"get\":\"standings\",\"parameters\":{\"league\":\"39\",\"season\":\"2020\"},\"errors\":[],\"results\":1,\"paging\":{\"current\":1,\"total\":1},\"response\":[]}")
+        );
+        mockMvc.perform(post("/standings/pull")
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(getRequestDto())))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().json("{\"errors\":[{\"code\":\"400\",\"source\":{\"pointer\":\"league/season\"},\"reason\":\"request body\",\"message\":\"Invalid season or league.\"}]}")
+        );
     }
 
 }
