@@ -69,7 +69,7 @@ public class LeagueStandingsController {
                                                     .build();
                 errorResponse.getErrors().add(Error.builder()
                                     .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
-                                    .source(new Error.Source("league"))
+                                    .source(new Error.Source("league/season"))
                                     .reason("request body")
                                     .message("Invalid season or league.")
                                     .build());
