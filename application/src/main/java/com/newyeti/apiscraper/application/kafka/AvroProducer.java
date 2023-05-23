@@ -22,15 +22,17 @@ public class AvroProducer implements AvroProducerPort<League> {
     @Override
     public boolean send(String topic, League league) {
         log.info("Sending league standings data to kafka topic={}", topic);
-        
+        kafkaTemplate.send(topic, String.valueOf(league.getId()), league);
         CompletableFuture<SendResult<String, League>> future =
             kafkaTemplate.send(topic, String.valueOf(league.getId()), league);
         future.whenComplete((result, ex) -> {
             if (ex == null) {
                 log.info("message sent successfully. message={}", result);
+                future.complete(result);
                // success = future.complete(result);
             } else {
                 log.error("Unable to send message due to: {}", ex.getMessage(), ex);
+                future.completeExceptionally(ex);
                 //future.completeExceptionally(ex);
             }
         });
