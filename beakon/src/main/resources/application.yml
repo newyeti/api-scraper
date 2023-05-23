@@ -66,3 +66,16 @@ app:
   kafka:
     send:
       enabled: true
+
+# --- 
+
+# spring:
+#   config:
+#     activate:
+#       on-profile:
+#       - test
+
+# app:
+#   kafka:
+#     send:
+#       enabled: true
