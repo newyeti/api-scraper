@@ -1,5 +1,6 @@
 package com.newyeti.apiscraper.application.kafka;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
@@ -32,7 +34,10 @@ import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
+import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
+import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
+import io.confluent.kafka.serializers.KafkaAvroSerializer;
 
 
 @SpringBootTest(classes = AvroProducerTest.class)
@@ -58,21 +63,23 @@ public class AvroProducerTest {
     @Test
     public void givenKafkaContainer_whenSendingAvroMessage_thenMessageSent() throws Exception {
         League league = League.newBuilder()
-        .setId(100)
-        .setName("Premier League")
-        .build();
+            .setId(100)
+            .setName("Premier League")
+            .build();
         
         avroProducer.send("league.topic.v1", league);
-        boolean messageConsumed = avroConsumer.getLatch().await(10, TimeUnit.SECONDS);
-        assertTrue(messageConsumed);
+        avroConsumer.getLatch().await(5, TimeUnit.SECONDS);
+        assertNotNull(avroConsumer.getPayload());
     }
 
     @TestConfiguration
+    @EnableKafka
     static class KafkaTestContainerConfiguration {
+
         @Bean
-        ConcurrentKafkaListenerContainerFactory<Integer, String> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<Integer, String> kafkaListenerContainerFactory(ConsumerFactory<Integer, String> consumerFactory) {
             ConcurrentKafkaListenerContainerFactory<Integer, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
-            factory.setConsumerFactory(consumerFactory());
+            factory.setConsumerFactory(consumerFactory);
             return factory;
         }
 
@@ -88,8 +95,8 @@ public class AvroProducerTest {
             props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
             props.put(ConsumerConfig.GROUP_ID_CONFIG, "league-standings");
             props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-            props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
-            props.put("schema.registry.url", "not-used");
+            props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, CustomKafkaAvroDeserializer.class);
+            props.put("schema.registry.url", "mock://not-used");
             return props;
         }
 
@@ -99,7 +106,7 @@ public class AvroProducerTest {
             configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
             configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
             configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CustomKafkaAvroSerializer.class);
-            configProps.put("schema.registry.url", "not-used");
+            configProps.put("schema.registry.url", "mock://not-used");
             return new DefaultKafkaProducerFactory<>(configProps);
         }
 
