@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class LeagueStandingApplicationService implements LeagueStandingsServicePort{
+public class LeagueStandingAppService implements LeagueStandingsServicePort{
 
     private final AvroProducerPort<League> avroProducerPort;
 
