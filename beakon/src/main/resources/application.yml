@@ -22,6 +22,11 @@ football-api:
   apiKeys: 
     - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
 
+app:
+  kafka:
+    send:
+      enabled: false
+
 ---
 
 spring:
@@ -56,3 +61,8 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
+
+app:
+  kafka:
+    send:
+      enabled: true

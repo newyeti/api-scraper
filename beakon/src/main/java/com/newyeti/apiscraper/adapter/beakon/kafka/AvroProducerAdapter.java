@@ -17,6 +17,7 @@ public class AvroProducerAdapter implements AvroProducerPort<League> {
 
     @Override
     public void send(League t) {
+        log.info("Sending data to kafka topic={}", kafkaConfig.getStandingsTopic());
         log.info(t.toString());
     }
     
