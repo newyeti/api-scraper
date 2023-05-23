@@ -21,6 +21,10 @@
 			<groupId>com.newyeti.apiscraper</groupId>
 			<artifactId>domain</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.newyeti.apiscraper</groupId>
+			<artifactId>application</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

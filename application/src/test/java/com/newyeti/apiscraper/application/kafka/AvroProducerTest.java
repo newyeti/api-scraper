@@ -34,12 +34,6 @@ import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
-import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
-import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
-import io.confluent.kafka.serializers.KafkaAvroDeserializer;
-import io.confluent.kafka.serializers.KafkaAvroSerializer;
-
-
 @SpringBootTest(classes = AvroProducerTest.class)
 @ActiveProfiles("test")
 @Import({AvroProducerTest.KafkaTestContainerConfiguration.class, AvroProducer.class, AvroConsumer.class})
