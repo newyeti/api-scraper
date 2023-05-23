@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.newyeti.apiscraper.adapter.beakon.config.AppConfig;
 import com.newyeti.apiscraper.adapter.beakon.http.HttpClient;
+import com.newyeti.apiscraper.adapter.beakon.kafka.AvroProducerAdapter;
 import com.newyeti.apiscraper.adapter.beakon.rest.exception.ServiceException;
 import com.newyeti.apiscraper.adapter.beakon.rest.response.Error;
 import com.newyeti.apiscraper.adapter.beakon.rest.response.ErrorResponse;
@@ -35,6 +37,8 @@ public class LeagueStandingsController {
     
     private final HttpClient httpClient;
     private final LeagueMapper leagueMapper;
+    private final AppConfig appConfig;
+    private final AvroProducerAdapter avroProducerAdapter;
 
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -52,7 +56,11 @@ public class LeagueStandingsController {
             log.info("API Call: GET request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
             ApiResponseDto.Response response = result.getResponse().get(0);
             League league = leagueMapper.toLeague(response.getLeague());
-            // log.info(league.toString());
+
+            if(appConfig.isKafkaSendEnabled()) {
+                log.debug("Kafka Call: Sending API response to Kafka topic.");
+                avroProducerAdapter.send(league);
+            }
         } else {
             log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
             handleError();
