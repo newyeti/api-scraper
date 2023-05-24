@@ -31,7 +31,7 @@ public class AvroProducer<T> implements AvroProducerPort<T> {
                 kafkaTemplate.send(topic, id, obj);
             future.whenComplete((result, ex) -> {
                 if (ex == null) {
-                    log.info("message sent successfully. message={}", result);
+                    log.info("message sent to topic={} successfully", topic);
                     future.complete(result);
                 } else {
                     log.error("Unable to send message due to: {}", ex.getMessage(), ex);
