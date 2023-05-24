@@ -13,8 +13,8 @@ import org.apache.avro.message.SchemaStore;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Goals extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 3946765055027936772L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Goals\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"against\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"for\",\"type\":[\"null\",\"int\"],\"default\":null}]}");
+  private static final long serialVersionUID = -1220803172260974102L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Goals\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"goalsAgainst\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goalsFor\",\"type\":[\"null\",\"int\"],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -51,8 +51,8 @@ public class Goals extends org.apache.avro.specific.SpecificRecordBase implement
     return DECODER.decode(b);
   }
 
-  @Deprecated public java.lang.Integer against;
-  @Deprecated public java.lang.Integer for$;
+  @Deprecated public java.lang.Integer goalsAgainst;
+  @Deprecated public java.lang.Integer goalsFor;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -63,20 +63,20 @@ public class Goals extends org.apache.avro.specific.SpecificRecordBase implement
 
   /**
    * All-args constructor.
-   * @param against The new value for against
-   * @param for$ The new value for for
+   * @param goalsAgainst The new value for goalsAgainst
+   * @param goalsFor The new value for goalsFor
    */
-  public Goals(java.lang.Integer against, java.lang.Integer for$) {
-    this.against = against;
-    this.for$ = for$;
+  public Goals(java.lang.Integer goalsAgainst, java.lang.Integer goalsFor) {
+    this.goalsAgainst = goalsAgainst;
+    this.goalsFor = goalsFor;
   }
 
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
   // Used by DatumWriter.  Applications should not call.
   public java.lang.Object get(int field$) {
     switch (field$) {
-    case 0: return against;
-    case 1: return for$;
+    case 0: return goalsAgainst;
+    case 1: return goalsFor;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -85,42 +85,42 @@ public class Goals extends org.apache.avro.specific.SpecificRecordBase implement
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: against = (java.lang.Integer)value$; break;
-    case 1: for$ = (java.lang.Integer)value$; break;
+    case 0: goalsAgainst = (java.lang.Integer)value$; break;
+    case 1: goalsFor = (java.lang.Integer)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
 
   /**
-   * Gets the value of the 'against' field.
-   * @return The value of the 'against' field.
+   * Gets the value of the 'goalsAgainst' field.
+   * @return The value of the 'goalsAgainst' field.
    */
-  public java.lang.Integer getAgainst() {
-    return against;
+  public java.lang.Integer getGoalsAgainst() {
+    return goalsAgainst;
   }
 
   /**
-   * Sets the value of the 'against' field.
+   * Sets the value of the 'goalsAgainst' field.
    * @param value the value to set.
    */
-  public void setAgainst(java.lang.Integer value) {
-    this.against = value;
+  public void setGoalsAgainst(java.lang.Integer value) {
+    this.goalsAgainst = value;
   }
 
   /**
-   * Gets the value of the 'for$' field.
-   * @return The value of the 'for$' field.
+   * Gets the value of the 'goalsFor' field.
+   * @return The value of the 'goalsFor' field.
    */
-  public java.lang.Integer getFor$() {
-    return for$;
+  public java.lang.Integer getGoalsFor() {
+    return goalsFor;
   }
 
   /**
-   * Sets the value of the 'for$' field.
+   * Sets the value of the 'goalsFor' field.
    * @param value the value to set.
    */
-  public void setFor$(java.lang.Integer value) {
-    this.for$ = value;
+  public void setGoalsFor(java.lang.Integer value) {
+    this.goalsFor = value;
   }
 
   /**
@@ -155,8 +155,8 @@ public class Goals extends org.apache.avro.specific.SpecificRecordBase implement
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Goals>
     implements org.apache.avro.data.RecordBuilder<Goals> {
 
-    private java.lang.Integer against;
-    private java.lang.Integer for$;
+    private java.lang.Integer goalsAgainst;
+    private java.lang.Integer goalsFor;
 
     /** Creates a new Builder */
     private Builder() {
@@ -169,12 +169,12 @@ public class Goals extends org.apache.avro.specific.SpecificRecordBase implement
      */
     private Builder(com.newyeti.apiscraper.domain.model.avro.schema.Goals.Builder other) {
       super(other);
-      if (isValidValue(fields()[0], other.against)) {
-        this.against = data().deepCopy(fields()[0].schema(), other.against);
+      if (isValidValue(fields()[0], other.goalsAgainst)) {
+        this.goalsAgainst = data().deepCopy(fields()[0].schema(), other.goalsAgainst);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.for$)) {
-        this.for$ = data().deepCopy(fields()[1].schema(), other.for$);
+      if (isValidValue(fields()[1], other.goalsFor)) {
+        this.goalsFor = data().deepCopy(fields()[1].schema(), other.goalsFor);
         fieldSetFlags()[1] = true;
       }
     }
@@ -185,90 +185,90 @@ public class Goals extends org.apache.avro.specific.SpecificRecordBase implement
      */
     private Builder(com.newyeti.apiscraper.domain.model.avro.schema.Goals other) {
             super(SCHEMA$);
-      if (isValidValue(fields()[0], other.against)) {
-        this.against = data().deepCopy(fields()[0].schema(), other.against);
+      if (isValidValue(fields()[0], other.goalsAgainst)) {
+        this.goalsAgainst = data().deepCopy(fields()[0].schema(), other.goalsAgainst);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.for$)) {
-        this.for$ = data().deepCopy(fields()[1].schema(), other.for$);
+      if (isValidValue(fields()[1], other.goalsFor)) {
+        this.goalsFor = data().deepCopy(fields()[1].schema(), other.goalsFor);
         fieldSetFlags()[1] = true;
       }
     }
 
     /**
-      * Gets the value of the 'against' field.
+      * Gets the value of the 'goalsAgainst' field.
       * @return The value.
       */
-    public java.lang.Integer getAgainst() {
-      return against;
+    public java.lang.Integer getGoalsAgainst() {
+      return goalsAgainst;
     }
 
     /**
-      * Sets the value of the 'against' field.
-      * @param value The value of 'against'.
+      * Sets the value of the 'goalsAgainst' field.
+      * @param value The value of 'goalsAgainst'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Goals.Builder setAgainst(java.lang.Integer value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Goals.Builder setGoalsAgainst(java.lang.Integer value) {
       validate(fields()[0], value);
-      this.against = value;
+      this.goalsAgainst = value;
       fieldSetFlags()[0] = true;
       return this;
     }
 
     /**
-      * Checks whether the 'against' field has been set.
-      * @return True if the 'against' field has been set, false otherwise.
+      * Checks whether the 'goalsAgainst' field has been set.
+      * @return True if the 'goalsAgainst' field has been set, false otherwise.
       */
-    public boolean hasAgainst() {
+    public boolean hasGoalsAgainst() {
       return fieldSetFlags()[0];
     }
 
 
     /**
-      * Clears the value of the 'against' field.
+      * Clears the value of the 'goalsAgainst' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Goals.Builder clearAgainst() {
-      against = null;
+    public com.newyeti.apiscraper.domain.model.avro.schema.Goals.Builder clearGoalsAgainst() {
+      goalsAgainst = null;
       fieldSetFlags()[0] = false;
       return this;
     }
 
     /**
-      * Gets the value of the 'for$' field.
+      * Gets the value of the 'goalsFor' field.
       * @return The value.
       */
-    public java.lang.Integer getFor$() {
-      return for$;
+    public java.lang.Integer getGoalsFor() {
+      return goalsFor;
     }
 
     /**
-      * Sets the value of the 'for$' field.
-      * @param value The value of 'for$'.
+      * Sets the value of the 'goalsFor' field.
+      * @param value The value of 'goalsFor'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Goals.Builder setFor$(java.lang.Integer value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Goals.Builder setGoalsFor(java.lang.Integer value) {
       validate(fields()[1], value);
-      this.for$ = value;
+      this.goalsFor = value;
       fieldSetFlags()[1] = true;
       return this;
     }
 
     /**
-      * Checks whether the 'for$' field has been set.
-      * @return True if the 'for$' field has been set, false otherwise.
+      * Checks whether the 'goalsFor' field has been set.
+      * @return True if the 'goalsFor' field has been set, false otherwise.
       */
-    public boolean hasFor$() {
+    public boolean hasGoalsFor() {
       return fieldSetFlags()[1];
     }
 
 
     /**
-      * Clears the value of the 'for$' field.
+      * Clears the value of the 'goalsFor' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Goals.Builder clearFor$() {
-      for$ = null;
+    public com.newyeti.apiscraper.domain.model.avro.schema.Goals.Builder clearGoalsFor() {
+      goalsFor = null;
       fieldSetFlags()[1] = false;
       return this;
     }
@@ -278,8 +278,8 @@ public class Goals extends org.apache.avro.specific.SpecificRecordBase implement
     public Goals build() {
       try {
         Goals record = new Goals();
-        record.against = fieldSetFlags()[0] ? this.against : (java.lang.Integer) defaultValue(fields()[0]);
-        record.for$ = fieldSetFlags()[1] ? this.for$ : (java.lang.Integer) defaultValue(fields()[1]);
+        record.goalsAgainst = fieldSetFlags()[0] ? this.goalsAgainst : (java.lang.Integer) defaultValue(fields()[0]);
+        record.goalsFor = fieldSetFlags()[1] ? this.goalsFor : (java.lang.Integer) defaultValue(fields()[1]);
         return record;
       } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

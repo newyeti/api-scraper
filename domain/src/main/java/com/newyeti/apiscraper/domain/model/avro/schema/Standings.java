@@ -12,23 +12,23 @@ import org.apache.avro.message.SchemaStore;
 
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
-public class Standing extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 11908994878723685L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Standing\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"all\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"All\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Goals\",\"fields\":[{\"name\":\"against\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"for\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"away\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Away\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"form\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"goalsDiff\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"group\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"home\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Home\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"points\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"rank\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"team\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Team\",\"fields\":[{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",\"string\"],\"default\":null}]}],\"default\":null},{\"name\":\"update\",\"type\":[\"null\",\"string\"],\"default\":null}]}");
+public class Standings extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
+  private static final long serialVersionUID = 6874569699716320097L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Standings\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"all\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"All\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Goals\",\"fields\":[{\"name\":\"goalsAgainst\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goalsFor\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"away\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Away\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"form\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"goalsDiff\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"group\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"home\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Home\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"points\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"rank\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"status\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"team\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Team\",\"fields\":[{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}],\"default\":null},{\"name\":\"update\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
 
-  private static final BinaryMessageEncoder<Standing> ENCODER =
-      new BinaryMessageEncoder<Standing>(MODEL$, SCHEMA$);
+  private static final BinaryMessageEncoder<Standings> ENCODER =
+      new BinaryMessageEncoder<Standings>(MODEL$, SCHEMA$);
 
-  private static final BinaryMessageDecoder<Standing> DECODER =
-      new BinaryMessageDecoder<Standing>(MODEL$, SCHEMA$);
+  private static final BinaryMessageDecoder<Standings> DECODER =
+      new BinaryMessageDecoder<Standings>(MODEL$, SCHEMA$);
 
   /**
    * Return the BinaryMessageDecoder instance used by this class.
    */
-  public static BinaryMessageDecoder<Standing> getDecoder() {
+  public static BinaryMessageDecoder<Standings> getDecoder() {
     return DECODER;
   }
 
@@ -36,40 +36,40 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Create a new BinaryMessageDecoder instance for this class that uses the specified {@link SchemaStore}.
    * @param resolver a {@link SchemaStore} used to find schemas by fingerprint
    */
-  public static BinaryMessageDecoder<Standing> createDecoder(SchemaStore resolver) {
-    return new BinaryMessageDecoder<Standing>(MODEL$, SCHEMA$, resolver);
+  public static BinaryMessageDecoder<Standings> createDecoder(SchemaStore resolver) {
+    return new BinaryMessageDecoder<Standings>(MODEL$, SCHEMA$, resolver);
   }
 
-  /** Serializes this Standing to a ByteBuffer. */
+  /** Serializes this Standings to a ByteBuffer. */
   public java.nio.ByteBuffer toByteBuffer() throws java.io.IOException {
     return ENCODER.encode(this);
   }
 
-  /** Deserializes a Standing from a ByteBuffer. */
-  public static Standing fromByteBuffer(
+  /** Deserializes a Standings from a ByteBuffer. */
+  public static Standings fromByteBuffer(
       java.nio.ByteBuffer b) throws java.io.IOException {
     return DECODER.decode(b);
   }
 
   @Deprecated public com.newyeti.apiscraper.domain.model.avro.schema.All all;
   @Deprecated public com.newyeti.apiscraper.domain.model.avro.schema.Away away;
-  @Deprecated public java.lang.CharSequence description;
-  @Deprecated public java.lang.CharSequence form;
+  @Deprecated public java.lang.String description;
+  @Deprecated public java.lang.String form;
   @Deprecated public java.lang.Integer goalsDiff;
-  @Deprecated public java.lang.CharSequence group;
+  @Deprecated public java.lang.String group;
   @Deprecated public com.newyeti.apiscraper.domain.model.avro.schema.Home home;
   @Deprecated public java.lang.Integer points;
   @Deprecated public java.lang.Integer rank;
-  @Deprecated public java.lang.CharSequence status;
+  @Deprecated public java.lang.String status;
   @Deprecated public com.newyeti.apiscraper.domain.model.avro.schema.Team team;
-  @Deprecated public java.lang.CharSequence update;
+  @Deprecated public java.lang.String update;
 
   /**
    * Default constructor.  Note that this does not initialize fields
    * to their default values from the schema.  If that is desired then
    * one should use <code>newBuilder()</code>.
    */
-  public Standing() {}
+  public Standings() {}
 
   /**
    * All-args constructor.
@@ -86,7 +86,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * @param team The new value for team
    * @param update The new value for update
    */
-  public Standing(com.newyeti.apiscraper.domain.model.avro.schema.All all, com.newyeti.apiscraper.domain.model.avro.schema.Away away, java.lang.CharSequence description, java.lang.CharSequence form, java.lang.Integer goalsDiff, java.lang.CharSequence group, com.newyeti.apiscraper.domain.model.avro.schema.Home home, java.lang.Integer points, java.lang.Integer rank, java.lang.CharSequence status, com.newyeti.apiscraper.domain.model.avro.schema.Team team, java.lang.CharSequence update) {
+  public Standings(com.newyeti.apiscraper.domain.model.avro.schema.All all, com.newyeti.apiscraper.domain.model.avro.schema.Away away, java.lang.String description, java.lang.String form, java.lang.Integer goalsDiff, java.lang.String group, com.newyeti.apiscraper.domain.model.avro.schema.Home home, java.lang.Integer points, java.lang.Integer rank, java.lang.String status, com.newyeti.apiscraper.domain.model.avro.schema.Team team, java.lang.String update) {
     this.all = all;
     this.away = away;
     this.description = description;
@@ -127,16 +127,16 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
     switch (field$) {
     case 0: all = (com.newyeti.apiscraper.domain.model.avro.schema.All)value$; break;
     case 1: away = (com.newyeti.apiscraper.domain.model.avro.schema.Away)value$; break;
-    case 2: description = (java.lang.CharSequence)value$; break;
-    case 3: form = (java.lang.CharSequence)value$; break;
+    case 2: description = (java.lang.String)value$; break;
+    case 3: form = (java.lang.String)value$; break;
     case 4: goalsDiff = (java.lang.Integer)value$; break;
-    case 5: group = (java.lang.CharSequence)value$; break;
+    case 5: group = (java.lang.String)value$; break;
     case 6: home = (com.newyeti.apiscraper.domain.model.avro.schema.Home)value$; break;
     case 7: points = (java.lang.Integer)value$; break;
     case 8: rank = (java.lang.Integer)value$; break;
-    case 9: status = (java.lang.CharSequence)value$; break;
+    case 9: status = (java.lang.String)value$; break;
     case 10: team = (com.newyeti.apiscraper.domain.model.avro.schema.Team)value$; break;
-    case 11: update = (java.lang.CharSequence)value$; break;
+    case 11: update = (java.lang.String)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -177,7 +177,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'description' field.
    * @return The value of the 'description' field.
    */
-  public java.lang.CharSequence getDescription() {
+  public java.lang.String getDescription() {
     return description;
   }
 
@@ -185,7 +185,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'description' field.
    * @param value the value to set.
    */
-  public void setDescription(java.lang.CharSequence value) {
+  public void setDescription(java.lang.String value) {
     this.description = value;
   }
 
@@ -193,7 +193,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'form' field.
    * @return The value of the 'form' field.
    */
-  public java.lang.CharSequence getForm() {
+  public java.lang.String getForm() {
     return form;
   }
 
@@ -201,7 +201,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'form' field.
    * @param value the value to set.
    */
-  public void setForm(java.lang.CharSequence value) {
+  public void setForm(java.lang.String value) {
     this.form = value;
   }
 
@@ -225,7 +225,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'group' field.
    * @return The value of the 'group' field.
    */
-  public java.lang.CharSequence getGroup() {
+  public java.lang.String getGroup() {
     return group;
   }
 
@@ -233,7 +233,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'group' field.
    * @param value the value to set.
    */
-  public void setGroup(java.lang.CharSequence value) {
+  public void setGroup(java.lang.String value) {
     this.group = value;
   }
 
@@ -289,7 +289,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'status' field.
    * @return The value of the 'status' field.
    */
-  public java.lang.CharSequence getStatus() {
+  public java.lang.String getStatus() {
     return status;
   }
 
@@ -297,7 +297,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'status' field.
    * @param value the value to set.
    */
-  public void setStatus(java.lang.CharSequence value) {
+  public void setStatus(java.lang.String value) {
     this.status = value;
   }
 
@@ -321,7 +321,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'update' field.
    * @return The value of the 'update' field.
    */
-  public java.lang.CharSequence getUpdate() {
+  public java.lang.String getUpdate() {
     return update;
   }
 
@@ -329,58 +329,58 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'update' field.
    * @param value the value to set.
    */
-  public void setUpdate(java.lang.CharSequence value) {
+  public void setUpdate(java.lang.String value) {
     this.update = value;
   }
 
   /**
-   * Creates a new Standing RecordBuilder.
-   * @return A new Standing RecordBuilder
+   * Creates a new Standings RecordBuilder.
+   * @return A new Standings RecordBuilder
    */
-  public static com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder newBuilder() {
-    return new com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder();
+  public static com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder newBuilder() {
+    return new com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder();
   }
 
   /**
-   * Creates a new Standing RecordBuilder by copying an existing Builder.
+   * Creates a new Standings RecordBuilder by copying an existing Builder.
    * @param other The existing builder to copy.
-   * @return A new Standing RecordBuilder
+   * @return A new Standings RecordBuilder
    */
-  public static com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder newBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder other) {
-    return new com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder(other);
+  public static com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder newBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder other) {
+    return new com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder(other);
   }
 
   /**
-   * Creates a new Standing RecordBuilder by copying an existing Standing instance.
+   * Creates a new Standings RecordBuilder by copying an existing Standings instance.
    * @param other The existing instance to copy.
-   * @return A new Standing RecordBuilder
+   * @return A new Standings RecordBuilder
    */
-  public static com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder newBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Standing other) {
-    return new com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder(other);
+  public static com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder newBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Standings other) {
+    return new com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder(other);
   }
 
   /**
-   * RecordBuilder for Standing instances.
+   * RecordBuilder for Standings instances.
    */
-  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Standing>
-    implements org.apache.avro.data.RecordBuilder<Standing> {
+  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Standings>
+    implements org.apache.avro.data.RecordBuilder<Standings> {
 
     private com.newyeti.apiscraper.domain.model.avro.schema.All all;
     private com.newyeti.apiscraper.domain.model.avro.schema.All.Builder allBuilder;
     private com.newyeti.apiscraper.domain.model.avro.schema.Away away;
     private com.newyeti.apiscraper.domain.model.avro.schema.Away.Builder awayBuilder;
-    private java.lang.CharSequence description;
-    private java.lang.CharSequence form;
+    private java.lang.String description;
+    private java.lang.String form;
     private java.lang.Integer goalsDiff;
-    private java.lang.CharSequence group;
+    private java.lang.String group;
     private com.newyeti.apiscraper.domain.model.avro.schema.Home home;
     private com.newyeti.apiscraper.domain.model.avro.schema.Home.Builder homeBuilder;
     private java.lang.Integer points;
     private java.lang.Integer rank;
-    private java.lang.CharSequence status;
+    private java.lang.String status;
     private com.newyeti.apiscraper.domain.model.avro.schema.Team team;
     private com.newyeti.apiscraper.domain.model.avro.schema.Team.Builder teamBuilder;
-    private java.lang.CharSequence update;
+    private java.lang.String update;
 
     /** Creates a new Builder */
     private Builder() {
@@ -391,7 +391,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder other) {
+    private Builder(com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.all)) {
         this.all = data().deepCopy(fields()[0].schema(), other.all);
@@ -456,10 +456,10 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
     }
 
     /**
-     * Creates a Builder by copying an existing Standing instance
+     * Creates a Builder by copying an existing Standings instance
      * @param other The existing instance to copy.
      */
-    private Builder(com.newyeti.apiscraper.domain.model.avro.schema.Standing other) {
+    private Builder(com.newyeti.apiscraper.domain.model.avro.schema.Standings other) {
             super(SCHEMA$);
       if (isValidValue(fields()[0], other.all)) {
         this.all = data().deepCopy(fields()[0].schema(), other.all);
@@ -528,7 +528,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'all'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setAll(com.newyeti.apiscraper.domain.model.avro.schema.All value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setAll(com.newyeti.apiscraper.domain.model.avro.schema.All value) {
       validate(fields()[0], value);
       this.allBuilder = null;
       this.all = value;
@@ -564,7 +564,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
      * @param value The builder instance that must be set.
      * @return This builder.
      */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setAllBuilder(com.newyeti.apiscraper.domain.model.avro.schema.All.Builder value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setAllBuilder(com.newyeti.apiscraper.domain.model.avro.schema.All.Builder value) {
       clearAll();
       allBuilder = value;
       return this;
@@ -582,7 +582,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'all' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearAll() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearAll() {
       all = null;
       allBuilder = null;
       fieldSetFlags()[0] = false;
@@ -602,7 +602,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'away'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setAway(com.newyeti.apiscraper.domain.model.avro.schema.Away value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setAway(com.newyeti.apiscraper.domain.model.avro.schema.Away value) {
       validate(fields()[1], value);
       this.awayBuilder = null;
       this.away = value;
@@ -638,7 +638,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
      * @param value The builder instance that must be set.
      * @return This builder.
      */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setAwayBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Away.Builder value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setAwayBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Away.Builder value) {
       clearAway();
       awayBuilder = value;
       return this;
@@ -656,7 +656,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'away' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearAway() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearAway() {
       away = null;
       awayBuilder = null;
       fieldSetFlags()[1] = false;
@@ -667,7 +667,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'description' field.
       * @return The value.
       */
-    public java.lang.CharSequence getDescription() {
+    public java.lang.String getDescription() {
       return description;
     }
 
@@ -676,7 +676,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'description'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setDescription(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setDescription(java.lang.String value) {
       validate(fields()[2], value);
       this.description = value;
       fieldSetFlags()[2] = true;
@@ -696,7 +696,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'description' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearDescription() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearDescription() {
       description = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -706,7 +706,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'form' field.
       * @return The value.
       */
-    public java.lang.CharSequence getForm() {
+    public java.lang.String getForm() {
       return form;
     }
 
@@ -715,7 +715,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'form'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setForm(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setForm(java.lang.String value) {
       validate(fields()[3], value);
       this.form = value;
       fieldSetFlags()[3] = true;
@@ -735,7 +735,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'form' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearForm() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearForm() {
       form = null;
       fieldSetFlags()[3] = false;
       return this;
@@ -754,7 +754,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'goalsDiff'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setGoalsDiff(java.lang.Integer value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setGoalsDiff(java.lang.Integer value) {
       validate(fields()[4], value);
       this.goalsDiff = value;
       fieldSetFlags()[4] = true;
@@ -774,7 +774,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'goalsDiff' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearGoalsDiff() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearGoalsDiff() {
       goalsDiff = null;
       fieldSetFlags()[4] = false;
       return this;
@@ -784,7 +784,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'group' field.
       * @return The value.
       */
-    public java.lang.CharSequence getGroup() {
+    public java.lang.String getGroup() {
       return group;
     }
 
@@ -793,7 +793,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'group'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setGroup(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setGroup(java.lang.String value) {
       validate(fields()[5], value);
       this.group = value;
       fieldSetFlags()[5] = true;
@@ -813,7 +813,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'group' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearGroup() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearGroup() {
       group = null;
       fieldSetFlags()[5] = false;
       return this;
@@ -832,7 +832,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'home'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setHome(com.newyeti.apiscraper.domain.model.avro.schema.Home value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setHome(com.newyeti.apiscraper.domain.model.avro.schema.Home value) {
       validate(fields()[6], value);
       this.homeBuilder = null;
       this.home = value;
@@ -868,7 +868,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
      * @param value The builder instance that must be set.
      * @return This builder.
      */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setHomeBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Home.Builder value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setHomeBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Home.Builder value) {
       clearHome();
       homeBuilder = value;
       return this;
@@ -886,7 +886,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'home' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearHome() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearHome() {
       home = null;
       homeBuilder = null;
       fieldSetFlags()[6] = false;
@@ -906,7 +906,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'points'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setPoints(java.lang.Integer value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setPoints(java.lang.Integer value) {
       validate(fields()[7], value);
       this.points = value;
       fieldSetFlags()[7] = true;
@@ -926,7 +926,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'points' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearPoints() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearPoints() {
       points = null;
       fieldSetFlags()[7] = false;
       return this;
@@ -945,7 +945,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'rank'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setRank(java.lang.Integer value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setRank(java.lang.Integer value) {
       validate(fields()[8], value);
       this.rank = value;
       fieldSetFlags()[8] = true;
@@ -965,7 +965,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'rank' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearRank() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearRank() {
       rank = null;
       fieldSetFlags()[8] = false;
       return this;
@@ -975,7 +975,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'status' field.
       * @return The value.
       */
-    public java.lang.CharSequence getStatus() {
+    public java.lang.String getStatus() {
       return status;
     }
 
@@ -984,7 +984,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'status'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setStatus(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setStatus(java.lang.String value) {
       validate(fields()[9], value);
       this.status = value;
       fieldSetFlags()[9] = true;
@@ -1004,7 +1004,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'status' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearStatus() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearStatus() {
       status = null;
       fieldSetFlags()[9] = false;
       return this;
@@ -1023,7 +1023,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'team'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setTeam(com.newyeti.apiscraper.domain.model.avro.schema.Team value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setTeam(com.newyeti.apiscraper.domain.model.avro.schema.Team value) {
       validate(fields()[10], value);
       this.teamBuilder = null;
       this.team = value;
@@ -1059,7 +1059,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
      * @param value The builder instance that must be set.
      * @return This builder.
      */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setTeamBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Team.Builder value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setTeamBuilder(com.newyeti.apiscraper.domain.model.avro.schema.Team.Builder value) {
       clearTeam();
       teamBuilder = value;
       return this;
@@ -1077,7 +1077,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'team' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearTeam() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearTeam() {
       team = null;
       teamBuilder = null;
       fieldSetFlags()[10] = false;
@@ -1088,7 +1088,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'update' field.
       * @return The value.
       */
-    public java.lang.CharSequence getUpdate() {
+    public java.lang.String getUpdate() {
       return update;
     }
 
@@ -1097,7 +1097,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'update'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder setUpdate(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder setUpdate(java.lang.String value) {
       validate(fields()[11], value);
       this.update = value;
       fieldSetFlags()[11] = true;
@@ -1117,7 +1117,7 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
       * Clears the value of the 'update' field.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Standing.Builder clearUpdate() {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Standings.Builder clearUpdate() {
       update = null;
       fieldSetFlags()[11] = false;
       return this;
@@ -1125,9 +1125,9 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
 
     @Override
     @SuppressWarnings("unchecked")
-    public Standing build() {
+    public Standings build() {
       try {
-        Standing record = new Standing();
+        Standings record = new Standings();
         if (allBuilder != null) {
           record.all = this.allBuilder.build();
         } else {
@@ -1138,10 +1138,10 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
         } else {
           record.away = fieldSetFlags()[1] ? this.away : (com.newyeti.apiscraper.domain.model.avro.schema.Away) defaultValue(fields()[1]);
         }
-        record.description = fieldSetFlags()[2] ? this.description : (java.lang.CharSequence) defaultValue(fields()[2]);
-        record.form = fieldSetFlags()[3] ? this.form : (java.lang.CharSequence) defaultValue(fields()[3]);
+        record.description = fieldSetFlags()[2] ? this.description : (java.lang.String) defaultValue(fields()[2]);
+        record.form = fieldSetFlags()[3] ? this.form : (java.lang.String) defaultValue(fields()[3]);
         record.goalsDiff = fieldSetFlags()[4] ? this.goalsDiff : (java.lang.Integer) defaultValue(fields()[4]);
-        record.group = fieldSetFlags()[5] ? this.group : (java.lang.CharSequence) defaultValue(fields()[5]);
+        record.group = fieldSetFlags()[5] ? this.group : (java.lang.String) defaultValue(fields()[5]);
         if (homeBuilder != null) {
           record.home = this.homeBuilder.build();
         } else {
@@ -1149,13 +1149,13 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
         }
         record.points = fieldSetFlags()[7] ? this.points : (java.lang.Integer) defaultValue(fields()[7]);
         record.rank = fieldSetFlags()[8] ? this.rank : (java.lang.Integer) defaultValue(fields()[8]);
-        record.status = fieldSetFlags()[9] ? this.status : (java.lang.CharSequence) defaultValue(fields()[9]);
+        record.status = fieldSetFlags()[9] ? this.status : (java.lang.String) defaultValue(fields()[9]);
         if (teamBuilder != null) {
           record.team = this.teamBuilder.build();
         } else {
           record.team = fieldSetFlags()[10] ? this.team : (com.newyeti.apiscraper.domain.model.avro.schema.Team) defaultValue(fields()[10]);
         }
-        record.update = fieldSetFlags()[11] ? this.update : (java.lang.CharSequence) defaultValue(fields()[11]);
+        record.update = fieldSetFlags()[11] ? this.update : (java.lang.String) defaultValue(fields()[11]);
         return record;
       } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
@@ -1164,8 +1164,8 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
   }
 
   @SuppressWarnings("unchecked")
-  private static final org.apache.avro.io.DatumWriter<Standing>
-    WRITER$ = (org.apache.avro.io.DatumWriter<Standing>)MODEL$.createDatumWriter(SCHEMA$);
+  private static final org.apache.avro.io.DatumWriter<Standings>
+    WRITER$ = (org.apache.avro.io.DatumWriter<Standings>)MODEL$.createDatumWriter(SCHEMA$);
 
   @Override public void writeExternal(java.io.ObjectOutput out)
     throws java.io.IOException {
@@ -1173,8 +1173,8 @@ public class Standing extends org.apache.avro.specific.SpecificRecordBase implem
   }
 
   @SuppressWarnings("unchecked")
-  private static final org.apache.avro.io.DatumReader<Standing>
-    READER$ = (org.apache.avro.io.DatumReader<Standing>)MODEL$.createDatumReader(SCHEMA$);
+  private static final org.apache.avro.io.DatumReader<Standings>
+    READER$ = (org.apache.avro.io.DatumReader<Standings>)MODEL$.createDatumReader(SCHEMA$);
 
   @Override public void readExternal(java.io.ObjectInput in)
     throws java.io.IOException {

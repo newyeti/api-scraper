@@ -22,6 +22,11 @@ football-api:
   apiKeys: 
     - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
 
+app:
+  kafka:
+    send:
+      enabled: false
+
 ---
 
 spring:
@@ -41,10 +46,13 @@ server:
 
 spring:
   config:
+    import: configserver:http://config-server:9091
     activate:
       on-profile:
       - docker
-    import: "configserver:http://config-server:9091"
+  cloud:
+    config:
+        enabled: true
   kafka:
     bootstrap-servers: broker-1:9092
     template:
@@ -56,3 +64,21 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
+
+app:
+  kafka:
+    send:
+      enabled: true
+
+# --- 
+
+# spring:
+#   config:
+#     activate:
+#       on-profile:
+#       - test
+
+# app:
+#   kafka:
+#     send:
+#       enabled: true

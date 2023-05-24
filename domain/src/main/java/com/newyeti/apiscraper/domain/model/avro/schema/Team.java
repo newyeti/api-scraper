@@ -14,7 +14,7 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class Team extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = -3629148917297959396L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Team\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",\"string\"],\"default\":null}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Team\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -52,8 +52,8 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
   }
 
   @Deprecated public java.lang.Integer id;
-  @Deprecated public java.lang.CharSequence logo;
-  @Deprecated public java.lang.CharSequence name;
+  @Deprecated public java.lang.String logo;
+  @Deprecated public java.lang.String name;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -68,7 +68,7 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
    * @param logo The new value for logo
    * @param name The new value for name
    */
-  public Team(java.lang.Integer id, java.lang.CharSequence logo, java.lang.CharSequence name) {
+  public Team(java.lang.Integer id, java.lang.String logo, java.lang.String name) {
     this.id = id;
     this.logo = logo;
     this.name = name;
@@ -90,8 +90,8 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: id = (java.lang.Integer)value$; break;
-    case 1: logo = (java.lang.CharSequence)value$; break;
-    case 2: name = (java.lang.CharSequence)value$; break;
+    case 1: logo = (java.lang.String)value$; break;
+    case 2: name = (java.lang.String)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -116,7 +116,7 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
    * Gets the value of the 'logo' field.
    * @return The value of the 'logo' field.
    */
-  public java.lang.CharSequence getLogo() {
+  public java.lang.String getLogo() {
     return logo;
   }
 
@@ -124,7 +124,7 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
    * Sets the value of the 'logo' field.
    * @param value the value to set.
    */
-  public void setLogo(java.lang.CharSequence value) {
+  public void setLogo(java.lang.String value) {
     this.logo = value;
   }
 
@@ -132,7 +132,7 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
    * Gets the value of the 'name' field.
    * @return The value of the 'name' field.
    */
-  public java.lang.CharSequence getName() {
+  public java.lang.String getName() {
     return name;
   }
 
@@ -140,7 +140,7 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
    * Sets the value of the 'name' field.
    * @param value the value to set.
    */
-  public void setName(java.lang.CharSequence value) {
+  public void setName(java.lang.String value) {
     this.name = value;
   }
 
@@ -177,8 +177,8 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
     implements org.apache.avro.data.RecordBuilder<Team> {
 
     private java.lang.Integer id;
-    private java.lang.CharSequence logo;
-    private java.lang.CharSequence name;
+    private java.lang.String logo;
+    private java.lang.String name;
 
     /** Creates a new Builder */
     private Builder() {
@@ -268,7 +268,7 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
       * Gets the value of the 'logo' field.
       * @return The value.
       */
-    public java.lang.CharSequence getLogo() {
+    public java.lang.String getLogo() {
       return logo;
     }
 
@@ -277,7 +277,7 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
       * @param value The value of 'logo'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Team.Builder setLogo(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Team.Builder setLogo(java.lang.String value) {
       validate(fields()[1], value);
       this.logo = value;
       fieldSetFlags()[1] = true;
@@ -307,7 +307,7 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
       * Gets the value of the 'name' field.
       * @return The value.
       */
-    public java.lang.CharSequence getName() {
+    public java.lang.String getName() {
       return name;
     }
 
@@ -316,7 +316,7 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
       * @param value The value of 'name'.
       * @return This builder.
       */
-    public com.newyeti.apiscraper.domain.model.avro.schema.Team.Builder setName(java.lang.CharSequence value) {
+    public com.newyeti.apiscraper.domain.model.avro.schema.Team.Builder setName(java.lang.String value) {
       validate(fields()[2], value);
       this.name = value;
       fieldSetFlags()[2] = true;
@@ -348,8 +348,8 @@ public class Team extends org.apache.avro.specific.SpecificRecordBase implements
       try {
         Team record = new Team();
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.Integer) defaultValue(fields()[0]);
-        record.logo = fieldSetFlags()[1] ? this.logo : (java.lang.CharSequence) defaultValue(fields()[1]);
-        record.name = fieldSetFlags()[2] ? this.name : (java.lang.CharSequence) defaultValue(fields()[2]);
+        record.logo = fieldSetFlags()[1] ? this.logo : (java.lang.String) defaultValue(fields()[1]);
+        record.name = fieldSetFlags()[2] ? this.name : (java.lang.String) defaultValue(fields()[2]);
         return record;
       } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
