@@ -1,7 +1,5 @@
 package com.newyeti.apiscraper.application.kafka;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +10,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,13 +31,17 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import com.newyeti.apiscraper.application.exception.AvroException;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
+
+import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest(classes = AvroProducerTest.class)
 @ActiveProfiles("test")
-@Import({AvroProducerTest.KafkaTestContainerConfiguration.class, AvroProducer.class, AvroConsumer.class})
+@Import({AvroProducerTest.KafkaTestContainerConfiguration.class, AvroProducer.class, AvroConsumer.class, AvroConsumerErrorHandler.class})
 @DirtiesContext
 @Testcontainers
+@Slf4j
 public class AvroProducerTest {
 
     @Container
@@ -61,10 +64,27 @@ public class AvroProducerTest {
             .setName("Premier League")
             .build();
         
-        avroProducer.send("league.topic.v1", league);
+        avroProducer.send("league.topic.v1", String.valueOf(league.getId()), league);
         avroConsumer.getLatch().await(5, TimeUnit.SECONDS);
-        assertNotNull(avroConsumer.getPayload());
+        Assertions.assertNotNull(avroConsumer.getPayload());
     }
+
+    // @Test
+    // public void givenInvalidMessage_whenSendingMessage_thenThrowsException() throws Exception {
+
+    //     try{
+    //         avroProducer.send("league.topic.v1", "123", "invalid data");
+    //         avroConsumer.getLatch().await(5, TimeUnit.SECONDS);
+    //     } catch(Exception ex) {
+    //         log.error("error", ex);
+    //     }
+        
+    //     // Exception exception = Assertions.assertThrows(AvroException.class, () -> {
+           
+    //     // });
+        
+    //     // Assertions.assertEquals("avro consumer exception", exception.getMessage());
+    // }
 
     @TestConfiguration
     @EnableKafka
@@ -110,8 +130,8 @@ public class AvroProducerTest {
         }
 
         @Bean
-        public AvroProducer avroProducer() {
-            return new AvroProducer(kafkaTemplate());
+        public AvroProducer<League> avroProducer() {
+            return new AvroProducer<>(kafkaTemplate());
         }
 
         @Bean

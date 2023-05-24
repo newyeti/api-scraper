@@ -16,7 +16,7 @@ public class LeagueStandingAppService implements LeagueStandingsServicePort{
 
     @Override
     public void send(String topic, League league) {
-        avroProducerPort.send(topic, league);
+        avroProducerPort.send(topic, String.valueOf(league.getId()), league);
     }
     
 }
