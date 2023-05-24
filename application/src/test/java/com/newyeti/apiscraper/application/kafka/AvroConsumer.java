@@ -17,7 +17,7 @@ public class AvroConsumer {
     private CountDownLatch latch = new CountDownLatch(1);
     private Object payload;
 
-    @KafkaListener(topics = "league.topic.v1", groupId = "league-standings")
+    @KafkaListener(topics = "league.topic.v1", groupId = "league-standings", errorHandler = "avroConsumerErrorHandler")
     public void receive(ConsumerRecord<?,?> consumerRecord) {
         log.info("received payload={}", consumerRecord.toString());
         payload = consumerRecord.value();
