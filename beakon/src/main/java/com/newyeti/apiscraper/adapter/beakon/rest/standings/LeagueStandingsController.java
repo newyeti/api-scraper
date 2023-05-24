@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.newyeti.apiscraper.adapter.beakon.config.AppConfig;
 import com.newyeti.apiscraper.adapter.beakon.http.HttpClient;
 import com.newyeti.apiscraper.adapter.beakon.rest.exception.ServiceException;
 import com.newyeti.apiscraper.adapter.beakon.rest.response.Error;
@@ -17,6 +18,8 @@ import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ApiResponseDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.RequestDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ResponseDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueMapper;
+import com.newyeti.apiscraper.application.kafka.KafkaConfig;
+import com.newyeti.apiscraper.application.service.standings.LeagueStandingAppService;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +38,9 @@ public class LeagueStandingsController {
     
     private final HttpClient httpClient;
     private final LeagueMapper leagueMapper;
+    private final AppConfig appConfig;
+    private final KafkaConfig kafkaConfig;
+    private final LeagueStandingAppService leagueStandingsAppService;
 
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -52,7 +58,11 @@ public class LeagueStandingsController {
             log.info("API Call: GET request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
             ApiResponseDto.Response response = result.getResponse().get(0);
             League league = leagueMapper.toLeague(response.getLeague());
-            // log.info(league.toString());
+
+            if(appConfig.isKafkaSendEnabled()) {
+                log.debug("Kafka Call: Sending API response to Kafka topic.");
+                leagueStandingsAppService.send(kafkaConfig.getStandingsTopic(), league);
+            }
         } else {
             log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
             handleError();
