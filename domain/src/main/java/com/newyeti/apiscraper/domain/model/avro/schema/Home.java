@@ -13,8 +13,8 @@ import org.apache.avro.message.SchemaStore;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Home extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 2410022982456515807L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Home\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Goals\",\"fields\":[{\"name\":\"against\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"for\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}");
+  private static final long serialVersionUID = -6627696906259822565L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Home\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Goals\",\"fields\":[{\"name\":\"goalsAgainst\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goalsFor\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
