@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.newyeti.apiscraper.adapter.beakon.config.AppConfig;
 import com.newyeti.apiscraper.adapter.beakon.http.HttpClient;
-import com.newyeti.apiscraper.adapter.beakon.kafka.KafkaConfig;
 import com.newyeti.apiscraper.adapter.beakon.rest.exception.ServiceException;
 import com.newyeti.apiscraper.adapter.beakon.rest.response.Error;
 import com.newyeti.apiscraper.adapter.beakon.rest.response.ErrorResponse;
@@ -19,6 +18,7 @@ import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ApiResponseDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.RequestDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.ResponseDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.mapper.LeagueMapper;
+import com.newyeti.apiscraper.application.kafka.KafkaConfig;
 import com.newyeti.apiscraper.application.service.standings.LeagueStandingAppService;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 

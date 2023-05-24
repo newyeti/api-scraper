@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.adapter.beakon.kafka;
+package com.newyeti.apiscraper.application.kafka;
 
 import java.util.HashMap;
 import java.util.Map;
