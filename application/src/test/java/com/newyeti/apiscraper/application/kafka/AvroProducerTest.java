@@ -13,9 +13,11 @@ import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
@@ -24,6 +26,8 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.listener.DefaultErrorHandler;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.KafkaContainer;
@@ -31,30 +35,26 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import com.newyeti.apiscraper.application.exception.AvroException;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
-
-import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest(classes = AvroProducerTest.class)
 @ActiveProfiles("test")
-@Import({AvroProducerTest.KafkaTestContainerConfiguration.class, AvroProducer.class, AvroConsumer.class, AvroConsumerErrorHandler.class})
+@Import({AvroProducerTest.KafkaTestContainerConfiguration.class, AvroProducer.class, LeagueStandingsAvroConsumer.class, AvroConsumerErrorHandler.class})
 @DirtiesContext
 @Testcontainers
-@Slf4j
 public class AvroProducerTest {
 
     @Container
     public static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.4.0"));
 
     @Autowired
-    private AvroProducer avroProducer;
+    private AvroProducer<League> avroProducer;
     @Autowired
-    private AvroConsumer avroConsumer;
+    private LeagueStandingsAvroConsumer leagueAvroConsumer;
 
     @Before
     public void setup() {
-        avroConsumer.resetLatch();
+        leagueAvroConsumer.resetLatch();
     }
 
     @Test
@@ -64,42 +64,28 @@ public class AvroProducerTest {
             .setName("Premier League")
             .build();
         
-        avroProducer.send("league.topic.v1", String.valueOf(league.getId()), league);
-        avroConsumer.getLatch().await(5, TimeUnit.SECONDS);
-        Assertions.assertNotNull(avroConsumer.getPayload());
+        avroProducer.send("league.standings.topic.v1", String.valueOf(league.getId()), league);
+        leagueAvroConsumer.getLatch().await(5, TimeUnit.SECONDS);
+        Assertions.assertNotNull(leagueAvroConsumer.getPayload());
     }
-
-    // @Test
-    // public void givenInvalidMessage_whenSendingMessage_thenThrowsException() throws Exception {
-
-    //     try{
-    //         avroProducer.send("league.topic.v1", "123", "invalid data");
-    //         avroConsumer.getLatch().await(5, TimeUnit.SECONDS);
-    //     } catch(Exception ex) {
-    //         log.error("error", ex);
-    //     }
-        
-    //     // Exception exception = Assertions.assertThrows(AvroException.class, () -> {
-           
-    //     // });
-        
-    //     // Assertions.assertEquals("avro consumer exception", exception.getMessage());
-    // }
 
     @TestConfiguration
     @EnableKafka
     static class KafkaTestContainerConfiguration {
 
         @Bean
-        ConcurrentKafkaListenerContainerFactory<Integer, String> kafkaListenerContainerFactory(ConsumerFactory<Integer, String> consumerFactory) {
-            ConcurrentKafkaListenerContainerFactory<Integer, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        ConcurrentKafkaListenerContainerFactory<String, League> kafkaListenerContainerFactory(ConsumerFactory<String, League> consumerFactory) {
+            ConcurrentKafkaListenerContainerFactory<String, League> factory = new ConcurrentKafkaListenerContainerFactory<>();
             factory.setConsumerFactory(consumerFactory);
+            factory.setCommonErrorHandler(new DefaultErrorHandler());
             return factory;
         }
 
         @Bean
-        public ConsumerFactory<Integer, String> consumerFactory() {
-            return new DefaultKafkaConsumerFactory<>(consumerConfigs());
+        public ConsumerFactory<String, League> consumerFactory() throws Exception{
+            ErrorHandlingDeserializer<League> errorHandlingDeserializer
+                = new ErrorHandlingDeserializer(new CustomKafkaAvroDeserializer());
+            return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), errorHandlingDeserializer);
         }
 
         @Bean
@@ -135,8 +121,8 @@ public class AvroProducerTest {
         }
 
         @Bean
-        public AvroConsumer avroConsumer() {
-            return new AvroConsumer();
+        public LeagueStandingsAvroConsumer leagueAvroConsumer() {
+            return new LeagueStandingsAvroConsumer();
         }
     }
 

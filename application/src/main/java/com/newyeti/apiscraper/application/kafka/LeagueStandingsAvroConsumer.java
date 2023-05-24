@@ -6,19 +6,21 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import com.newyeti.apiscraper.domain.model.avro.schema.League;
+
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
 @Data
-public class AvroConsumer {
+public class LeagueStandingsAvroConsumer implements AvroConsumer<String, League>{
 
     private CountDownLatch latch = new CountDownLatch(1);
     private Object payload;
 
-    @KafkaListener(topics = "league.topic.v1", groupId = "league-standings", errorHandler = "avroConsumerErrorHandler")
-    public void receive(ConsumerRecord<?,?> consumerRecord) {
+    @KafkaListener(topics = "${avro.topic.standings}", groupId = "league-standings", errorHandler = "avroConsumerErrorHandler")
+    public void receive(ConsumerRecord<String, League> consumerRecord) {
         log.info("received payload={}", consumerRecord.toString());
         payload = consumerRecord.value();
     }
