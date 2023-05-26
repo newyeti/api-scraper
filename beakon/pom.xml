@@ -17,6 +17,7 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
+		<!-- Internal Dependecies  -->
 		<dependency>
 			<groupId>com.newyeti.apiscraper</groupId>
 			<artifactId>domain</artifactId>
@@ -26,6 +27,7 @@
 			<artifactId>application</artifactId>
 		</dependency>
 
+		<!-- External Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -62,8 +64,6 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 		</dependency>
-
-		
 
 		<!-- Observability and Monitoring -->
 		<dependency>
