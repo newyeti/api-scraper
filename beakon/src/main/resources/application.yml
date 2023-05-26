@@ -4,8 +4,6 @@ server:
 spring:
   application:
     name: BEAKON-SERVICE
-  # config:
-  #   import: "configserver:http://config-server:9091"
   cloud:
     discovery:
       enabled: false
@@ -41,6 +39,12 @@ spring:
       enabled: false
 server:
   port: 7001
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 ---
 
