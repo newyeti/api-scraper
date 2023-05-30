@@ -22,6 +22,8 @@ import com.newyeti.apiscraper.application.kafka.KafkaConfig;
 import com.newyeti.apiscraper.application.service.standings.LeagueStandingAppService;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,12 +43,16 @@ public class LeagueStandingsController {
     private final AppConfig appConfig;
     private final KafkaConfig kafkaConfig;
     private final LeagueStandingAppService leagueStandingsAppService;
+    private final ObservationRegistry observationRegistry;
 
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseDto pullData(@Valid @RequestBody RequestDto requestDto) {
-        
-        ApiResponseDto result = httpClient
+        Observation observation = Observation.createNotStarted("controller.standings.pull", observationRegistry);
+
+        try {
+            observation.start();
+            ApiResponseDto result = httpClient
             .get(uriBuilder -> uriBuilder
             .path("/standings")
             .queryParam("season", requestDto.getSeason())
@@ -54,26 +60,33 @@ public class LeagueStandingsController {
             .build(), ApiResponseDto.class)
             .block();
             
-        if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
-            log.info("API Call: GET request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
-            ApiResponseDto.Response response = result.getResponse().get(0);
-            League league = leagueMapper.toLeague(response.getLeague());
+            if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
+                log.info("API Call: GET request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
+                ApiResponseDto.Response response = result.getResponse().get(0);
+                League league = leagueMapper.toLeague(response.getLeague());
 
-            if(appConfig.isKafkaSendEnabled()) {
-                log.debug("Kafka Call: Sending API response to Kafka topic.");
-                leagueStandingsAppService.send(kafkaConfig.getStandingsTopic(), league);
+                if(appConfig.isKafkaSendEnabled()) {
+                    log.debug("Kafka Call: Sending API response to Kafka topic.");
+                    leagueStandingsAppService.send(kafkaConfig.getStandingsTopic(), league);
+                }
+            } else {
+                log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
+                handleError(observation);
             }
-        } else {
-            log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
-            handleError();
-        }
 
-        return ResponseDto.builder()
-            .status("success")
-            .build();
+            return ResponseDto.builder()
+                .status("success")
+                .build();
+        } catch(RuntimeException ex){
+            observation.error(ex);
+            observation.stop();
+            throw ex;
+        } finally {
+            observation.stop();
+        }
     }
 
-    private void handleError() throws ServiceException{
+    private void handleError(Observation observation) throws ServiceException{
         ErrorResponse errorResponse = ErrorResponse.builder()
                                                     .errors(new ArrayList<>())
                                                     .build();
@@ -83,8 +96,9 @@ public class LeagueStandingsController {
                                     .reason("request body")
                                     .message("Invalid season or league.")
                                     .build());
-
-        throw new ServiceException(HttpStatus.BAD_REQUEST, errorResponse.getErrors());
+        ServiceException exception =  new ServiceException(HttpStatus.BAD_REQUEST, errorResponse.getErrors());
+        observation.error(exception);
+        throw exception;
     }
 
 }
