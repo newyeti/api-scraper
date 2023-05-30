@@ -203,7 +203,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      #- ./prometheus/data:/prometheus
+      - prometheus_data:/prometheus
     command: 
       - "--config.file=/etc/prometheus/prometheus.yml"
     networks:
@@ -223,17 +223,20 @@ services:
       - monitoring-network
 
   grafana:
-    image: grafana/grafana-oss:9.5.1
+    image: grafana/grafana
+    user: "472"
     container_name: grafana
     restart: always
     ports:
       - "3000:3000"
-    links:
-      - prometheus:prometheus
     volumes:
-      - ./grafana:/home/gitpod
+      - grafana_data:/var/lib/grafana/
+      - ./grafana/provisioning:/etc/grafana/provisioning
     networks:
       - monitoring-network
+    depends_on:
+      - prometheus
+      - loki
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=password
@@ -266,6 +269,10 @@ services:
       - SPRING_APPLICATION_JSON={"logging.level.org.springframework.cloud.gateway":"DEBUG","logging.level.org.springframework.boot.autoconfigure.web":"DEBUG", "logging.level.web":"DEBUG"}
       - SPRING_PROFILES_ACTIVE=docker
     
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+
 networks:
   infra-network:
     driver: bridge
