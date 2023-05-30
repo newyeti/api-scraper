@@ -1,3 +1,14 @@
+x-logging: &default-logging
+  driver: loki
+  options:
+    loki-url: 'http://localhost:3100/api/prom/push'
+    loki-pipeline-stages: |
+      - multiline:
+          firstline: '^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}'
+          max_wait_time: 3s
+      - regex:
+          expression: '^(?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}:\d{2}.\d{3}) (?P<message>(?s:.*))$$'
+
 version: '3.9'
 
 services:
@@ -172,12 +183,22 @@ services:
       - config-server
       - keycloak
       - zipkin
-    
+  
+  # Observability
+
+  loki:
+    image: grafana/loki:2.8.0
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - monitoring-network
+
   ## Prometheus
   prometheus:
     image: prom/prometheus:v2.37.7
     container_name: prometheus
-    restart: unless-stopped
+    restart: always
     ports:
       - "9090:9090"
     volumes:
@@ -190,11 +211,21 @@ services:
     depends_on:
       - api-gateway
       - beakon
+      - loki
+    #logging: *default-logging
+
+  promtail:
+    image: grafana/promtail:2.8.0
+    volumes:
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - monitoring-network
 
   grafana:
     image: grafana/grafana-oss:9.5.1
     container_name: grafana
-    restart: unless-stopped
+    restart: always
     ports:
       - "3000:3000"
     links:
@@ -206,7 +237,11 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=password
-
+      - GF_AUTH_ANONYMOUS_ENABLED="true"
+      - GF_AUTH_ANONYMOUS_ORG_ROLE="Admin"
+      - GF_AUTH_DISABLE_LOGIN_FORM="true"
+    #logging: *default-logging
+    
   ## Applications
 
   beakon:
