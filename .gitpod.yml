@@ -15,6 +15,11 @@ tasks:
       EUREKA_PASSWORD: password
     command: 
       export DISCOVERY_SERVER_HOSTNAME=https://8761-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
+  
+  - name: Configure
+    init: |
+      mkdir -p /var/lib/grafana/plugins
+      chmod -R 775 /var/lib/grafana
    
 image:
   file: .gitpod.Dockerfile
