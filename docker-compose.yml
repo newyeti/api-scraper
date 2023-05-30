@@ -164,14 +164,15 @@ services:
       - CONFIG_SERVER_TIMEOUT=300
       - DISCOVERY_SERVER_HOSTNAME=${DISCOVERY_SERVER_HOSTNAME}
     pull_policy: always
+    networks:
+      - infra-network
+      - monitoring-network
     depends_on:
       - discovery-server
       - config-server
       - keycloak
       - zipkin
-    networks:
-      - infra-network
-
+    
   ## Prometheus
   prometheus:
     image: prom/prometheus:v2.37.7
@@ -181,8 +182,11 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring-network
     depends_on:
       - api-gateway
+      - beakon
 
   grafana:
     image: grafana/grafana-oss:9.5.1
@@ -194,6 +198,8 @@ services:
       - prometheus:prometheus
     volumes:
       - ./grafana:/var/lib/grafana
+    networks:
+      - monitoring-network
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=password
@@ -209,6 +215,7 @@ services:
       - "4000:4000"
     networks:
       - infra-network
+      - monitoring-network
     depends_on:
       - config-server
       - api-gateway
@@ -223,4 +230,6 @@ services:
     
 networks:
   infra-network:
+    driver: bridge
+  monitoring-network:
     driver: bridge
