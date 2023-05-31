@@ -221,7 +221,7 @@ services:
     ports:
       - "14250:14250"
       - "4317:4317"
-      - "9411:9411" #zipkin
+      # - "9411:9411" #zipkin
     networks:
       - monitoring-network
       - infra-network
@@ -267,7 +267,6 @@ services:
     depends_on:
       - config-server
       - api-gateway
-
     environment:
       - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
       - CONFIG_SERVER_URI=http://config-server
