@@ -55,6 +55,12 @@ management:
           server:
             requests: true
 
+logging:
+  pattern:
+    level: "%5p app_name=[${spring.application.name:} trace_id=%X{trace_id:-} span_id=%X{span_id:-} trace_flags=%mdc{trace_flags} %p]"
+  level:
+    com.example.app: DEBUG
+
 ---
 
 spring:
@@ -91,7 +97,7 @@ spring:
 
 logging:
   pattern:
-    level: "trace_id=%mdc{trace_id} span_id=%mdc{span_id} trace_flags=%mdc{trace_flags} %p"
+    level: "trace_id=%X{trace_id:-} span_id=%X{span_id:-} trace_flags=%mdc{trace_flags} %p"
   level:
     com.example.app: INFO
 
@@ -99,16 +105,3 @@ app:
   kafka:
     send:
       enabled: true
-
-# --- 
-
-# spring:
-#   config:
-#     activate:
-#       on-profile:
-#       - test
-
-# app:
-#   kafka:
-#     send:
-#       enabled: true
