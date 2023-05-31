@@ -188,6 +188,7 @@ services:
 
   loki:
     image: grafana/loki:2.8.0
+    container_name: loki
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
@@ -209,18 +210,27 @@ services:
     networks:
       - monitoring-network
     depends_on:
-      - api-gateway
-      - beakon
       - loki
     #logging: *default-logging
 
   promtail:
     image: grafana/promtail:2.8.0
+    container_name: promtail
     volumes:
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
     networks:
       - monitoring-network
+  
+  tempo:
+    image: grafana/tempo:2.0.1
+    container_name: tempo
+    command: [ "--target=all", "--storage.trace.backend=local", "--storage.trace.local.path=/var/tempo", "--auth.enabled=false" ]
+    ports:
+      - "14250:14250"
+      - "4317:4317"
+    depends_on:
+      - loki
 
   grafana:
     image: grafana/grafana
@@ -260,6 +270,7 @@ services:
     depends_on:
       - config-server
       - api-gateway
+
     environment:
       - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
       - CONFIG_SERVER_URI=http://config-server
@@ -268,6 +279,11 @@ services:
       - DISCOVERY_SERVER_HOSTNAME=${DISCOVERY_SERVER_HOSTNAME}
       - SPRING_APPLICATION_JSON={"logging.level.org.springframework.cloud.gateway":"DEBUG","logging.level.org.springframework.boot.autoconfigure.web":"DEBUG", "logging.level.web":"DEBUG"}
       - SPRING_PROFILES_ACTIVE=docker
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=beakon,compose_service=beakon
+      - OTEL_METRICS_EXPORTER=none
+      - MANAGEMENT_METRICS_TAGS_APPLICATION=beakon
+    logging: *default-logging
     
 volumes:
     prometheus_data: {}
