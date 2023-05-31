@@ -17,23 +17,23 @@ public class SimpleLoggingHandler implements ObservationHandler<Observation.Cont
 
     @Override
     public void onStart(Observation.Context context) {
-        log.info("Starting " + context.getName());
+        log.debug("Starting " + context.getName());
         context.put("time", System.currentTimeMillis());
     }
 
     @Override
     public void onScopeOpened(Observation.Context context) {
-        log.info("Scope opened  " + context.getName());
+        log.debug("Scope opened  " + context.getName());
     }
 
     @Override
     public void onScopeClosed(Observation.Context context) {
-        log.info("Scope closed " + context.getName());
+        log.debug("Scope closed " + context.getName());
     }
 
     @Override
     public void onStop(Observation.Context context) {
-      log.info(
+      log.debug(
           "Stopping "
               + context.getName()
               + " duration "
