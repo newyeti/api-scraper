@@ -24,6 +24,7 @@ import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.observation.annotation.Observed;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,16 +44,13 @@ public class LeagueStandingsController {
     private final AppConfig appConfig;
     private final KafkaConfig kafkaConfig;
     private final LeagueStandingAppService leagueStandingsAppService;
-    private final ObservationRegistry observationRegistry;
 
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    @Observed(name = "controller.standings.pull")
     public ResponseDto pullData(@Valid @RequestBody RequestDto requestDto) {
-        Observation observation = Observation.createNotStarted("controller.standings.pull", observationRegistry);
-
-        try {
-            observation.start();
-            ApiResponseDto result = httpClient
+        
+        ApiResponseDto result = httpClient
             .get(uriBuilder -> uriBuilder
             .path("/standings")
             .queryParam("season", requestDto.getSeason())
@@ -71,22 +69,15 @@ public class LeagueStandingsController {
                 }
             } else {
                 log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
-                handleError(observation);
+                handleError();
             }
 
             return ResponseDto.builder()
                 .status("success")
                 .build();
-        } catch(RuntimeException ex){
-            observation.error(ex);
-            observation.stop();
-            throw ex;
-        } finally {
-            observation.stop();
-        }
     }
 
-    private void handleError(Observation observation) throws ServiceException{
+    private void handleError() throws ServiceException{
         ErrorResponse errorResponse = ErrorResponse.builder()
                                                     .errors(new ArrayList<>())
                                                     .build();
@@ -96,9 +87,7 @@ public class LeagueStandingsController {
                                     .reason("request body")
                                     .message("Invalid season or league.")
                                     .build());
-        ServiceException exception =  new ServiceException(HttpStatus.BAD_REQUEST, errorResponse.getErrors());
-        observation.error(exception);
-        throw exception;
+        throw  new ServiceException(HttpStatus.BAD_REQUEST, errorResponse.getErrors());
     }
 
 }

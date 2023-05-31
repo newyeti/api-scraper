@@ -11,5 +11,5 @@ public class AppConfig {
     
     @Value("${app.kafka.send.enabled}")
     private boolean isKafkaSendEnabled;
-
+    
 }

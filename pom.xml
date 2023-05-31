@@ -31,6 +31,7 @@
     <lombok-mapstruct-binding>0.2.0</lombok-mapstruct-binding>
     <okhttp.version>4.11.0</okhttp.version>
     <testcontainers.version>1.18.1</testcontainers.version>
+    <grafana.loki.version>1.4.1</grafana.loki.version>
   </properties>
 
   <modules>
@@ -137,6 +138,11 @@
         <groupId>com.squareup.okhttp3</groupId>
         <artifactId>mockwebserver</artifactId>
         <version>${okhttp.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>com.github.loki4j</groupId>
+          <artifactId>loki-logback-appender</artifactId>
+          <version>${grafana.loki.version}</version>
       </dependency>
       <dependency>
           <groupId>org.testcontainers</groupId>
