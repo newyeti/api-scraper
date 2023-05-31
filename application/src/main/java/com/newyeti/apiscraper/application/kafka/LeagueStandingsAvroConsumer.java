@@ -4,6 +4,7 @@ import java.util.concurrent.CountDownLatch;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 @Data
+@Profile("docker")
 public class LeagueStandingsAvroConsumer implements AvroConsumer<String, League>{
 
     private CountDownLatch latch = new CountDownLatch(1);
