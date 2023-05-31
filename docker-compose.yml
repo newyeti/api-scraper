@@ -251,6 +251,15 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE="Admin"
       - GF_AUTH_DISABLE_LOGIN_FORM="true"
     logging: *default-logging
+
+  # zipkin:
+  #   image: openzipkin/zipkin
+  #   container_name: zipkin
+  #   ports:
+  #     - 9411:9411
+  #   networks:
+  #     - infra-network
+  #     - monitoring-network
     
   ## Applications
 
