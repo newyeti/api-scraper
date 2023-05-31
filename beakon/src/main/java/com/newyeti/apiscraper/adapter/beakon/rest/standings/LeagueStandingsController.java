@@ -44,37 +44,48 @@ public class LeagueStandingsController {
     private final AppConfig appConfig;
     private final KafkaConfig kafkaConfig;
     private final LeagueStandingAppService leagueStandingsAppService;
+    private final ObservationRegistry observationRegistry;
 
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @Observed(name = "controller.standings.pull")
+    @Observed(name = "controller.standings.pull", 
+        contextualName = "pulling-standings-data",
+        lowCardinalityKeyValues = {"api", "standings", "action", "pull"})
     public ResponseDto pullData(@Valid @RequestBody RequestDto requestDto) {
         
-        ApiResponseDto result = httpClient
-            .get(uriBuilder -> uriBuilder
-            .path("/standings")
-            .queryParam("season", requestDto.getSeason())
-            .queryParam("league", requestDto.getLeague())
-            .build(), ApiResponseDto.class)
-            .block();
+        ApiResponseDto result = callApi(requestDto);
             
-            if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
-                log.info("API Call: GET request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
-                ApiResponseDto.Response response = result.getResponse().get(0);
-                League league = leagueMapper.toLeague(response.getLeague());
+        if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
+            log.info("API Call: GET request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
+            ApiResponseDto.Response response = result.getResponse().get(0);
+            League league = leagueMapper.toLeague(response.getLeague());
 
-                if(appConfig.isKafkaSendEnabled()) {
-                    log.debug("Kafka Call: Sending API response to Kafka topic.");
-                    leagueStandingsAppService.send(kafkaConfig.getStandingsTopic(), league);
-                }
-            } else {
-                log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
-                handleError();
+            if(appConfig.isKafkaSendEnabled()) {
+                log.debug("Kafka Call: Sending API response to Kafka topic.");
+                leagueStandingsAppService.send(kafkaConfig.getStandingsTopic(), league);
             }
+        } else {
+            log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
+            handleError();
+        }
 
-            return ResponseDto.builder()
-                .status("success")
-                .build();
+        return ResponseDto.builder()
+            .status("success")
+            .build();
+    }
+
+    public ApiResponseDto callApi(RequestDto requestDto) {
+        return Observation.createNotStarted("league.standings.api", observationRegistry)
+            .contextualName("league-standings-external-api-call")
+            .observe( () -> {
+                 return httpClient
+                    .get(uriBuilder -> uriBuilder
+                    .path("/standings")
+                    .queryParam("season", requestDto.getSeason())
+                    .queryParam("league", requestDto.getLeague())
+                    .build(), ApiResponseDto.class)
+                    .block();
+            });
     }
 
     private void handleError() throws ServiceException{
@@ -87,7 +98,7 @@ public class LeagueStandingsController {
                                     .reason("request body")
                                     .message("Invalid season or league.")
                                     .build());
-        throw  new ServiceException(HttpStatus.BAD_REQUEST, errorResponse.getErrors());
+        throw new ServiceException(HttpStatus.BAD_REQUEST, errorResponse.getErrors());
     }
 
 }
