@@ -16,9 +16,9 @@ tasks:
     command: 
       export DISCOVERY_SERVER_HOSTNAME=https://8761-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
   
-  # - name: Docker plugins
-  #   command: 
-  #     docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
+  - name: Docker plugins
+    command: 
+      docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
      
 image:
   file: .gitpod.Dockerfile

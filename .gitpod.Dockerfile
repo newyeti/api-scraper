@@ -4,5 +4,4 @@ USER gitpod
 
 RUN bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh && \
     sdk install java 17.0.3-ms && \
-    sdk default java 17.0.3-ms && \
-    docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions"
+    sdk default java 17.0.3-ms"
