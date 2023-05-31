@@ -130,13 +130,6 @@ services:
       - keycloak-mysql
     networks:
       - infra-network
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
-    ports:
-      - 9411:9411
-    networks:
-      - infra-network
 
   discovery-server:
     container_name: newyeti-discovery-server
@@ -182,7 +175,6 @@ services:
       - discovery-server
       - config-server
       - keycloak
-      - zipkin
   
   # Observability
 
@@ -211,7 +203,7 @@ services:
       - monitoring-network
     depends_on:
       - loki
-    #logging: *default-logging
+    logging: *default-logging
 
   promtail:
     image: grafana/promtail:2.8.0
@@ -229,8 +221,13 @@ services:
     ports:
       - "14250:14250"
       - "4317:4317"
+      - "9411:9411" #zipkin
+    networks:
+      - monitoring-network
+      - infra-network
     depends_on:
       - loki
+    logging: *default-logging
 
   grafana:
     image: grafana/grafana
@@ -253,7 +250,7 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED="true"
       - GF_AUTH_ANONYMOUS_ORG_ROLE="Admin"
       - GF_AUTH_DISABLE_LOGIN_FORM="true"
-    #logging: *default-logging
+    logging: *default-logging
     
   ## Applications
 
