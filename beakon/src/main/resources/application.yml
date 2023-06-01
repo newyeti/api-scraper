@@ -85,19 +85,32 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
-  management:
-    metrics:
-      tags:
-        application: beakon
-      distribution:
-        percentiles-histogram:
-          http:
-            server:
-              requests: 'true'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    tags:
+      application: beakon
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: 'true'
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+  jaeger:
+    tracing:
+      endpoint: http://jaeger:14250/api/traces
 
 logging:
   pattern:
-    level: "trace_id=%X{trace_id:-} span_id=%X{span_id:-} trace_flags=%mdc{trace_flags} %p"
+    level: "trace_id=%mdc{trace_id:-} span_id=%mdc{span_id:-} trace_flags=%mdc{trace_flags} %p"
   level:
     com.example.app: INFO
 
