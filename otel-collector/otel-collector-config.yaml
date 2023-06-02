@@ -1,40 +1,35 @@
 receivers:
   otlp:
     protocols:
-      grpc:
-  zipkin:
+      grpc: 
+        endpoint: collector:5555
+      http:
 exporters:
-  jaeger:
-    endpoint: jaeger:14250
+  # prometheus:
+  #   endpoint: collector:6666
+  #   enable_open_metrics: true
+  #   namespace: default
+  logging:
+    loglevel: info
+  otlp:
+    endpoint: tempo:4317
     tls:
       insecure: true
-  zipkin:
-    endpoint: "http://zipkin:9411/api/v2/spans"
-  prometheus:
-    endpoint: "0.0.0.0:9464"
-    resource_to_telemetry_conversion:
-      enabled: true
-    enable_open_metrics: true
-  logging:
-    loglevel: debug
+  # logging:
+  #   loglevel: debug
+
 processors:
   batch:
-    send_batch_size: 1
-  resource:
-    attributes:
-      - key: tas.org
-        value: Team
-        action: insert
-      - key: tas.env
-        value: QA
-        action: insert
+    timeout: 1s
+    send_batch_size: 1024
+
 service:
   pipelines:
     traces:
-      receivers: [ otlp,zipkin ]
-      processors: [ resource,batch ]
-      exporters: [ jaeger,zipkin,logging ]
-    metrics:
       receivers: [ otlp ]
-      processors: [ resource,batch ]
-      exporters: [ prometheus,logging ]
+      processors: [ batch ]
+      exporters: [ logging, otlp ]
+    # metrics:
+    #   receivers: [ otlp ]
+    #   processors: [ batch ]
+    #   exporters: [ prometheus ]

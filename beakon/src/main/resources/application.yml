@@ -101,12 +101,12 @@ management:
         http:
           server:
             requests: 'true'
-  zipkin:
-    tracing:
-      endpoint: http://zipkin:9411/api/v2/spans
-  jaeger:
-    tracing:
-      endpoint: http://jaeger:14250/api/traces
+  # zipkin:
+  #   tracing:
+  #     endpoint: http://zipkin:9411/api/v2/spans
+  # jaeger:
+  #   tracing:
+  #     endpoint: http://jaeger:14250/api/traces
 
 logging:
   pattern:
