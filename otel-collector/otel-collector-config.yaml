@@ -1,22 +1,18 @@
 receivers:
   otlp:
     protocols:
-      grpc: 
-        endpoint: collector:5555
+      grpc:
+        endpoint: collector:4317
       http:
+        endpoint: collector:4318
+
 exporters:
-  # prometheus:
-  #   endpoint: collector:6666
-  #   enable_open_metrics: true
-  #   namespace: default
   logging:
     loglevel: info
   otlp:
     endpoint: tempo:4317
     tls:
       insecure: true
-  # logging:
-  #   loglevel: debug
 
 processors:
   batch:
