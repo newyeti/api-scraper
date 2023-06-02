@@ -49,7 +49,7 @@ public class LeagueStandingsController {
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @Observed(name = "controller.standings.pull", 
-        contextualName = "pulling-standings-data",
+        contextualName = "controller.standings.pull",
         lowCardinalityKeyValues = {"api", "standings", "action", "pull"})
     public ResponseDto pullData(@Valid @RequestBody RequestDto requestDto) {
         
