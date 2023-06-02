@@ -956,8 +956,8 @@
       {
         "current": {
           "selected": true,
-          "text": "Beakon",
-          "value": "beakon"
+          "text": "Beakon Service",
+          "value": "beakon-service"
         },
         "datasource": {
           "type": "prometheus",
