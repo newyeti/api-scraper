@@ -25,6 +25,7 @@ import com.newyeti.apiscraper.domain.model.avro.schema.League;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
 import io.micrometer.observation.annotation.Observed;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -74,6 +75,7 @@ public class LeagueStandingsController {
             .build();
     }
 
+    @WithSpan
     public ApiResponseDto callApi(RequestDto requestDto) {
         return Observation.createNotStarted("league.standings.api", observationRegistry)
             .contextualName("league-standings-external-api-call")
@@ -88,6 +90,7 @@ public class LeagueStandingsController {
             });
     }
 
+    @WithSpan
     private void handleError() throws ServiceException{
         ErrorResponse errorResponse = ErrorResponse.builder()
                                                     .errors(new ArrayList<>())
