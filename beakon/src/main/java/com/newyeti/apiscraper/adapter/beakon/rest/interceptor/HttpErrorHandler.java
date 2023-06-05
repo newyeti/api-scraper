@@ -42,12 +42,12 @@ public class HttpErrorHandler {
         log.error("internal server error", exception);
         List<Error> errors = new ArrayList<>();
         errors.add(Error.builder()
-            .code(String.valueOf(HttpStatus.I_AM_A_TEAPOT.value()))
+            .code(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()))
             .reason("request")
-            .message("request ignored by server")
+            .message("internal server error")
             .build());
         
-        return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT.value())
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                                 .body(ErrorResponse.builder()
                                 .errors(errors)
                                 .build());

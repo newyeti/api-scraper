@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 17175,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -352,7 +352,7 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 10,
+        "w": 8,
         "x": 4,
         "y": 6
       },
@@ -385,6 +385,100 @@
         }
       ],
       "title": "Percent of 2xx Requests",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 12,
+        "y": 6
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum by(uri) (http_server_requests_seconds_count{exported_application=\"beakon-service\", status=~\"4.*\", uri!=\"/actuator/prometheus\"}) / sum by(uri) (http_server_requests_seconds_count{exported_application=\"beakon-service\", uri!=\"/actuator/prometheus\"})",
+          "interval": "",
+          "key": "Q-00be6b0f-199c-4fc8-ab4d-c11c88df4526-0",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Percent of 4xx Requests",
       "type": "timeseries"
     },
     {
@@ -448,8 +542,8 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 10,
-        "x": 14,
+        "w": 5,
+        "x": 19,
         "y": 6
       },
       "id": 20,
@@ -898,7 +992,7 @@
             "uid": "loki"
           },
           "editorMode": "code",
-          "expr": "sum by(type) (rate({compose_service=~\"$app_name\"} | pattern `<date> <time> <_>=<trace_id> <_>=<span_id> <_>=<trace_flags> <type> <_> --- <msg>` | type != \"\" |= \"$log_keyword\" [1m]))",
+          "expr": "sum by(type) (rate({compose_service=~\"$app_name\"} | pattern `<date>T<time>Z <_>=<trace_id> <_>=<span_id> <_>=<trace_flags> <type> <_> --- <msg>` | type != \"\" |= \"$log_keyword\" [1m]))",
           "legendFormat": "{{type}}",
           "queryType": "range",
           "refId": "A"
@@ -937,7 +1031,7 @@
             "uid": "loki"
           },
           "editorMode": "code",
-          "expr": "{compose_service=~\"$app_name\"} | pattern `<date> <time> <_>=<trace_id> <_>=<span_id> <_>=<trace_flags> <type> <_> --- <msg>` | line_format \"{{.compose_service}}\\t{{.type}}\\ttrace_id={{.trace_id}}\\t{{.msg}}\" | trace_id != \"\" |= \"$log_keyword\"",
+          "expr": "{compose_service=~\"$app_name\"} | pattern `<date>T<time>Z <_>=<trace_id> <_>=<span_id> <_>=<trace_flags> <type> <_> --- <msg>` | line_format \"{{.data}}T{{.time}}Z\\t{{.type}}\\ttrace_id={{.trace_id}}\\t{{.span_id}}\\t{{.msg}}\" | trace_id != \"\" |= \"$log_keyword\"",
           "hide": false,
           "queryType": "range",
           "refId": "A"
@@ -955,8 +1049,8 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "Beakon Service",
+          "selected": false,
+          "text": "beakon-service",
           "value": "beakon-service"
         },
         "datasource": {
@@ -1004,13 +1098,13 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Application Observability",
   "uid": "dLsDQIUnzb",
-  "version": 1,
+  "version": 16,
   "weekStart": ""
 }

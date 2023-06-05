@@ -82,12 +82,12 @@ public class LeagueStandingsControllerTest {
     }
 
     @Test
-    public void givenInvalidRequestBody_whenComsumed_thenReturn418() throws Exception {
+    public void givenInvalidRequestBody_whenComsumed_thenReturn500() throws Exception {
       mockMvc.perform(post("/standings/pull")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(RequestDto.builder()
             .league("").season("").build())))
-        .andExpect(status().isIAmATeapot());
+        .andExpect(status().is5xxServerError());
     }
 
     @Test
