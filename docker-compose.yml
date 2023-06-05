@@ -251,19 +251,10 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE="Admin"
       - GF_AUTH_DISABLE_LOGIN_FORM="true"
     logging: *default-logging
-
-  # zipkin:
-  #   image: openzipkin/zipkin
-  #   container_name: zipkin
-  #   ports:
-  #     - 9411:9411
-  #   networks:
-  #     - infra-network
-  #     - monitoring-network
     
   ## Applications
 
-  beakon:
+  beakon-service:
     container_name: beakon-service 
     image: sachindramaharjan/newyeti-apiscraper-beakon:latest
     pull_policy: always
@@ -285,7 +276,7 @@ services:
       - SPRING_APPLICATION_JSON={"logging.level.org.springframework.cloud.gateway":"DEBUG","logging.level.org.springframework.boot.autoconfigure.web":"DEBUG", "logging.level.web":"DEBUG"}
       - SPRING_PROFILES_ACTIVE=docker
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
-      - OTEL_RESOURCE_ATTRIBUTES=service.name=beakon,compose_service=beakon
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=beakon-service,compose_service=beakon-service
       - OTEL_METRICS_EXPORTER=none
       - MANAGEMENT_METRICS_TAGS_APPLICATION=beakon
     logging: *default-logging
