@@ -32,7 +32,7 @@ public class HttpClient {
                         case 401, 403 -> Mono.error(new ApiException(HttpStatus.UNAUTHORIZED, uriFunction.toString(), "auth error"));
                         case 404 -> Mono.error(new ApiException(HttpStatus.NOT_FOUND, uriFunction.toString(), "not found"));
                         case 500 -> Mono.error(new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "server error"));
-                        default -> Mono.error(new ServiceException(HttpStatus.I_AM_A_TEAPOT, "something went wrong"));
+                        default -> Mono.error(new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "something went wrong"));
                     })
                 .bodyToMono(classz)
                 .onErrorMap(Throwable.class, throwble -> throwble)

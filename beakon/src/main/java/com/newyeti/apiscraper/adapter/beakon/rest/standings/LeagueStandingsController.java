@@ -92,12 +92,12 @@ public class LeagueStandingsController {
         ErrorResponse errorResponse = ErrorResponse.builder()
                                                     .errors(new ArrayList<>())
                                                     .build();
-                errorResponse.getErrors().add(Error.builder()
-                                    .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
-                                    .source(new Error.Source("league/season"))
-                                    .reason("request body")
-                                    .message("Invalid season or league.")
-                                    .build());
+        errorResponse.getErrors().add(Error.builder()
+                            .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+                            .source(new Error.Source("league/season"))
+                            .reason("request body")
+                            .message("Invalid season or league.")
+                            .build());
         throw new ServiceException(HttpStatus.BAD_REQUEST, errorResponse.getErrors());
     }
 
