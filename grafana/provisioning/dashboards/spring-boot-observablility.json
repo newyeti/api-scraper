@@ -280,7 +280,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(http_server_requests_seconds_count{application=\"$app_name\", outcome=\"SERVER_ERROR\"})",
+          "expr": "sum(http_server_requests_seconds_count{application=\"$app_name\", outcome=\"CLIENT_ERROR\"})",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -957,7 +957,7 @@
         "current": {
           "selected": true,
           "text": "Beakon",
-          "value": "beakon"
+          "value": "beakon-service"
         },
         "datasource": {
           "type": "prometheus",
