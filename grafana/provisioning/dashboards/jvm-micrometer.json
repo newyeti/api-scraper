@@ -3225,7 +3225,7 @@
           "current": {
             "selected": false,
             "text": "API Gategay",
-            "value": "API Gategay"
+            "value": "api-gateway"
           },
           "datasource": {
             "type": "prometheus",
