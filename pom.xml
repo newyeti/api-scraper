@@ -32,12 +32,16 @@
     <okhttp.version>4.11.0</okhttp.version>
     <testcontainers.version>1.18.1</testcontainers.version>
     <grafana.loki.version>1.4.1</grafana.loki.version>
+    <otel.api.version>1.26.0</otel.api.version>
+    <otel.api.trace.version>0.13.1</otel.api.trace.version>
+    <otel.api.metrics.version>1.10.0-alpha-rc.1</otel.api.metrics.version>
   </properties>
 
   <modules>
     <module>domain</module>
     <module>application</module>
     <module>beakon</module>
+    <module>injester</module>
   </modules>
   
   <dependencyManagement>
@@ -123,6 +127,26 @@
           <groupId>com.github.loki4j</groupId>
           <artifactId>loki-logback-appender</artifactId>
           <version>${grafana.loki.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>io.opentelemetry</groupId>
+          <artifactId>opentelemetry-api</artifactId>
+          <version>${otel.api.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>io.opentelemetry.instrumentation</groupId>
+          <artifactId>opentelemetry-instrumentation-annotations</artifactId>
+          <version>${otel.api.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>io.opentelemetry</groupId>
+          <artifactId>opentelemetry-api-trace</artifactId>
+          <version>${otel.api.trace.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>io.opentelemetry</groupId>
+          <artifactId>opentelemetry-api-metrics</artifactId>
+          <version>${otel.api.metrics.version}</version>
       </dependency>
       <dependency>
           <groupId>org.testcontainers</groupId>
