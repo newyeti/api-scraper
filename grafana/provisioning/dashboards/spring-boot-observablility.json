@@ -956,11 +956,7 @@
       {
         "current": {
           "selected": true,
-<<<<<<< HEAD
-          "text": "Beakon",
-=======
           "text": "Beakon Service",
->>>>>>> a45e91553f05ccfc2ae397b5b3ad34b51316a897
           "value": "beakon-service"
         },
         "datasource": {
