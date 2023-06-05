@@ -943,7 +943,7 @@
           "refId": "A"
         }
       ],
-      "title": "Log of All Spring Boot Apps",
+      "title": "Log of $app_name",
       "type": "logs"
     }
   ],
@@ -1009,7 +1009,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Spring Boot Application Observability",
+  "title": "Application Observability",
   "uid": "dLsDQIUnzb",
   "version": 1,
   "weekStart": ""
