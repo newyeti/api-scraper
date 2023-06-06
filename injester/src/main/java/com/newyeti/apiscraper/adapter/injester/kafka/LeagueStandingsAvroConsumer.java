@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.application.kafka;
+package com.newyeti.apiscraper.adapter.injester.kafka;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import com.newyeti.apiscraper.application.kafka.AvroConsumer;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
 import lombok.Data;
