@@ -153,7 +153,7 @@
 				<version>3.3.1</version>
 				<configuration>
 					<from>
-						<image>sachindramaharjan/jre-alpine-curl:19.0.2_7-jre-alpine</image>
+						<image>sachindramaharjan/eclipse-jre-alpine-17:v1</image>
 					</from>
 					<to>
 						<image>registry.hub.docker.com/sachindramaharjan/newyeti-apiscraper-${project.artifactId}</image>

@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.application.kafka;
+package com.newyeti.apiscraper.adapter.injester.kafka;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.springframework.kafka.listener.ConsumerAwareListenerErrorHandler;
