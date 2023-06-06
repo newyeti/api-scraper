@@ -4,6 +4,10 @@ import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
 public interface LeagueStandingsServicePort {
     
-    void send(String topic, League league);
+    void sendToKafkaTopic(String topic, League league);
+
+    void saveToDb(League league);
+
+    League findByLeagueIdAndSeason(int leagueId, int season);
 
 }

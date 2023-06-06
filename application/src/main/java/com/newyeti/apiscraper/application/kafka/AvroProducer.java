@@ -8,7 +8,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 
-import com.newyeti.apiscraper.domain.port.api.spi.kafka.AvroProducerPort;
+import com.newyeti.apiscraper.domain.port.spi.kafka.AvroProducerPort;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
