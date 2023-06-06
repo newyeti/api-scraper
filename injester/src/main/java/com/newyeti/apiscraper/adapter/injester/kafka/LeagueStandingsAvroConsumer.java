@@ -8,9 +8,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import com.newyeti.apiscraper.application.kafka.AvroConsumer;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.port.api.spi.kafka.AvroConsumerPort;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Data
 @Profile("docker")
-public class LeagueStandingsAvroConsumer implements AvroConsumer<String, League>{
+public class LeagueStandingsAvroConsumer implements AvroConsumerPort<String, League>{
 
     private CountDownLatch latch = new CountDownLatch(1);
     private Object payload;
@@ -27,6 +28,7 @@ public class LeagueStandingsAvroConsumer implements AvroConsumer<String, League>
     private String topic;
 
     @KafkaListener(topics = "${avro.topic.standings}", groupId = "league-standings", errorHandler = "avroConsumerErrorHandler")
+    @WithSpan
     public void receive(ConsumerRecord<String, League> consumerRecord) {
         log.info("received payload from topic={}", topic);
         payload = consumerRecord.value();

@@ -33,7 +33,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import com.newyeti.apiscraper.application.kafka.AvroConsumerErrorHandler;
 import com.newyeti.apiscraper.application.kafka.AvroProducer;
 import com.newyeti.apiscraper.application.kafka.CustomKafkaAvroDeserializer;
 import com.newyeti.apiscraper.application.kafka.CustomKafkaAvroSerializer;
