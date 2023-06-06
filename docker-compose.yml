@@ -131,6 +131,22 @@ services:
     networks:
       - infra-network
 
+  # Database
+  mongodb:
+    container_name: mongodb
+    image: mongo:6.0.4-focal
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    volumes:
+      - ./data/mongodb:/data/db
+    networks:
+      - db-network
+    restart: always
+
+  # Cloud
+
   discovery-server:
     container_name: newyeti-discovery-server
     image: sachindramaharjan/newyeti-discovery-server:latest
@@ -285,6 +301,7 @@ services:
     depends_on:
       - config-server
       - api-gateway
+      - collector
     environment:
       - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
       - CONFIG_SERVER_URI=http://config-server
@@ -311,9 +328,12 @@ services:
     networks:
       - infra-network
       - monitoring-network
+      - db-network
     depends_on:
       - config-server
       - api-gateway
+      - mongodb
+      - collector
     environment:
       - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
       - CONFIG_SERVER_URI=http://config-server
@@ -337,4 +357,6 @@ networks:
   infra-network:
     driver: bridge
   monitoring-network:
+    driver: bridge
+  db-network:
     driver: bridge
