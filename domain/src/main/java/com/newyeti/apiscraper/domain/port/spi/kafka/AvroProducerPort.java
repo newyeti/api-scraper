@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.domain.port.api.spi.kafka;
+package com.newyeti.apiscraper.domain.port.spi.kafka;
 
 public interface AvroProducerPort<T> {
     

@@ -72,9 +72,9 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
-  mongo:
-    host: mongodb
-    port: 27017
+  data:
+    mongodb:
+      uri: mongodb:mongodb:27017/football
 management:
   endpoints:
     web:

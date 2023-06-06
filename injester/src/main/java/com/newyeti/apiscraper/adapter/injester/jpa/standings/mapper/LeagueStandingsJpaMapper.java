@@ -12,4 +12,7 @@ public interface LeagueStandingsJpaMapper {
     @Mapping(target = "leagueId", source = "id")
     LeagueStandingsEntity toLeagueStandingsEntity(League league);
 
+    @Mapping(target = "id", source = "leagueId")
+    League toLeague(LeagueStandingsEntity entity);
+
 }
