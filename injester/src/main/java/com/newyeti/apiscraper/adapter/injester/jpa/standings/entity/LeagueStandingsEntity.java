@@ -1,5 +1,7 @@
 package com.newyeti.apiscraper.adapter.injester.jpa.standings.entity;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -27,5 +29,6 @@ public class LeagueStandingsEntity {
     String logo;
     String flag;
     int season;
+    List<StandingsEntity> standings;
 
 }
