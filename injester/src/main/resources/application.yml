@@ -72,6 +72,9 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
+  mongo:
+    host: mongodb
+    port: 27017
 management:
   endpoints:
     web:
