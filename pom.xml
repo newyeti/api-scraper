@@ -38,10 +38,11 @@
   </properties>
 
   <modules>
+    <module>common</module>
     <module>domain</module>
-    <module>application</module>
-    <module>beakon</module>
-    <module>injester</module>
+    <!-- <module>application</module> -->
+    <!-- <module>beakon</module> -->
+    <!-- <module>injester</module> -->
   </modules>
   
   <dependencyManagement>
