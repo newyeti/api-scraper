@@ -15,7 +15,15 @@
   <name>domain</name>
 
   <dependencies>
+
+    <!-- Internal Dependencies -->
     <dependency>
+      <groupId>com.newyeti.apiscraper</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+
+    <!-- External Dependencies -->
+    <dependency>  
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>

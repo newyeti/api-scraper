@@ -50,6 +50,11 @@
       <!-- Internal Dependencies -->
       <dependency>
         <groupId>com.newyeti.apiscraper</groupId>
+        <artifactId>common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.newyeti.apiscraper</groupId>
         <artifactId>domain</artifactId>
         <version>${project.version}</version>
       </dependency>
