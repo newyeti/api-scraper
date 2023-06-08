@@ -1,8 +1,6 @@
 package com.newyeti.apiscraper.domain.services.kafka;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeoutException;
-
 import org.apache.kafka.common.errors.SerializationException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -10,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.newyeti.apiscraper.domain.port.spi.kafka.AvroProducerPort;
 
+import io.micrometer.observation.annotation.Observed;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +21,8 @@ public class AvroProducerService<T> implements AvroProducerPort<T> {
     private final KafkaTemplate<String, T> kafkaTemplate;
 
     @Override
+    @Observed(name = "avro.producer.send", contextualName = "avro-producer-send-service")
+    @WithSpan
     public boolean send(String topic, String id, T obj) {
         log.info("Sending message to kafka topic={}", topic);
         boolean success = true;
@@ -49,6 +51,7 @@ public class AvroProducerService<T> implements AvroProducerPort<T> {
     }
 
     @Override
+    @WithSpan
     public void postSendMessage(boolean status) {
         throw new UnsupportedOperationException("Unimplemented method 'postSendMessage'");
     }

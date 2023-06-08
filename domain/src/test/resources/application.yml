@@ -1,0 +1,3 @@
+avro:
+  topics: apiscraper.standings.avro.topic.v1
+  groupId: api-scraper
