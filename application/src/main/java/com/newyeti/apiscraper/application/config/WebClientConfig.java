@@ -26,10 +26,5 @@ public class WebClientConfig {
                 .defaultHeader("X-RapidAPI-Host", apiClientConfig.getApiHost())
                 ;
     }
-
-    @Bean
-    public HttpClient httpClient() {
-        return new HttpClient(webClientBuilder());
-    }
-
+    
 }
