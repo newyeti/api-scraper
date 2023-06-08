@@ -1,13 +1,16 @@
-package com.newyeti.apiscraper.application.kafka;
+package com.newyeti.apiscraper.domain.services.kafka;
 
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,18 +35,25 @@ import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 
-@SpringBootTest(classes = AvroProducerTest.class)
+@SpringBootTest(classes = AvroConsumerServiceTest.class)
 @ActiveProfiles("test")
-@Import({AvroProducerTest.KafkaTestContainerConfiguration.class, AvroProducer.class })
+@Import({AvroConsumerServiceTest.KafkaTestContainerConfiguration.class, AvroProducerService.class, AvroConsumerService.class, AvroConsumerErrorHandler.class})
 @DirtiesContext
 @Testcontainers
-public class AvroProducerTest {
+public class AvroConsumerServiceTest {
 
     @Container
     public static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.4.0"));
 
     @Autowired
-    private AvroProducer<League> avroProducer;
+    private AvroProducerService<League> avroProducerService;
+    @Autowired
+    private AvroConsumerService<String, League> avroConsumerService;
+
+    @Before
+    public void setup() {
+        avroConsumerService.resetLatch();
+    }
 
     @Test
     public void givenKafkaContainer_whenSendingAvroMessage_thenMessageSent() throws Exception {
@@ -51,7 +61,10 @@ public class AvroProducerTest {
             .setId(100)
             .setName("Premier League")
             .build();
-        avroProducer.send("league.standings.topic.v1", String.valueOf(league.getId()), league);
+        
+        avroProducerService.send("apiscraper.standings.avro.topic.v1", String.valueOf(league.getId()), league);
+        avroConsumerService.getLatch().await(5, TimeUnit.SECONDS);
+        Assertions.assertNotNull(avroConsumerService.getPayload());
     }
 
     @TestConfiguration
@@ -78,7 +91,7 @@ public class AvroProducerTest {
             Map<String, Object> props = new HashMap<>();
             props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
             props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-            props.put(ConsumerConfig.GROUP_ID_CONFIG, "league-standings");
+            props.put(ConsumerConfig.GROUP_ID_CONFIG, "api-scraper");
             props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
             props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, CustomKafkaAvroDeserializer.class);
             props.put("schema.registry.url", "mock://not-used");
@@ -101,10 +114,14 @@ public class AvroProducerTest {
         }
 
         @Bean
-        public AvroProducer<League> avroProducer() {
-            return new AvroProducer<>(kafkaTemplate());
+        public AvroProducerService<League> avroProducer() {
+            return new AvroProducerService<>(kafkaTemplate());
         }
 
+        @Bean
+        public AvroConsumerService<String, League> avroConsumerService() {
+            return new AvroConsumerService<>();
+        }
     }
 
 }
