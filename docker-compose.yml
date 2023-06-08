@@ -288,9 +288,9 @@ services:
 
   ## Applications
 
-  beakon-service:
-    container_name: beakon-service 
-    image: sachindramaharjan/newyeti-apiscraper-beakon:latest
+  apiscraper-service:
+    container_name: apiscraper-service 
+    image: sachindramaharjan/newyeti-apiscraper:latest
     pull_policy: always
     restart: always
     ports:
@@ -310,11 +310,11 @@ services:
       - DISCOVERY_SERVER_HOSTNAME=${DISCOVERY_SERVER_HOSTNAME}
       - SPRING_PROFILES_ACTIVE=docker
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4317
-      - OTEL_RESOURCE_ATTRIBUTES=service.name=beakon-service,compose_service=beakon-service
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=apiscraper-service,compose_service=apiscraper-service
       - OTEL_METRICS_EXPORTER=none
       - OTEL_TRACES_EXPORTER=otlp
       - OTEL_EXPORTER_OTLP_TRACES_INSECURE=true
-      - MANAGEMENT_METRICS_TAGS_APPLICATION=beakon-service
+      - MANAGEMENT_METRICS_TAGS_APPLICATION=apiscraper-service
       #- SPRING_APPLICATION_JSON={"logging.level.org.springframework.cloud.gateway":"DEBUG","logging.level.org.springframework.boot.autoconfigure.web":"DEBUG", "logging.level.web":"DEBUG"}
     logging: *default-logging
   

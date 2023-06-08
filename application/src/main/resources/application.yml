@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: BEAKON-SERVICE
+    name: APISCRAPER-SERVICE
   cloud:
     discovery:
       enabled: false
