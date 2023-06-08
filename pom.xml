@@ -52,6 +52,7 @@
         <groupId>com.newyeti.apiscraper</groupId>
         <artifactId>common</artifactId>
         <version>${project.version}</version>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.newyeti.apiscraper</groupId>
