@@ -34,6 +34,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerService;
 
 @SpringBootTest(classes = AvroConsumerServiceTest.class)
 @ActiveProfiles("test")
