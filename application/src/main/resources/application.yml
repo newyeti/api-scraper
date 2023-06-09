@@ -12,7 +12,8 @@ spring:
 
 avro:
   consumer:
-    topics: apiscraper.standings.avro.topic.v1
+    topics:
+      standings: apiscraper.standings.avro.topic.v1
     groupId: api-scraper
   producer:
     topic:
