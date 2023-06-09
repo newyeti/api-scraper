@@ -17,8 +17,12 @@
 	<dependencies>
 		<!-- Internal Dependencies -->
 		<dependency>
-		<groupId>com.newyeti.apiscraper</groupId>
+			<groupId>com.newyeti.apiscraper</groupId>
 			<artifactId>common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.newyeti.apiscraper</groupId>
+			<artifactId>domain</artifactId>
 		</dependency>
 
 		<!-- External Dependencies -->
@@ -121,6 +125,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<classifier>exec</classifier>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
