@@ -35,6 +35,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerService;
+import com.newyeti.apiscraper.infrastructure.standings.StandingsAvroConsumerService;
 
 @SpringBootTest(classes = AvroConsumerServiceTest.class)
 @ActiveProfiles("test")
@@ -121,7 +122,7 @@ public class AvroConsumerServiceTest {
 
         @Bean
         public AvroConsumerService<String, League> avroConsumerService() {
-            return new AvroConsumerService<>();
+            return new StandingsAvroConsumerService(null, null);
         }
     }
 
