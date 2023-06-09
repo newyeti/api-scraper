@@ -2,6 +2,7 @@ package com.newyeti.apiscraper.infrastructure.kafka;
 
 import java.util.concurrent.CompletableFuture;
 import org.apache.kafka.common.errors.SerializationException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
@@ -20,10 +21,18 @@ public class AvroProducerService<T> implements AvroProducerPort<T> {
 
     private final KafkaTemplate<String, T> kafkaTemplate;
 
+    @Value("${kafka.producer.send.enabled:true}")
+    private boolean sendEnabled;
+
     @Override
-    @Observed(name = "avro.producer.send", contextualName = "avro-producer-send-service")
+    @Observed(name = "kafka.avro.producer.send", contextualName = "avro-producer-send-service")
     @WithSpan
     public boolean send(String topic, String id, T obj) {
+        if (!sendEnabled) {
+            log.info("Kafka Producer - sending message disabled. Please enable propert '{}' to start sending messages", "kafka.producer.send.enabled");
+            return true;
+        }
+
         log.info("Sending message to kafka topic={}", topic);
         boolean success = true;
 
