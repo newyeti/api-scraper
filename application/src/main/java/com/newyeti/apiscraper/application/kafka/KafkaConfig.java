@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 public class KafkaConfig {
 
-    @Value("${avro.topic.standings}")
+    @Value("${avro.producer.topic.standings}")
     private String standingsTopic;
 
     @Bean

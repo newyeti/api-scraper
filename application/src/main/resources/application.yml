@@ -11,8 +11,13 @@ spring:
       enabled: false
 
 avro:
-  topic:
-    standings: "apiscraper.standings.avro.topic.v1"
+  consumer:
+    topics: apiscraper.standings.avro.topic.v1
+    groupId: api-scraper
+  producer:
+    topic:
+      standings: "apiscraper.standings.avro.topic.v1"
+
 
 football-api:
   baseUrl: "https://api-football-v1.p.rapidapi.com/v3"

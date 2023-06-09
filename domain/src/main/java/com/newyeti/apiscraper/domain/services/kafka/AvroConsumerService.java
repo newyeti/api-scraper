@@ -23,8 +23,8 @@ public class AvroConsumerService<K, V> implements AvroConsumerPort<K, V> {
     private V payload;
 
     @Override
-    @KafkaListener(topics = "${avro.topics}", 
-        groupId = "${avro.groupId}", 
+    @KafkaListener(topics = "${avro.consumer.topics}", 
+        groupId = "${avro.consumer.groupId}", 
         errorHandler = "avroConsumerErrorHandler")
     public void receive(ConsumerRecord<K, V> consumerRecord) {
         log.info("received payload from topic={}", consumerRecord.topic());
