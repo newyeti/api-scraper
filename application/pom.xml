@@ -25,6 +25,10 @@
 			<groupId>com.newyeti.apiscraper</groupId>
 			<artifactId>domain</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.newyeti.apiscraper</groupId>
+			<artifactId>infrastructure</artifactId>
+		</dependency>
 
 		<!-- External Dependencies -->
 		<dependency>

@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.domain.services.kafka;
+package com.newyeti.apiscraper.infrastructure.kafka;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.springframework.kafka.listener.ConsumerAwareListenerErrorHandler;

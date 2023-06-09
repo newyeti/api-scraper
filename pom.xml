@@ -40,10 +40,8 @@
   <modules>
     <module>common</module>
     <module>domain</module>
-    <module>application</module>
     <module>infrastructure</module>
-    <!-- <module>beakon</module> -->
-    <!-- <module>injester</module> -->
+    <module>application</module>
   </modules>
   
   <dependencyManagement>
@@ -58,6 +56,11 @@
       <dependency>
         <groupId>com.newyeti.apiscraper</groupId>
         <artifactId>domain</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.newyeti.apiscraper</groupId>
+        <artifactId>infrastructure</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

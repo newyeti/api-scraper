@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.domain.services.kafka;
+package com.newyeti.apiscraper.infrastructure.kafka;
 
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
