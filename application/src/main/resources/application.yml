@@ -25,8 +25,9 @@ football-api:
   apiKeys: 
     - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
 
-app:
-  kafka:
+
+kafka:
+  producer:
     send:
       enabled: false
 

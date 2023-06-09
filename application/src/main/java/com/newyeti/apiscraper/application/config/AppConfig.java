@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class AppConfig {
     
-    @Value("${app.kafka.send.enabled}")
+    @Value("${kafka.producer.send.enabled}")
     private boolean isKafkaSendEnabled;
     
 }
