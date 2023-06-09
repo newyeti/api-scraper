@@ -4,33 +4,34 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "Application",
-            "request": "launch",
-            "mainClass": "com.newyeti.apiscraper.application.Application",
-            "projectName": "application"
-        },
-        {
-            "type": "java",
-            "name": "BeakonApplication",
-            "request": "launch",
-            "mainClass": "com.newyeti.apiscraper.adapter.beakon.BeakonApplication",
-            "vmArgs": "-Dspring.profiles.active=dev",
-            "projectName": "beakon"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "com.newyeti.apiscraper.App",
-            "projectName": "domain"
-        }
+      {
+        "type": "java",
+        "name": "Current File",
+        "request": "launch",
+        "mainClass": "${file}"
+      },
+      {
+        "type": "java",
+        "name": "Application",
+        "request": "launch",
+        "mainClass": "com.newyeti.apiscraper.application.Application",
+        "projectName": "application",
+        "vmArgs": "-Dspring.profiles.active=dev"
+      },
+      {
+        "type": "java",
+        "name": "BeakonApplication",
+        "request": "launch",
+        "mainClass": "com.newyeti.apiscraper.adapter.beakon.BeakonApplication",
+        "vmArgs": "-Dspring.profiles.active=dev",
+        "projectName": "beakon"
+      },
+      {
+        "type": "java",
+        "name": "App",
+        "request": "launch",
+        "mainClass": "com.newyeti.apiscraper.App",
+        "projectName": "domain"
+      }
     ]
 }

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.newyeti.apisraper.*"})
+@ComponentScan({"com.newyeti.apiscraper.*"})
 public class Application {
 
 	public static void main(String[] args) {
