@@ -44,11 +44,9 @@ public class AvroProducerService<T> implements AvroProducerPort<T> {
                 if (ex == null) {
                     log.info("message sent to topic={} successfully", topic);
                     future.complete(result);
-                    postSendMessage(true);
                 } else {
                     log.error("Unable to send message due to: {}", ex.getMessage(), ex);
                     future.completeExceptionally(ex);
-                    postSendMessage(false);
                 }
             });
         } catch (SerializationException ex) {
@@ -59,9 +57,4 @@ public class AvroProducerService<T> implements AvroProducerPort<T> {
         return success;
     }
 
-    @Override
-    @WithSpan
-    public void postSendMessage(boolean status) {
-        throw new UnsupportedOperationException("Unimplemented method 'postSendMessage'");
-    }
 }
