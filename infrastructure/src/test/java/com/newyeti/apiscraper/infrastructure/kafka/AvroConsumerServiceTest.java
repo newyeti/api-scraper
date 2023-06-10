@@ -34,12 +34,15 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
-import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerService;
 import com.newyeti.apiscraper.infrastructure.standings.StandingsAvroConsumerService;
 
 @SpringBootTest(classes = AvroConsumerServiceTest.class)
 @ActiveProfiles("test")
-@Import({AvroConsumerServiceTest.KafkaTestContainerConfiguration.class, AvroProducerService.class, AvroConsumerService.class, AvroConsumerErrorHandler.class})
+@Import({AvroConsumerServiceTest.KafkaTestContainerConfiguration.class, 
+        AvroProducerService.class, 
+        AvroConsumerService.class, 
+        AvroConsumerErrorHandler.class
+    })
 @DirtiesContext
 @Testcontainers
 public class AvroConsumerServiceTest {

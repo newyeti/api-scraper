@@ -20,6 +20,7 @@ import com.newyeti.apiscraper.application.rest.standings.dto.ResponseDto;
 import com.newyeti.apiscraper.application.rest.standings.mapper.LeagueMapper;
 import com.newyeti.apiscraper.application.kafka.KafkaConfig;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.port.api.standings.CreateStandingsApi;
 import com.newyeti.apiscraper.domain.services.standings.CreateStandingService;
 
 import io.micrometer.observation.Observation;
@@ -45,7 +46,7 @@ public class LeagueStandingsController {
     private final AppConfig appConfig;
     private final KafkaConfig kafkaConfig;
     private final ObservationRegistry observationRegistry;
-    private final CreateStandingService createStandingService;
+    private final CreateStandingsApi createStandingsApi;
 
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -63,7 +64,7 @@ public class LeagueStandingsController {
 
             if(appConfig.isKafkaSendEnabled()) {
                 log.debug("Kafka Call: Sending API response to Kafka topic.");
-                createStandingService.create(league, kafkaConfig.getStandingsTopic(), String.valueOf(league.getId()));
+                createStandingsApi.create(league, kafkaConfig.getStandingsTopic(), String.valueOf(league.getId()));
             }
         } else {
             log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
