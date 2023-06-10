@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class StandingsAvroConsumerService extends AvroConsumerService<String, League> {
+    
     private final CreateStandingsJpaPort createStandingsJpaPort;
     private final StandingsConsumerService standingsConsumerService;
     

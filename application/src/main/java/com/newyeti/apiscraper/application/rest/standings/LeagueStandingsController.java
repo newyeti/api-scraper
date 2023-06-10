@@ -21,7 +21,6 @@ import com.newyeti.apiscraper.application.rest.standings.mapper.LeagueMapper;
 import com.newyeti.apiscraper.application.kafka.KafkaConfig;
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 import com.newyeti.apiscraper.domain.port.api.standings.CreateStandingsApi;
-import com.newyeti.apiscraper.domain.services.standings.CreateStandingService;
 
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
