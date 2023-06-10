@@ -14,7 +14,7 @@ public class CustomKafkaAvroDeserializer extends KafkaAvroDeserializer {
     public CustomKafkaAvroDeserializer() throws Exception{
         super();
         super.schemaRegistry = new MockSchemaRegistryClient();
-        super.schemaRegistry.register("avro.topic.standings.v1", League.getClassSchema());   
+        super.schemaRegistry.register("apiscraper.standings.avro.topic.v1", League.getClassSchema());   
     }
 
     public CustomKafkaAvroDeserializer(SchemaRegistryClient client) {

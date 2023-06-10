@@ -34,7 +34,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
-import com.newyeti.apiscraper.domain.port.spi.standings.CreateStandingsJpaPort;
 import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerService;
 import com.newyeti.apiscraper.infrastructure.mongo.CreateStandingsJpaAdapter;
 import com.newyeti.apiscraper.infrastructure.standings.StandingsAvroConsumerService;
@@ -45,9 +44,7 @@ import com.newyeti.apiscraper.infrastructure.standings.StandingsAvroConsumerServ
         AvroProducerService.class, 
         AvroConsumerService.class, 
         AvroConsumerErrorHandler.class,
-        StandingsAvroConsumerService.class,
-        StandingsConsumerService.class,
-        CreateStandingsJpaAdapter.class
+        StandingsAvroConsumerService.class
     })
 @DirtiesContext
 @Testcontainers
@@ -80,7 +77,15 @@ public class AvroConsumerServiceTest {
 
     @TestConfiguration
     @EnableKafka
+    @Import({
+        CreateStandingsJpaAdapter.class
+    })
     static class KafkaTestContainerConfiguration {
+
+        @Autowired
+        private CreateStandingsJpaAdapter createStandingsJpaAdapter;
+        // @Autowired
+        // private StandingsConsumerService standingsConsumerService;
 
         @Bean
         ConcurrentKafkaListenerContainerFactory<String, League> kafkaListenerContainerFactory(ConsumerFactory<String, League> consumerFactory) {
@@ -131,7 +136,7 @@ public class AvroConsumerServiceTest {
 
         @Bean
         public AvroConsumerService<String, League> avroConsumerService() {
-            return new StandingsAvroConsumerService(createStandingsJpaAdapter(), standingsConsumerService());
+            return new StandingsAvroConsumerService(createStandingsJpaAdapter, standingsConsumerService());
         }
 
         @Bean
@@ -139,10 +144,10 @@ public class AvroConsumerServiceTest {
             return new StandingsConsumerService();
         }
 
-        @Bean
-        public CreateStandingsJpaPort createStandingsJpaAdapter() {
-            return new CreateStandingsJpaAdapter();
-        }
+        // @Bean
+        // public CreateStandingsJpaAdapter createStandingsJpaAdapter() {
+        //     return new CreateStandingsJpaAdapter();
+        // }
 
     }
 
