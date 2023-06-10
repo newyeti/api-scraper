@@ -3,8 +3,7 @@ package com.newyeti.apiscraper.domain.services.standings;
 import org.springframework.stereotype.Service;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
-import com.newyeti.apiscraper.domain.port.api.BusinessServiceApi;
-import com.newyeti.apiscraper.domain.port.api.standings.CreateStandginsApi;
+import com.newyeti.apiscraper.domain.port.api.standings.CreateStandingsApi;
 import com.newyeti.apiscraper.domain.port.spi.kafka.AvroProducerPort;
 
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CreateStandingService implements CreateStandginsApi, BusinessServiceApi {
+public class CreateStandingService implements CreateStandingsApi {
 
     private final AvroProducerPort<League> avroProducerPort;
 
