@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CreateStandingApiService implements CreateStandingsApi {
 
-    private StandingsAvroProducerPort standingsAvroProducerPort;
+    private final StandingsAvroProducerPort standingsAvroProducerPort;
 
     @Override
     public void create(League league, String id, String topic) {
