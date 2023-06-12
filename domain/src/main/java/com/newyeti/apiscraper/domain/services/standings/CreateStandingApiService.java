@@ -17,7 +17,7 @@ public class CreateStandingApiService implements CreateStandingsApi {
     private final StandingsAvroProducerPort standingsAvroProducerPort;
 
     @Override
-    public void create(League league, String id, String topic) {
+    public void create(League league, String topic, String id) {
         standingsAvroProducerPort.send(topic, id, league);
         postProcessSendingMessage(true);
     }
