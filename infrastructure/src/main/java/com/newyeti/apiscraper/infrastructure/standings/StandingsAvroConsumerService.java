@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 import com.newyeti.apiscraper.domain.port.spi.standings.CreateStandingsJpaPort;
-import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerService;
+import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerSpiService;
 import com.newyeti.apiscraper.infrastructure.kafka.AvroConsumerService;
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class StandingsAvroConsumerService extends AvroConsumerService<String, League> {
     
     private final CreateStandingsJpaPort createStandingsJpaPort;
-    private final StandingsConsumerService standingsConsumerService;
+    private final StandingsConsumerSpiService standingsConsumerSpiService;
     
     @Override
     @KafkaListener(topics = "${avro.consumer.topics.standings}", 
@@ -31,7 +31,7 @@ public class StandingsAvroConsumerService extends AvroConsumerService<String, Le
     @Override
     public void process(League league) {   
         createStandingsJpaPort.save(league);
-        standingsConsumerService.postProcessReceivedMessage(league);
+        standingsConsumerSpiService.postProcessReceivedMessage(league);
     }
 
 }

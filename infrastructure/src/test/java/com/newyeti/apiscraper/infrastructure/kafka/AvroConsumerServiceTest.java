@@ -34,8 +34,13 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerSpiService;
 import com.newyeti.apiscraper.infrastructure.mongo.CreateStandingsJpaAdapter;
 import com.newyeti.apiscraper.infrastructure.standings.StandingsAvroConsumerService;
+
+import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
+import io.confluent.kafka.serializers.KafkaAvroDeserializer;
+import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 
 @SpringBootTest(classes = AvroConsumerServiceTest.class)
 @ActiveProfiles("test")
@@ -43,7 +48,9 @@ import com.newyeti.apiscraper.infrastructure.standings.StandingsAvroConsumerServ
         AvroProducerService.class, 
         AvroConsumerService.class, 
         AvroConsumerErrorHandler.class,
-        StandingsAvroConsumerService.class
+        StandingsAvroConsumerService.class,
+        StandingsConsumerSpiService.class,
+        CreateStandingsJpaAdapter.class
     })
 @DirtiesContext
 @Testcontainers
@@ -62,7 +69,7 @@ public class AvroConsumerServiceTest {
         avroConsumerService.resetLatch();
     }
 
-    //@Test
+    @Test
     public void givenKafkaContainer_whenSendingAvroMessage_thenMessageSent() throws Exception {
         League league = League.newBuilder()
             .setId(100)
@@ -76,9 +83,6 @@ public class AvroConsumerServiceTest {
 
     @TestConfiguration
     @EnableKafka
-    @Import({
-        CreateStandingsJpaAdapter.class
-    })
     static class KafkaTestContainerConfiguration {
 
         @Bean
@@ -104,6 +108,8 @@ public class AvroConsumerServiceTest {
             props.put(ConsumerConfig.GROUP_ID_CONFIG, "api-scraper");
             props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
             props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, CustomKafkaAvroDeserializer.class);
+            props.put(AbstractKafkaAvroSerDeConfig.AUTO_REGISTER_SCHEMAS, false);
+            props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
             props.put("schema.registry.url", "mock://not-used");
             return props;
         }
