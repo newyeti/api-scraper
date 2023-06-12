@@ -62,6 +62,10 @@ public class AvroConsumerServiceTest {
     @Container
     public static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.4.0"));
 
+    static {
+        kafka.start();
+    }
+
     @Autowired
     private AvroProducerService<League> avroProducerService;
     @Autowired
@@ -71,11 +75,6 @@ public class AvroConsumerServiceTest {
     public void setup() {
         avroConsumerService.resetLatch();
     }
-
-    // @AfterEach
-    // public void tearDown() {
-    //     kafka.stop();
-    // }
 
     @Test
     public void givenKafkaContainer_whenSendingAvroMessage_thenMessageSent() throws Exception {
