@@ -9,7 +9,10 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.aspectj.lang.annotation.After;
 import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +71,11 @@ public class AvroConsumerServiceTest {
     public void setup() {
         avroConsumerService.resetLatch();
     }
+
+    // @AfterEach
+    // public void tearDown() {
+    //     kafka.stop();
+    // }
 
     @Test
     public void givenKafkaContainer_whenSendingAvroMessage_thenMessageSent() throws Exception {
