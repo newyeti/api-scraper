@@ -2,10 +2,8 @@ package com.newyeti.apiscraper.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
-@ComponentScan({"com.newyeti.apiscraper.*"})
+@SpringBootApplication(scanBasePackages = "com.newyeti.apiscraper")
 public class Application {
 
 	public static void main(String[] args) {

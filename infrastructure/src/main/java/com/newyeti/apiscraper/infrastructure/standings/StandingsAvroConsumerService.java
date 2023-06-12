@@ -30,8 +30,8 @@ public class StandingsAvroConsumerService extends AvroConsumerService<String, Le
 
     @Override
     public void process(League league) {   
-        createStandingsJpaPort.save(league);
-        standingsConsumerSpiService.postProcessReceivedMessage(league);
+        //createStandingsJpaPort.save(league);
+        //standingsConsumerSpiService.postProcessReceivedMessage(league);
     }
 
 }
