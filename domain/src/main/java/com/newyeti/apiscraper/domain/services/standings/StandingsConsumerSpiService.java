@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class StandingsConsumerService implements BusinessServiceSpi<League>{
+public class StandingsConsumerSpiService implements BusinessServiceSpi<League>{
     
     @Override
     public void postProcessReceivedMessage(League league) {

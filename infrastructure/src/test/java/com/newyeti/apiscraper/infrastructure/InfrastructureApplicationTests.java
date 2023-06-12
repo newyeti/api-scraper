@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootTest
-@ComponentScan({"com.newyeti.apiscraper.domain.*"})
+@ComponentScan({"com.newyeti.apiscraper.*"})
 class InfrastructureApplicationTests {
 
 	@Test
