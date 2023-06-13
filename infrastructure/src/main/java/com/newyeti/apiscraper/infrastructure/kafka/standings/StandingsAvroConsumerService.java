@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.infrastructure.standings;
+package com.newyeti.apiscraper.infrastructure.kafka.standings;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;

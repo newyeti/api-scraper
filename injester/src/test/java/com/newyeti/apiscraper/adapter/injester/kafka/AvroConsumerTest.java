@@ -97,7 +97,7 @@ public class AvroConsumerTest {
             props.put(ConsumerConfig.GROUP_ID_CONFIG, "league-standings");
             props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
             props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, CustomKafkaAvroDeserializer.class);
-            props.put("schema.registry.url", "mock://not-used");
+            props.put("schema.registry.url", "mock://not-used");infrastructure
             return props;
         }
 

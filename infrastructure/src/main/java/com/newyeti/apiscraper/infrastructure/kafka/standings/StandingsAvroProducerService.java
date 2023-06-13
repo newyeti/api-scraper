@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.infrastructure.standings;
+package com.newyeti.apiscraper.infrastructure.kafka.standings;
 
 import org.springframework.stereotype.Service;
 

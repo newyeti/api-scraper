@@ -35,8 +35,8 @@ import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerSpiService;
-import com.newyeti.apiscraper.infrastructure.mongo.CreateStandingsJpaAdapter;
-import com.newyeti.apiscraper.infrastructure.standings.StandingsAvroConsumerService;
+import com.newyeti.apiscraper.infrastructure.jpa.mongo.CreateStandingsJpaAdapter;
+import com.newyeti.apiscraper.infrastructure.kafka.standings.StandingsAvroConsumerService;
 
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
@@ -53,14 +53,11 @@ import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
     })
 @DirtiesContext
 @Testcontainers
+@EnableKafka
 public class AvroConsumerServiceTest {
 
     @Container
     public static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.4.0"));
-
-    static {
-        kafka.start();
-    }
 
     @Autowired
     private AvroProducerService<League> avroProducerService;
@@ -84,8 +81,6 @@ public class AvroConsumerServiceTest {
         Assertions.assertNotNull(avroConsumerService.getPayload());
     }
 
-    @TestConfiguration
-    @EnableKafka
     static class KafkaTestContainerConfiguration {
 
         @Bean
