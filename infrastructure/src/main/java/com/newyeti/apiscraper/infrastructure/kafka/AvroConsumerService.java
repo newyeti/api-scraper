@@ -23,7 +23,7 @@ public class AvroConsumerService<K, V> implements AvroConsumerPort<K, V> {
     private V payload;
 
     @Override
-    public Optional<V> receive(ConsumerRecord<K, V> consumerRecord) {
+    public void receive(ConsumerRecord<K, V> consumerRecord) {
         log.info("received payload from topic={}", consumerRecord.topic());
         payload = consumerRecord.value();
         if (Objects.isNull(payload)) {
@@ -31,8 +31,6 @@ public class AvroConsumerService<K, V> implements AvroConsumerPort<K, V> {
         } else {
             process(payload);
         }
-
-        return Optional.of(payload);
     }
 
     public void resetLatch() {
