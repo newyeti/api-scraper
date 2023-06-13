@@ -24,8 +24,8 @@ public class StandingsAvroConsumerService extends AvroConsumerService<String, Le
     @KafkaListener(topics = "${avro.consumer.topics.standings}", 
         groupId = "${avro.consumer.groupId}", 
         errorHandler = "avroConsumerErrorHandler")
-    public Optional<League> receive(ConsumerRecord<String, League> consumerRecord) {
-       return super.receive(consumerRecord);
+    public void receive(ConsumerRecord<String, League> consumerRecord) {
+       super.receive(consumerRecord);
     }
 
     @Override

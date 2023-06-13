@@ -90,6 +90,18 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
+    consumer:
+      group-id: api-scraper
+      auto-offset-reset: latest
+      key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+      value-deserializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
+      properties:
+        specific: 
+          avro:
+            reader: true
+        schema:
+          registry:
+            url: http://schema-registry:8081
 management:
   endpoints:
     web:
