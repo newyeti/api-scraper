@@ -1,7 +1,6 @@
 package com.newyeti.apiscraper.infrastructure.kafka;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;

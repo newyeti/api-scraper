@@ -39,7 +39,6 @@ import com.newyeti.apiscraper.infrastructure.mongo.CreateStandingsJpaAdapter;
 import com.newyeti.apiscraper.infrastructure.standings.StandingsAvroConsumerService;
 
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
-import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 
 @SpringBootTest(classes = AvroConsumerServiceTest.class)
