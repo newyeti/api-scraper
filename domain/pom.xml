@@ -168,6 +168,14 @@
             <goal>register</goal>
           </goals>
         </plugin>
+        <plugin>
+          <groupId>com.google.cloud.tools</groupId>
+          <artifactId>jib-maven-plugin</artifactId>
+          <version>3.3.1</version>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
+			</plugin>
       </plugins>
   </build>
 </project>

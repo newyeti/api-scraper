@@ -1,10 +1,8 @@
 package com.newyeti.apiscraper.infrastructure.standings;
 
-import java.util.Optional;
-
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 import com.newyeti.apiscraper.domain.port.spi.standings.CreateStandingsJpaPort;
@@ -13,7 +11,7 @@ import com.newyeti.apiscraper.infrastructure.kafka.AvroConsumerService;
 
 import lombok.RequiredArgsConstructor;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class StandingsAvroConsumerService extends AvroConsumerService<String, League> {
     
@@ -30,8 +28,8 @@ public class StandingsAvroConsumerService extends AvroConsumerService<String, Le
 
     @Override
     public void process(League league) {   
-        //createStandingsJpaPort.save(league);
-        //standingsConsumerSpiService.postProcessReceivedMessage(league);
+        createStandingsJpaPort.save(league);
+        standingsConsumerSpiService.postProcessReceivedMessage(league);
     }
 
 }
