@@ -44,6 +44,10 @@ spring:
       enabled: false
     config:
       enabled: false
+  data:
+    mongodb:
+      uri: mongodb:localhost:27017/football
+      
 server:
   port: 7001
 
@@ -102,6 +106,11 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
+  
+  data:
+    mongodb:
+      uri: mongodb:mongodb:27017/football
+
 management:
   endpoints:
     web:
