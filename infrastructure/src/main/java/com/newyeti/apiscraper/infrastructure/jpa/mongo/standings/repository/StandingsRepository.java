@@ -12,6 +12,8 @@ public interface StandingsRepository extends MongoRepository<LeagueStandingsEnti
     
     List<LeagueStandingsEntity> findByLeagueId(int leagueId);
 
+    List<LeagueStandingsEntity> findBySeason(int season);
+
     @Query("{'leagueId' : ?0, 'season' : ?1 }")
     Optional<LeagueStandingsEntity> findByLeagueIdAndSeason(int leagueId, int season);
 

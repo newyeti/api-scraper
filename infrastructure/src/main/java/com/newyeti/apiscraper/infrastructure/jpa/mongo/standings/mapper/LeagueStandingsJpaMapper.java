@@ -10,6 +10,7 @@ import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity.LeagueSt
 public interface LeagueStandingsJpaMapper {
     
     @Mapping(target = "leagueId", source = "id")
+    @Mapping(target = "id", source = "id", ignore = true)
     LeagueStandingsEntity toLeagueStandingsEntity(League league);
 
     @Mapping(target = "id", source = "leagueId")
