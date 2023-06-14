@@ -27,6 +27,7 @@ public class StandingsDataConfig {
     public static List<Standings> getStandingsList() {
        List<Standings> teamStandings = new ArrayList<>();
        teamStandings.add(getStandings("ManUtd"));
+       teamStandings.add(getStandings("Arsenal"));
        return teamStandings;
     }
 
