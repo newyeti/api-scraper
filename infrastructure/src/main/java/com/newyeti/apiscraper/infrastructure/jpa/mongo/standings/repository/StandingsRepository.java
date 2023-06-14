@@ -1,5 +1,8 @@
 package com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -7,6 +10,9 @@ import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity.LeagueSt
 
 public interface StandingsRepository extends MongoRepository<LeagueStandingsEntity, String>{
     
-    @Query("{legueId: '?0', season: '?1'}")
-    LeagueStandingsEntity findByLeagueIdAndSeason(int leagueId, int season);
+    List<LeagueStandingsEntity> findByLeagueId(int leagueId);
+
+    @Query("{'leagueId' : ?0, 'season' : ?1 }")
+    Optional<LeagueStandingsEntity> findByLeagueIdAndSeason(int leagueId, int season);
+
 }
