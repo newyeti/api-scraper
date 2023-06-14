@@ -12,9 +12,12 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -41,6 +44,8 @@ import com.newyeti.apiscraper.infrastructure.kafka.standings.StandingsAvroConsum
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 
+import static org.mockito.Mockito.*;
+
 @SpringBootTest(classes = AvroConsumerServiceTest.class)
 @ActiveProfiles("test")
 @Import({AvroConsumerServiceTest.KafkaTestContainerConfiguration.class, 
@@ -54,6 +59,7 @@ import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 @DirtiesContext
 @Testcontainers
 @EnableKafka
+@ExtendWith(MockitoExtension.class)
 public class AvroConsumerServiceTest {
 
     @Container
@@ -61,6 +67,7 @@ public class AvroConsumerServiceTest {
 
     @Autowired
     private AvroProducerService<League> avroProducerService;
+
     @Autowired
     private AvroConsumerService<String, League> avroConsumerService;
 
@@ -131,6 +138,11 @@ public class AvroConsumerServiceTest {
         public AvroProducerService<League> avroProducer() {
             return new AvroProducerService<>(kafkaTemplate());
         }
+
+        // @Bean
+        // public CreateStandingsJpaAdapter createStandingsJpaAdapter() {
+        //     return new CreateStandingsJpaAdapter(null);
+        // }
 
     }
 
