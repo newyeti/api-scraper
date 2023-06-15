@@ -1,6 +1,8 @@
 package com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MongoDBContainer;
@@ -8,6 +10,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
+@DirtiesContext
 public class RepositoryContainerConfiguration {
 
     @Container
@@ -25,6 +28,11 @@ public class RepositoryContainerConfiguration {
     @BeforeAll
     static void setUp() {
         mongoDBContainer.start();;
+    }
+
+    @AfterAll
+    void tearDown() {
+        mongoDBContainer.stop();
     }
     
 }

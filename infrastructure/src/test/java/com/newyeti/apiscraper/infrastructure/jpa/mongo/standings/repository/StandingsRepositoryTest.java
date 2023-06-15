@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +36,11 @@ public class StandingsRepositoryTest extends RepositoryContainerConfiguration {
     void beforeEach() {
         league = null;
         standingsEntity = null;
+    }
+
+    @AfterEach
+    void tearDown() {
+        standingsRepository.deleteAll();
     }
 
     @Test
