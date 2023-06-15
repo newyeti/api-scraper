@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CreateStandingsJpaAdapter implements CreateStandingsJpaPort{
 
     private final StandingsRepository standingsRepository;
-    private LeagueStandingsJpaMapper leagueStandingsJpaMapper;
+    private final LeagueStandingsJpaMapper leagueStandingsJpaMapper;
 
     @Override
     public void save(League league) {

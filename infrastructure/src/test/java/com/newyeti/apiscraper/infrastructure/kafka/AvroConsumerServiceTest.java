@@ -12,14 +12,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.StringUtils;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity.LeagueStandingsEntity;
+import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository.RepositoryContainerConfiguration;
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository.StandingsRepository;
 import com.newyeti.apiscraper.infrastructure.kafka.standings.StandingsAvroConsumerService;
 
@@ -29,7 +30,10 @@ import static org.mockito.Mockito.*;
 @ActiveProfiles("test")
 @DirtiesContext
 @Testcontainers
-@ContextConfiguration(classes = {KafkaTestConfiguration.class})
+@Import({
+    KafkaTestConfiguration.class,
+    RepositoryContainerConfiguration.class
+})
 @ComponentScan(basePackages = "com.newyeti.apiscraper")
 @ExtendWith(MockitoExtension.class)
 public class AvroConsumerServiceTest extends KafkaContainerTestConfiguration {
@@ -46,7 +50,7 @@ public class AvroConsumerServiceTest extends KafkaContainerTestConfiguration {
     @BeforeEach
     public void setup() {
         standingsAvroConsumerService.resetLatch();
-        standingsRepository.deleteAll();
+        // standingsRepository.deleteAll();
     }
     
     @Test
@@ -59,10 +63,11 @@ public class AvroConsumerServiceTest extends KafkaContainerTestConfiguration {
         
         avroProducerService.send("apiscraper.standings.avro.topic.v1", String.valueOf(league.getId()), league);
         standingsAvroConsumerService.getLatch().await(5, TimeUnit.SECONDS);
-        List<LeagueStandingsEntity> leagueStandingsEntities = standingsRepository.findByLeagueId(500); 
-        // Assertions.assertTrue(leagueStandingsEntities.size() > 0);
-        // Assertions.assertTrue(StringUtils.hasLength(leagueStandingsEntities.get(0).getId()));
-        // Assertions.assertEquals(500, leagueStandingsEntities.get(0).getLeagueId());
+        Thread.sleep(5000);
+        List<LeagueStandingsEntity> leagueStandingsEntities = standingsRepository.findAll(); 
+        Assertions.assertTrue(leagueStandingsEntities.size() > 0);
+        Assertions.assertTrue(StringUtils.hasLength(leagueStandingsEntities.get(0).getId()));
+        Assertions.assertEquals(500, leagueStandingsEntities.get(0).getLeagueId());
 
     }
 
