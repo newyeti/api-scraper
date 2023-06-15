@@ -1,0 +1,138 @@
+server:
+  port: 4000
+
+spring:
+  application:
+    name: APISCRAPER-SERVICE
+  cloud:
+    discovery:
+      enabled: false
+    config:
+      enabled: false
+
+avro:
+  consumer:
+    topics:
+      standings: apiscraper.standings.avro.topic.v1
+    groupId: api-scraper
+  producer:
+    topic:
+      standings: apiscraper.standings.avro.topic.v1
+
+
+football-api:
+  baseUrl: "https://api-football-v1.p.rapidapi.com/v3"
+  apiHost: "api-football-v1.p.rapidapi.com"
+  apiKeys: 
+    - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
+
+
+kafka:
+  producer:
+    send:
+      enabled: false
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile:
+      - dev
+  cloud:
+    discovery:
+      enabled: false
+    config:
+      enabled: false
+  data:
+    mongodb:
+      uri: mongodb:localhost:27017/football
+      
+server:
+  port: 7001
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+
+logging:
+  pattern:
+    level: "%5p app_name=[${spring.application.name:} trace_id=%X{trace_id:-} span_id=%X{span_id:-} trace_flags=%mdc{trace_flags} %p]"
+
+---
+
+spring:
+  config:
+    import: configserver:http://config-server:9091
+    activate:
+      on-profile:
+      - docker
+  cloud:
+    config:
+        enabled: true
+    discovery:
+      enabled: true
+  kafka:
+    bootstrap-servers: broker-1:9092
+    template:
+      default-topic: "apiscraper.standings.avro.topic.v1"
+    producer:
+      key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
+      value-serializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
+      properties:
+        schema:
+          registry:
+            url: http://schema-registry:8081
+    consumer:
+      group-id: api-scraper
+      auto-offset-reset: latest
+      key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+      value-deserializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
+      properties:
+        specific: 
+          avro:
+            reader: true
+        schema:
+          registry:
+            url: http://schema-registry:8081
+  
+  data:
+    mongodb:
+      uri: mongodb:mongodb:27017/football
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    tags:
+      application: beakon-service
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: 'true'
+
+logging:
+  pattern:
+    level: "trace_id=%mdc{trace_id:-} span_id=%mdc{span_id:-} trace_flags=%mdc{trace_flags} %p"
+
+kafka:
+  producer:
+    send:
+      enabled: true

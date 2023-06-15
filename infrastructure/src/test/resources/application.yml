@@ -1,0 +1,10 @@
+avro:
+  consumer:
+    topics:
+      standings: apiscraper.standings.avro.topic.v1
+    groupId: api-scraper
+
+kafka:
+  producer:
+    send:
+      enabled: true
