@@ -31,7 +31,7 @@ public class RepositoryContainerConfiguration {
     }
 
     @AfterAll
-    void tearDown() {
+    static void tearDown() {
         mongoDBContainer.stop();
     }
     

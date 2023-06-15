@@ -19,12 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 public class AvroConsumerService<K, V> implements AvroConsumerPort<K, V> {
 
     private CountDownLatch latch = new CountDownLatch(1);
-    private V payload;
 
     @Override
     public void receive(ConsumerRecord<K, V> consumerRecord) {
         log.info("received payload from topic={}", consumerRecord.topic());
-        payload = consumerRecord.value();
+        V payload = consumerRecord.value();
         if (Objects.isNull(payload)) {
             log.error("received 'null' payload=League on topic={}");
         } else {

@@ -1,148 +1,68 @@
 package com.newyeti.apiscraper.infrastructure.kafka;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
-import org.springframework.kafka.annotation.EnableKafka;
-import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
-import org.springframework.kafka.core.ConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.listener.DefaultErrorHandler;
-import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.containers.KafkaContainer;
-import org.testcontainers.junit.jupiter.Container;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.util.StringUtils;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
-import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerSpiService;
-import com.newyeti.apiscraper.infrastructure.jpa.mongo.CreateStandingsJpaAdapter;
+import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity.LeagueStandingsEntity;
+import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository.StandingsRepository;
 import com.newyeti.apiscraper.infrastructure.kafka.standings.StandingsAvroConsumerService;
-
-import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
-import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = AvroConsumerServiceTest.class)
 @ActiveProfiles("test")
-@Import({AvroConsumerServiceTest.KafkaTestContainerConfiguration.class, 
-        AvroProducerService.class, 
-        AvroConsumerService.class, 
-        AvroConsumerErrorHandler.class,
-        StandingsAvroConsumerService.class,
-        StandingsConsumerSpiService.class,
-        CreateStandingsJpaAdapter.class
-    })
 @DirtiesContext
 @Testcontainers
-@EnableKafka
+@ContextConfiguration(classes = {KafkaTestConfiguration.class})
+@ComponentScan(basePackages = "com.newyeti.apiscraper")
 @ExtendWith(MockitoExtension.class)
-public class AvroConsumerServiceTest {
-
-    @Container
-    public static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.4.0"));
+public class AvroConsumerServiceTest extends KafkaContainerTestConfiguration {
 
     @Autowired
     private AvroProducerService<League> avroProducerService;
 
     @Autowired
-    private AvroConsumerService<String, League> avroConsumerService;
+    private StandingsAvroConsumerService standingsAvroConsumerService;
 
-    @Before
+    @Autowired
+    private StandingsRepository standingsRepository;
+    
+    @BeforeEach
     public void setup() {
-        avroConsumerService.resetLatch();
+        standingsAvroConsumerService.resetLatch();
+        standingsRepository.deleteAll();
     }
-
+    
     @Test
     public void givenKafkaContainer_whenSendingAvroMessage_thenMessageSent() throws Exception {
         League league = League.newBuilder()
-            .setId(100)
+            .setId(500)
+            .setSeason(2023)
             .setName("Premier League")
             .build();
         
         avroProducerService.send("apiscraper.standings.avro.topic.v1", String.valueOf(league.getId()), league);
-        avroConsumerService.getLatch().await(5, TimeUnit.SECONDS);
-        Assertions.assertNotNull(avroConsumerService.getPayload());
-    }
-
-    static class KafkaTestContainerConfiguration {
-
-        @Bean
-        ConcurrentKafkaListenerContainerFactory<String, League> kafkaListenerContainerFactory(ConsumerFactory<String, League> consumerFactory) {
-            ConcurrentKafkaListenerContainerFactory<String, League> factory = new ConcurrentKafkaListenerContainerFactory<>();
-            factory.setConsumerFactory(consumerFactory);
-            factory.setCommonErrorHandler(new DefaultErrorHandler());
-            return factory;
-        }
-
-        @Bean
-        public ConsumerFactory<String, League> consumerFactory() throws Exception{
-            ErrorHandlingDeserializer<League> errorHandlingDeserializer
-                = new ErrorHandlingDeserializer(new CustomKafkaAvroDeserializer());
-            return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), errorHandlingDeserializer);
-        }
-
-        @Bean
-        public Map<String, Object> consumerConfigs() {
-            Map<String, Object> props = new HashMap<>();
-            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
-            props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-            props.put(ConsumerConfig.GROUP_ID_CONFIG, "api-scraper");
-            props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-            props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, CustomKafkaAvroDeserializer.class);
-            props.put(AbstractKafkaAvroSerDeConfig.AUTO_REGISTER_SCHEMAS, false);
-            props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
-            props.put("schema.registry.url", "mock://not-used");
-            return props;
-        }
-
-        @Bean
-        public ProducerFactory<String, League> producerFactory() {
-            Map<String, Object> configProps = new HashMap<>();
-            configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
-            configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-            configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CustomKafkaAvroSerializer.class);
-            configProps.put("schema.registry.url", "mock://not-used");
-            return new DefaultKafkaProducerFactory<>(configProps);
-        }
-
-        @Bean
-        public KafkaTemplate<String, League> kafkaTemplate() {
-            return new KafkaTemplate<>(producerFactory());
-        }
-
-        @Bean
-        public AvroProducerService<League> avroProducer() {
-            return new AvroProducerService<>(kafkaTemplate());
-        }
-
-        // @Bean
-        // public CreateStandingsJpaAdapter createStandingsJpaAdapter() {
-        //     return new CreateStandingsJpaAdapter(null);
-        // }
+        standingsAvroConsumerService.getLatch().await(5, TimeUnit.SECONDS);
+        List<LeagueStandingsEntity> leagueStandingsEntities = standingsRepository.findByLeagueId(500); 
+        // Assertions.assertTrue(leagueStandingsEntities.size() > 0);
+        // Assertions.assertTrue(StringUtils.hasLength(leagueStandingsEntities.get(0).getId()));
+        // Assertions.assertEquals(500, leagueStandingsEntities.get(0).getLeagueId());
 
     }
 

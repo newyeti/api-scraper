@@ -39,7 +39,7 @@ public class StandingsRepositoryTest extends RepositoryContainerConfiguration {
     }
 
     @AfterEach
-    void tearDown() {
+     void deleteAll() {
         standingsRepository.deleteAll();
     }
 
