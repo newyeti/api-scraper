@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.League;
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.StandingsDataConfig;
@@ -21,6 +22,7 @@ import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.mapper.LeagueSt
 
 @SpringBootTest
 @DirtiesContext
+@ActiveProfiles("test")
 public class StandingsRepositoryTest extends RepositoryContainerConfiguration {
  
     @Autowired

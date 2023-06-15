@@ -12,7 +12,7 @@ import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository.Repo
 
 @Testcontainers
 @EnableKafka
-public class KafkaContainerTestConfiguration extends RepositoryContainerConfiguration {
+public class KafkaContainerTestConfiguration extends RepositoryContainerConfiguration{
     
     @Container
     public static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.4.0"));
