@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @Configuration
 @EntityScan("com.newyeti.apiscraper.infrastructure.jpa")
-@EnableMongoRepositories("com.newyeti.apiscraper.infrastructure.jpa")
+@EnableMongoRepositories("com.newyeti.apiscraper.infrastructure.jpa.mongo")
 public class JpaConfig {
     
 }
