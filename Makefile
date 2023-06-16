@@ -7,7 +7,7 @@ else
 	mvn clean install -f $(module)
 endif
 
-gitpod-compile:
+gcompile:
 ifeq ($(strip $(module)),)
 	mvn -s maven-settings.xml clean install 
 else
@@ -16,7 +16,7 @@ else
 endif
 
 ## Build image only
-build:
+dockerBuild:
 ifeq ($(strip $(module)),)
 	mvn clean compile jib:dockerBuild
 else
@@ -25,7 +25,7 @@ else
 endif
 
 	
-gitpod-build:
+gdockerBuild:
 ifeq ($(strip $(module)),)
 	mvn -s maven-settings.xml clean compile jib:dockerBuild
 else
@@ -35,7 +35,7 @@ endif
 	
 
 ## Build and push image to registry
-build-image:
+build:
 ifeq ($(strip $(module)),)
 	mvn clean package jib:build
 else
@@ -44,7 +44,7 @@ else
 endif
 	
 
-gitpod-build-image:
+gbuild:
 ifeq ($(strip $(module)),)
 	mvn -s maven-settings.xml clean package jib:build
 else
