@@ -16,7 +16,7 @@ public class AvroConsumerErrorHandler implements ConsumerAwareListenerErrorHandl
 
     @Override
     public Object handleError(Message<?> message, ListenerExecutionFailedException exception, Consumer<?, ?> consumer) {
-        log.warn("avro consumer error, unable to consume message: {} because {}", message.getPayload(), exception);
+        log.warn("avro consumer error, unable to consume message id: {} because {}", message.getHeaders().getId(), exception);
         throw new AvroException("avro consumer exception", exception);
     }
     
