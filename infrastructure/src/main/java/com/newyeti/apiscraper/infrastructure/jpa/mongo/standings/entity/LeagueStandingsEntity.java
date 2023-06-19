@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Document
+@Document("standings")
 public class LeagueStandingsEntity {
     
     @Id
@@ -29,6 +29,7 @@ public class LeagueStandingsEntity {
     String logo;
     String flag;
     int season;
+    String uuid;
     List<StandingsEntity> standings;
 
 }

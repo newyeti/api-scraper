@@ -46,7 +46,7 @@ spring:
       enabled: false
   data:
     mongodb:
-      uri: mongodb:localhost:27017/football
+      uri: mongodb//:localhost:27017/football
       
 server:
   port: 7001
@@ -109,7 +109,7 @@ spring:
   
   data:
     mongodb:
-      uri: mongodb:mongodb:27017/football
+      uri: mongodb://football:football@mongo:27017/football
 
 management:
   endpoints:

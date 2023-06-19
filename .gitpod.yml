@@ -15,7 +15,11 @@ tasks:
       EUREKA_PASSWORD: password
     command: 
       export DISCOVERY_SERVER_HOSTNAME=https://8761-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
-  
+      export MONGO_INITDB_ROOT_USERNAME=admin
+      export MONGO_INITDB_ROOT_PASSWORD=password
+      export FOOTBALL_DB_PASSWORD=football
+      export APP_CONFIG_DB_PASSWORD=app_config
+
   - name: Docker plugins
     command: 
       docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions

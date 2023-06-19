@@ -4,5 +4,5 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 public interface AvroConsumerPort<K, V> {
     void receive(ConsumerRecord<K, V> consumerRecord);
-    void process(V payload);
+    void process(K key, V payload);
 }

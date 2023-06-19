@@ -134,20 +134,22 @@ services:
   # Database
   mongo:
     container_name: mongo
-    image: mongo:6.0.4-focal
+    image: mongo:latest
     ports:
       - 27017:27017
     expose:
       - 27017
     volumes:
-      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./mongo/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
       - ./data/mongodb:/data/db
     networks:
       - db-network
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      FOOTBALL_DB_PASSWORD: ${FOOTBALL_DB_PASSWORD:-football}
+      APP_CONFIG_DB_PASSWORD: ${APP_CONFIG_DB_PASSWORD:-app}
   
   mongo-express:
     container_name: mongo-express
@@ -318,10 +320,12 @@ services:
     networks:
       - infra-network
       - monitoring-network
+      - db-network
     depends_on:
       - config-server
       - api-gateway
       - collector
+      - mongo
     environment:
       - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
       - CONFIG_SERVER_URI=http://config-server
@@ -335,6 +339,7 @@ services:
       - OTEL_TRACES_EXPORTER=otlp
       - OTEL_EXPORTER_OTLP_TRACES_INSECURE=true
       - MANAGEMENT_METRICS_TAGS_APPLICATION=apiscraper-service
+      - SPRING_APPLICATION_JSON={"data.mongodb.uri":"mongodb://football:${FOOTBALL_DB_PASSWORD}@mongo:27017/football"}
       #- SPRING_APPLICATION_JSON={"logging.level.org.springframework.cloud.gateway":"DEBUG","logging.level.org.springframework.boot.autoconfigure.web":"DEBUG", "logging.level.web":"DEBUG"}
     logging: *default-logging
   

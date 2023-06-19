@@ -17,4 +17,6 @@ public interface StandingsRepository extends MongoRepository<LeagueStandingsEnti
     @Query("{'leagueId' : ?0, 'season' : ?1 }")
     Optional<LeagueStandingsEntity> findByLeagueIdAndSeason(int leagueId, int season);
 
+    int countByUuid(String uuid);
+
 }
