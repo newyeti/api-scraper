@@ -24,8 +24,6 @@ import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository.Repo
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository.StandingsRepository;
 import com.newyeti.apiscraper.infrastructure.kafka.standings.StandingsAvroConsumerService;
 
-import static org.mockito.Mockito.*;
-
 @SpringBootTest(classes = AvroConsumerServiceTest.class)
 @ActiveProfiles("test")
 @DirtiesContext
