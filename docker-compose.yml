@@ -148,8 +148,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
-      FOOTBALL_PASSWORD: ${FOOTBALL_PASSWORD:-football}
-      APP_CONFIG_PASSWORD: ${APP_CONFIG_PASSWORD:-app}
+      FOOTBALL_DB_PASSWORD: ${FOOTBALL_DB_PASSWORD:-football}
+      APP_CONFIG_DB_PASSWORD: ${APP_CONFIG_DB_PASSWORD:-app}
   
   mongo-express:
     container_name: mongo-express
