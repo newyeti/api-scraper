@@ -20,9 +20,15 @@ public class CreateStandingsJpaAdapter implements CreateStandingsJpaPort{
     private final LeagueStandingsJpaMapper leagueStandingsJpaMapper;
 
     @Override
-    public void save(League league) {
-        log.debug("Saving to database");
+    public void save(String key, League league) {
+        if(standingsRepository.countByUuid(key) > 0) {
+            log.info("duplicate message with key={}", key);
+            return;
+        }
+
+        log.debug("saving to database with key={}", key);
         LeagueStandingsEntity standingsEntity = leagueStandingsJpaMapper.toLeagueStandingsEntity(league);
+        standingsEntity.setUuid(key);
         standingsRepository.save(standingsEntity);
     }
     
