@@ -33,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Tag(name="standings", description = "Pull data from api and put in a kafka topic")
 @RestController
@@ -64,7 +65,7 @@ public class LeagueStandingsController {
 
             if(appConfig.isKafkaSendEnabled()) {
                 log.debug("Kafka Call: Sending API response to Kafka topic.");
-                createStandingsApi.create(league, kafkaConfig.getStandingsTopic(), Instant.EPOCH + "_" + String.valueOf(league.getId()));
+                createStandingsApi.create(league, kafkaConfig.getStandingsTopic(), UUID.randomUUID().toString());
             }
         } else {
             log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());

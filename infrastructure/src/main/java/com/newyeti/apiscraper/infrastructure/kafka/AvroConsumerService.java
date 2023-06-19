@@ -22,12 +22,16 @@ public class AvroConsumerService<K, V> implements AvroConsumerPort<K, V> {
 
     @Override
     public void receive(ConsumerRecord<K, V> consumerRecord) {
-        log.info("received payload from topic={}", consumerRecord.topic());
+        log.info("received payload from topic={}, key={}", 
+            consumerRecord.topic(),
+            consumerRecord.key());
+            
+        K key = consumerRecord.key();
         V payload = consumerRecord.value();
         if (Objects.isNull(payload)) {
             log.error("received 'null' payload=League on topic={}");
         } else {
-            process(payload);
+            process(key, payload);
         }
     }
 
@@ -36,7 +40,7 @@ public class AvroConsumerService<K, V> implements AvroConsumerPort<K, V> {
     }
 
     @Override
-    public void process(V payload) {
+    public void process(K key, V payload) {
         throw new UnsupportedOperationException("Unimplemented method 'process'");
     }
 
