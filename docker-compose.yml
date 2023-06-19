@@ -134,13 +134,13 @@ services:
   # Database
   mongo:
     container_name: mongo
-    image: mongo:6.0.4-focal
+    image: mongo:latest
     ports:
       - 27017:27017
     expose:
       - 27017
     volumes:
-      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./mongo/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
       - ./data/mongodb:/data/db
     networks:
       - db-network
@@ -148,6 +148,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
+      FOOTBALL_PASSWORD: ${FOOTBALL_PASSWORD:-football}
+      APP_CONFIG_PASSWORD: ${APP_CONFIG_PASSWORD:-app}
   
   mongo-express:
     container_name: mongo-express
