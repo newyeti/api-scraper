@@ -471,7 +471,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by(uri) (http_server_requests_seconds_count{exported_application=\"beakon-service\", status=~\"4.*\", uri!=\"/actuator/prometheus\"}) / sum by(uri) (http_server_requests_seconds_count{exported_application=\"beakon-service\", uri!=\"/actuator/prometheus\"})",
+          "expr": "sum by(uri) (http_server_requests_seconds_count{exported_application=\"$app_name\", status=~\"4.*\", uri!=\"/actuator/prometheus\"}) / sum by(uri) (http_server_requests_seconds_count{exported_application=\"$app_name\", uri!=\"/actuator/prometheus\"})",
           "interval": "",
           "key": "Q-00be6b0f-199c-4fc8-ab4d-c11c88df4526-0",
           "range": true,
@@ -1048,11 +1048,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "beakon-service",
-          "value": "beakon-service"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
