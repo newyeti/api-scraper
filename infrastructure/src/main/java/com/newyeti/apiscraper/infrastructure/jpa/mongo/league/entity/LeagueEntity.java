@@ -28,6 +28,7 @@ public class LeagueEntity {
     String flag;
     int season;
     String uuid;
+    String updatedOn;
 }
 
 

@@ -64,7 +64,8 @@ public class LeagueStandingsController {
 
             if(appConfig.isKafkaSendEnabled()) {
                 log.debug("Kafka Call: Sending API response to Kafka topic.");
-                createStandingsApi.create(leagueStandings, kafkaConfig.getStandingsTopic(), UUID.randomUUID().toString());
+                createStandingsApi.create(leagueStandings, kafkaConfig.getStandingsTopic(), 
+                    UUID.randomUUID().toString());
             }
         } else {
             log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
