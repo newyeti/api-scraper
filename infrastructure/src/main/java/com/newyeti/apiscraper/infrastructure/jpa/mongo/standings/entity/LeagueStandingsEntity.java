@@ -1,5 +1,6 @@
 package com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -29,7 +30,8 @@ public class LeagueStandingsEntity {
     String logo;
     String flag;
     int season;
-    String uuid;
     List<StandingsEntity> standings;
+    String uuid;
+    String updatedOn;
 
 }

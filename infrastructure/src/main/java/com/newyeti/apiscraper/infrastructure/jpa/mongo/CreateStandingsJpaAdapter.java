@@ -1,5 +1,8 @@
 package com.newyeti.apiscraper.infrastructure.jpa.mongo;
 
+import java.time.Instant;
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,18 +37,42 @@ public class CreateStandingsJpaAdapter implements CreateStandingsJpaPort{
             return;
         }
 
+        saveLeagueDocument(leagueStandings);
+        upsertStandingsDocument(key, leagueStandings);
+        
+    }
+
+    private void saveLeagueDocument(LeagueStandings leagueStandings) {
         if(leagueRepository.countByLeagueId(leagueStandings.getId()) <= 0) {
             log.info("league not found....saving league with id={}, name={}", 
             leagueStandings.getId(), leagueStandings.getName());
             LeagueEntity leagueEntity = leagueJpaMapper.toLeagueEntity(leagueStandings);
+            leagueEntity.setUpdatedOn(Instant.now().toString());
             leagueRepository.save(leagueEntity);
         }
+    }
 
+    private void upsertStandingsDocument(String key, LeagueStandings leagueStandings) {
         log.debug("saving to database with key={}", key);
-        
+
+        Optional<LeagueStandingsEntity> dbEntity = standingsRepository
+            .findByLeagueIdAndSeason(leagueStandings.getId(), leagueStandings.getSeason());
+
         LeagueStandingsEntity standingsEntity = leagueStandingsJpaMapper.toLeagueStandingsEntity(leagueStandings);
         standingsEntity.setUuid(key);
-        standingsRepository.save(standingsEntity);
+        standingsEntity.setUpdatedOn(Instant.now().toString());
+
+        // Update standings array if already present and update date do not match
+        if (dbEntity.isPresent()) {
+            String lastUpdatedOn = dbEntity.get().getStandings().get(0).getUpdate();
+            String currentUpdateDate = leagueStandings.getStandings().get(0).getUpdate();
+            if(!lastUpdatedOn.equalsIgnoreCase(currentUpdateDate)) {
+                standingsEntity.setId(dbEntity.get().getId());
+                standingsRepository.save(standingsEntity);
+            }
+        } else {
+            standingsRepository.save(standingsEntity);
+        }
     }
     
 }
