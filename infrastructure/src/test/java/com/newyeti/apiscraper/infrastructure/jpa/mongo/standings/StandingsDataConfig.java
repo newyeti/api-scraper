@@ -6,14 +6,14 @@ import java.util.List;
 import com.newyeti.apiscraper.domain.model.avro.schema.Away;
 import com.newyeti.apiscraper.domain.model.avro.schema.Goals;
 import com.newyeti.apiscraper.domain.model.avro.schema.Home;
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import com.newyeti.apiscraper.domain.model.avro.schema.Standings;
 import com.newyeti.apiscraper.domain.model.avro.schema.Team;
 
 public class StandingsDataConfig {
 
-    public static League getLeague(int id, int season){
-        return League.newBuilder()
+    public static LeagueStandings getLeague(int id, int season){
+        return LeagueStandings.newBuilder()
             .setId(id)
             .setName("Premier League")
             .setSeason(season)

@@ -37,7 +37,7 @@ public class ApiResponseDto {
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown=true)
     public static class Response {
-        private LeagueDto league;  
+        private LeagueStandingsDto leagueStandingsDto;  
     }
 
 }

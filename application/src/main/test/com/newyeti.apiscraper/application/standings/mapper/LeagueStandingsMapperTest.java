@@ -12,28 +12,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.LeagueDto;
+import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.LeagueStandingsDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.StandingsDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.StatisticsDto;
 import com.newyeti.apiscraper.adapter.beakon.rest.standings.dto.TeamDto;
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.application.rest.standings.mapper.LeagueStandingsMapper;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import com.newyeti.apiscraper.domain.model.avro.schema.Standings;
 
 import lombok.RequiredArgsConstructor;
 
 @SpringBootTest
-@ComponentScan(basePackageClasses = LeagueMapper.class)
+@ComponentScan(basePackageClasses = leagueStandingsMapper.class)
 @ActiveProfiles("test")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class LeagueMapperTest {
+public class leagueStandingsMapperTest {
 
     @Autowired
-    private LeagueMapper leagueMapper;
+    private LeagueStandingsMapper leagueStandingsMapper;
     
     @Test
-    public void givenLeagueDto_whenMapToLeague_thenCorrect() {
-        LeagueDto leagueDto = getLeagueDto();
-        League league = leagueMapper.toLeague(leagueDto);
+    public void givenLeagueStandingsDto_whenMapToLeagueStandings_thenCorrect() {
+        LeagueStandingsDto leagueStandingsDto = getLeagueStandingsDto();
+        LeagueStandings leagueStandings = leagueStandingsMapper.toLeague(leagueDto);
 
         assertNotNull(league, "league object should not be null");
         assertEquals(leagueDto.getId(), league.getId());
@@ -44,14 +45,14 @@ public class LeagueMapperTest {
 
     @Test
     public void givenStandingsDtoList_whenMapToStandingListModel_thenCorrect() {
-        LeagueDto leagueDto = getLeagueDto();
-        League league = leagueMapper.toLeague(leagueDto);
+        LeagueStandingsDto leagueStandingsDto = getLeagueStandingsDto();
+        LeagueStandings leagueStandings = leagueStandingsMapper.toLeague(leagueStandingsDto);
        
         assertNotNull(league, "league should not be null");
-        assertEquals(leagueDto.getStandings().size(),  league.getStandings().size());
-        assertEquals(leagueDto.getStandings().get(0).size(), league.getStandings().size());
+        assertEquals(leagueStandingsDto.getStandings().size(),  league.getStandings().size());
+        assertEquals(leagueStandingsDto.getStandings().get(0).size(), league.getStandings().size());
 
-        StandingsDto standingsDto = leagueDto.getStandings().get(0).get(0);
+        StandingsDto standingsDto = leagueStandingsDto.getStandings().get(0).get(0);
         Standings standings = league.getStandings().get(0);
         
         assertEquals(standingsDto.getTeam().getName(), standings.getTeam().getName());
@@ -66,8 +67,8 @@ public class LeagueMapperTest {
         
     }
 
-    private LeagueDto getLeagueDto() {
-        return LeagueDto.builder()
+    private LeagueDto getLeagueStandingsDto() {
+        return LeagueStandingsDto.builder()
             .id(123)
             .name("Premier League")
             .country("England")

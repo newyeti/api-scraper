@@ -8,7 +8,7 @@ import lombok.Data;
 public class StandingResponseDto {
     int results;
     List<Error> errors;
-    List<LeagueDto> response;
+    List<LeagueStandingsDto> response;
     
     @Data
     static class Error {
