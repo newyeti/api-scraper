@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.StandingsDataConfig;
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity.LeagueStandingsEntity;
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.mapper.LeagueStandingsJpaMapper;
@@ -31,12 +31,12 @@ public class StandingsRepositoryTest extends RepositoryContainerConfiguration {
     @Autowired
     private LeagueStandingsJpaMapper leagueStandingsJpaMapper;
 
-    private League league;
+    private LeagueStandings leagueStandings;
     private LeagueStandingsEntity standingsEntity;
 
     @BeforeEach
     void beforeEach() {
-        league = null;
+        leagueStandings = null;
         standingsEntity = null;
     }
 
@@ -102,11 +102,11 @@ public class StandingsRepositoryTest extends RepositoryContainerConfiguration {
 
 
     private void givenLeague(int id, int season) {
-       league = StandingsDataConfig.getLeague(id, season);
+       leagueStandings = StandingsDataConfig.getLeague(id, season);
     }
 
     private void convertToEntity() {
-        standingsEntity = leagueStandingsJpaMapper.toLeagueStandingsEntity(league);
+        standingsEntity = leagueStandingsJpaMapper.toLeagueStandingsEntity(leagueStandings);
     }
 
     private void saveToDb() {

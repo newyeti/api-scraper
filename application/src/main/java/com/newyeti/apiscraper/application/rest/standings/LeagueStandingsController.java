@@ -17,9 +17,9 @@ import com.newyeti.apiscraper.common.error.ErrorResponse;
 import com.newyeti.apiscraper.application.rest.standings.dto.ApiResponseDto;
 import com.newyeti.apiscraper.application.rest.standings.dto.RequestDto;
 import com.newyeti.apiscraper.application.rest.standings.dto.ResponseDto;
-import com.newyeti.apiscraper.application.rest.standings.mapper.LeagueMapper;
+import com.newyeti.apiscraper.application.rest.standings.mapper.LeagueStandingsMapper;
 import com.newyeti.apiscraper.application.kafka.KafkaConfig;
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import com.newyeti.apiscraper.domain.port.api.standings.CreateStandingsApi;
 
 import io.micrometer.observation.Observation;
@@ -31,7 +31,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -43,7 +42,7 @@ import java.util.UUID;
 public class LeagueStandingsController {
     
     private final HttpClient httpClient;
-    private final LeagueMapper leagueMapper;
+    private final LeagueStandingsMapper leagueStandingsMapper;
     private final AppConfig appConfig;
     private final KafkaConfig kafkaConfig;
     private final ObservationRegistry observationRegistry;
@@ -61,11 +60,11 @@ public class LeagueStandingsController {
         if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
             log.info("API Call: GET request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
             ApiResponseDto.Response response = result.getResponse().get(0);
-            League league = leagueMapper.toLeague(response.getLeague());
+            LeagueStandings leagueStandings = leagueStandingsMapper.toLeagueStandings(response.getLeagueStandingsDto());
 
             if(appConfig.isKafkaSendEnabled()) {
                 log.debug("Kafka Call: Sending API response to Kafka topic.");
-                createStandingsApi.create(league, kafkaConfig.getStandingsTopic(), UUID.randomUUID().toString());
+                createStandingsApi.create(leagueStandings, kafkaConfig.getStandingsTopic(), UUID.randomUUID().toString());
             }
         } else {
             log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());

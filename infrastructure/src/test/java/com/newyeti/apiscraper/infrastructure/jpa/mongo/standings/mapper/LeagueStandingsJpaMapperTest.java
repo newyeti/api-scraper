@@ -16,7 +16,7 @@ import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity.Standing
 import com.newyeti.apiscraper.domain.model.avro.schema.Away;
 import com.newyeti.apiscraper.domain.model.avro.schema.Goals;
 import com.newyeti.apiscraper.domain.model.avro.schema.Home;
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import com.newyeti.apiscraper.domain.model.avro.schema.Standings;
 import com.newyeti.apiscraper.domain.model.avro.schema.Team;
 
@@ -30,16 +30,16 @@ public class LeagueStandingsJpaMapperTest {
 
     @Test
     public void givenLeagueDomainModel_whenMappedToEntity_thenCorrect() {
-        League league = getLeague();
-        LeagueStandingsEntity entity = leagueStandingsJpaMapper.toLeagueStandingsEntity(league);
+        LeagueStandings leagueStandings = getLeague();
+        LeagueStandingsEntity entity = leagueStandingsJpaMapper.toLeagueStandingsEntity(leagueStandings);
         assertEquals(1, entity.getLeagueId());
         assertEquals("Premier League", entity.getName());
         assertEquals(2023, entity.getSeason());
         assertEquals("England Flag", entity.getFlag());
         assertEquals("England Logo", entity.getLogo());
-        assertEquals(league.getStandings().size(), entity.getStandings().size());
+        assertEquals(leagueStandings.getStandings().size(), entity.getStandings().size());
 
-        Standings standingsDomain = league.getStandings().get(0);
+        Standings standingsDomain = leagueStandings.getStandings().get(0);
         StandingsEntity standingsEntity = entity.getStandings().get(0);
 
         assertEquals(standingsDomain.getPoints(), standingsEntity.getPoints());
@@ -62,7 +62,7 @@ public class LeagueStandingsJpaMapperTest {
 
     }
 
-    private League getLeague() {
+    private LeagueStandings getLeague() {
         Standings manUtdStandings = Standings.newBuilder()
             .setPoints(50)
             .setGoalsDiff(40)
@@ -97,7 +97,7 @@ public class LeagueStandingsJpaMapperTest {
         List<Standings> standList = new ArrayList<>();
         standList.add(manUtdStandings);
 
-        return League.newBuilder()
+        return LeagueStandings.newBuilder()
             .setId(1)
             .setName("Premier League")
             .setSeason(2023)

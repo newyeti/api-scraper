@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LeagueDto {
+public class LeagueStandingsDto {
     int id;
     String name;
     String country;

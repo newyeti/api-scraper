@@ -1,8 +1,8 @@
 package com.newyeti.apiscraper.domain.port.api.standings;
 
 import com.newyeti.apiscraper.common.exception.ServiceException;
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 
 public interface GetStandingsApi {
-    League findByLeagueIdAndSeason(int leagueId, int season) throws ServiceException;
+    LeagueStandings findByLeagueIdAndSeason(int leagueId, int season) throws ServiceException;
 }

@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "League",
+  "name": "LeagueStandings",
   "namespace": "com.newyeti.apiscraper.domain.model.avro.schema",
   "fields": [
     {

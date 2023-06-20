@@ -18,7 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.StringUtils;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity.LeagueStandingsEntity;
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository.RepositoryContainerConfiguration;
 import com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.repository.StandingsRepository;
@@ -37,7 +37,7 @@ import com.newyeti.apiscraper.infrastructure.kafka.standings.StandingsAvroConsum
 public class AvroConsumerServiceTest extends KafkaContainerTestConfiguration {
 
     @Autowired
-    private AvroProducerService<League> avroProducerService;
+    private AvroProducerService<LeagueStandings> avroProducerService;
 
     @Autowired
     private StandingsAvroConsumerService standingsAvroConsumerService;
@@ -48,18 +48,17 @@ public class AvroConsumerServiceTest extends KafkaContainerTestConfiguration {
     @BeforeEach
     public void setup() {
         standingsAvroConsumerService.resetLatch();
-        // standingsRepository.deleteAll();
     }
     
     @Test
     public void givenKafkaContainer_whenSendingAvroMessage_thenMessageSent() throws Exception {
-        League league = League.newBuilder()
+        LeagueStandings leagueStandings = LeagueStandings.newBuilder()
             .setId(500)
             .setSeason(2023)
             .setName("Premier League")
             .build();
         
-        avroProducerService.send("apiscraper.standings.avro.topic.v1", String.valueOf(league.getId()), league);
+        avroProducerService.send("apiscraper.standings.avro.topic.v1", String.valueOf(leagueStandings.getId()), leagueStandings);
         standingsAvroConsumerService.getLatch().await(5, TimeUnit.SECONDS);
         Thread.sleep(5000);
         List<LeagueStandingsEntity> leagueStandingsEntities = standingsRepository.findAll(); 
