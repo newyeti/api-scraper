@@ -1,4 +1,0 @@
-
-avro:
-  topic:
-    standings: "league.standings.topic.v1"

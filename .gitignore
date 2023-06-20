@@ -23,6 +23,7 @@
 hs_err_pid*
 replay_pid*
 /data/**
-.vscode/
+#.vscode/
 target/**
-/grafana/**
+/grafana/*.db
+/grafana/alerting/**
