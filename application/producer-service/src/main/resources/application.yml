@@ -1,10 +1,9 @@
-
 server:
-  port: 4100
+  port: 4000
 
 spring:
   application:
-    name: APISCRAPER-CONSUMER-SERVICE
+    name: APISCRAPER-PRODUCER-SERVICE
   cloud:
     discovery:
       enabled: false
@@ -16,6 +15,22 @@ avro:
     topics:
       standings: apiscraper.standings.avro.topic.v1
     groupId: api-scraper
+  producer:
+    topic:
+      standings: apiscraper.standings.avro.topic.v1
+
+
+football-api:
+  baseUrl: "https://api-football-v1.p.rapidapi.com/v3"
+  apiHost: "api-football-v1.p.rapidapi.com"
+  apiKeys: 
+    - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
+
+
+kafka:
+  producer:
+    send:
+      enabled: false
 
 ---
 
@@ -34,7 +49,7 @@ spring:
       uri: mongodb//:localhost:27017/football
       
 server:
-  port: 7002
+  port: 7001
 
 management:
   endpoints:
@@ -72,6 +87,13 @@ spring:
     bootstrap-servers: broker-1:9092
     template:
       default-topic: "apiscraper.standings.avro.topic.v1"
+    producer:
+      key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
+      value-serializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
+      properties:
+        schema:
+          registry:
+            url: http://schema-registry:8081
     consumer:
       group-id: api-scraper
       auto-offset-reset: latest
@@ -110,3 +132,7 @@ logging:
   pattern:
     level: "trace_id=%mdc{trace_id:-} span_id=%mdc{span_id:-} trace_flags=%mdc{trace_flags} %p"
 
+kafka:
+  producer:
+    send:
+      enabled: true

@@ -14,7 +14,7 @@
         "type": "java",
         "name": "Application",
         "request": "launch",
-        "mainClass": "com.newyeti.apiscraper.application.Application",
+        "mainClass": "com.newyeti.apiscraper.producer.Application",
         "projectName": "application",
         "vmArgs": "-Dspring.profiles.active=dev"
       },
