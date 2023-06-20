@@ -5,7 +5,7 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - init: make gitpod-compile
+  - init: make gcompile
     env:
       M2_HOME: maven-settings.xml
   
