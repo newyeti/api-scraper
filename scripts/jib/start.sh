@@ -19,8 +19,14 @@ retval=$?
 echo $retval
 
 if [ $retval -eq 0 ]; then
+  AGENT_FILE=opentelemetry-javaagent-all.jar
+  if [ ! -f "${AGENT_FILE}" ]; then
+    curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.26.0/opentelemetry-javaagent.jar --output ${AGENT_FILE}
+  fi
+  
   echo "Starting application"
-  java $JAVA_OPTS -cp @/app/jib-classpath-file $ENTRYPOINT
+  
+  java $JAVA_OPTS -javaagent:./${AGENT_FILE} -cp @/app/jib-classpath-file $ENTRYPOINT
   started=$?
   if [[ $started == 0 ]]; then
     echo "Application started"

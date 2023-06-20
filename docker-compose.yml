@@ -1,3 +1,14 @@
+x-logging: &default-logging
+  driver: loki
+  options:
+    loki-url: 'http://localhost:3100/api/prom/push'
+    loki-pipeline-stages: |
+      - multiline:
+          firstline: '^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}'
+          max_wait_time: 3s
+      - regex:
+          expression: '^(?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}:\d{2}.\d{3}) (?P<message>(?s:.*))$$'
+
 version: '3.9'
 
 services:
@@ -119,13 +130,44 @@ services:
       - keycloak-mysql
     networks:
       - infra-network
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
+
+  # Database
+  mongo:
+    container_name: mongo
+    image: mongo:latest
     ports:
-      - 9411:9411
+      - 27017:27017
+    expose:
+      - 27017
+    volumes:
+      - ./mongo/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+      - ./data/mongodb:/data/db
     networks:
-      - infra-network
+      - db-network
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      FOOTBALL_DB_PASSWORD: ${FOOTBALL_DB_PASSWORD:-football}
+      APP_CONFIG_DB_PASSWORD: ${APP_CONFIG_DB_PASSWORD:-app}
+  
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8088:8081
+    networks:
+      - db-network
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/
+
+
+  # Cloud
 
   discovery-server:
     container_name: newyeti-discovery-server
@@ -164,13 +206,24 @@ services:
       - CONFIG_SERVER_TIMEOUT=300
       - DISCOVERY_SERVER_HOSTNAME=${DISCOVERY_SERVER_HOSTNAME}
     pull_policy: always
+    networks:
+      - infra-network
+      - monitoring-network
     depends_on:
       - discovery-server
       - config-server
       - keycloak
-      - zipkin
+  
+  # Observability
+
+  loki:
+    image: grafana/loki:2.8.0
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
     networks:
-      - infra-network
+      - monitoring-network
 
   ## Prometheus
   prometheus:
@@ -181,46 +234,123 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command: 
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      - monitoring-network
     depends_on:
-      - api-gateway
+      - loki
+    logging: *default-logging
+
+  promtail:
+    image: grafana/promtail:2.8.0
+    container_name: promtail
+    volumes:
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - monitoring-network
+
+  collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: collector
+    networks:
+      - monitoring-network
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "5555:5555"
+      - "6666:6666"
+    depends_on:
+      - tempo
+      - prometheus
+  
+  tempo:
+    image: grafana/tempo
+    container_name: tempo
+    command: ["-config.file=/etc/tempo.yaml",  "--storage.trace.backend=local", "--storage.trace.local.path=/var/tempo"]
+    ports:
+      - "3200:3200" # tempo
+      - "4317:4317" # otlp grpc
+      - "4318:4318"  # otlp http
+    volumes:
+      - ./grafana/tempo/tempo-config.yaml:/etc/tempo.yaml
+      - ./grafana/tempo/tempo-overrides.yaml:/etc/overrides.yaml
+      - ./tempo-data:/tmp/tempo
+    networks:
+      - monitoring-network
+      - infra-network
+    logging: *default-logging
 
   grafana:
-    image: grafana/grafana-oss:9.5.1
+    image: grafana/grafana
+    user: "472"
     container_name: grafana
     restart: always
     ports:
       - "3000:3000"
-    links:
-      - prometheus:prometheus
     volumes:
-      - ./grafana:/var/lib/grafana
+      - grafana_data:/var/lib/grafana/
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - monitoring-network
+    depends_on:
+      - prometheus
+      - loki
+      - collector
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=password
+      - GF_AUTH_ANONYMOUS_ENABLED="true"
+      - GF_AUTH_ANONYMOUS_ORG_ROLE="Admin"
+      - GF_AUTH_DISABLE_LOGIN_FORM="true"
+    logging: *default-logging
 
   ## Applications
 
-  beakon:
-    container_name: beakon-service 
-    image: sachindramaharjan/newyeti-apiscraper-beakon:latest
+  apiscraper-service:
+    container_name: apiscraper-service 
+    image: sachindramaharjan/newyeti-apiscraper:latest
     pull_policy: always
     restart: always
     ports:
       - "4000:4000"
     networks:
       - infra-network
+      - monitoring-network
+      - db-network
     depends_on:
       - config-server
       - api-gateway
+      - collector
+      - mongo
     environment:
       - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
       - CONFIG_SERVER_URI=http://config-server
       - CONFIG_SERVER_PORT=9091
       - CONFIG_SERVER_TIMEOUT=300
       - DISCOVERY_SERVER_HOSTNAME=${DISCOVERY_SERVER_HOSTNAME}
-      - SPRING_APPLICATION_JSON={"logging.level.org.springframework.cloud.gateway":"DEBUG","logging.level.org.springframework.boot.autoconfigure.web":"DEBUG", "logging.level.web":"DEBUG"}
       - SPRING_PROFILES_ACTIVE=docker
-    
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4317
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=apiscraper-service,compose_service=apiscraper-service
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_TRACES_INSECURE=true
+      - MANAGEMENT_METRICS_TAGS_APPLICATION=apiscraper-service
+      - SPRING_APPLICATION_JSON={"data.mongodb.uri":"mongodb://football:${FOOTBALL_DB_PASSWORD}@mongo:27017/football"}
+      #- SPRING_APPLICATION_JSON={"logging.level.org.springframework.cloud.gateway":"DEBUG","logging.level.org.springframework.boot.autoconfigure.web":"DEBUG", "logging.level.web":"DEBUG"}
+    logging: *default-logging
+  
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+
 networks:
   infra-network:
+    driver: bridge
+  monitoring-network:
+    driver: bridge
+  db-network:
     driver: bridge

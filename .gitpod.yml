@@ -5,7 +5,7 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - init: make gitpod-compile
+  - init: make gcompile
     env:
       M2_HOME: maven-settings.xml
   
@@ -13,8 +13,15 @@ tasks:
     env:
       EUREKA_USERNAME: eureka
       EUREKA_PASSWORD: password
+      DISCOVERY_SERVER_HOSTNAME: https://8761-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      FOOTBALL_DB_PASSWORD: football
+      APP_CONFIG_DB_PASSWORD: app_config
+
+  - name: Docker plugins
     command: 
-      export DISCOVERY_SERVER_HOSTNAME=https://8761-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
-   
+      docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
+     
 image:
   file: .gitpod.Dockerfile
