@@ -13,7 +13,7 @@ import org.apache.avro.message.SchemaStore;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class LeagueStandings extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 9212863951753819726L;
+  private static final long serialVersionUID = 1511328107716096613L;
   public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"LeagueStandings\",\"namespace\":\"com.newyeti.apiscraper.domain.model.avro.schema\",\"fields\":[{\"name\":\"country\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"flag\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"season\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"standings\",\"type\":[\"null\",{\"type\":\"array\",\"items\":[\"null\",{\"type\":\"record\",\"name\":\"Standings\",\"fields\":[{\"name\":\"all\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"All\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Goals\",\"fields\":[{\"name\":\"goalsAgainst\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goalsFor\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"away\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Away\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"form\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"goalsDiff\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"group\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"home\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Home\",\"fields\":[{\"name\":\"draw\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"goals\",\"type\":[\"null\",\"Goals\"],\"default\":null},{\"name\":\"lose\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"played\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"win\",\"type\":[\"null\",\"int\"],\"default\":null}]}],\"default\":null},{\"name\":\"points\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"rank\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"status\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"team\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Team\",\"fields\":[{\"name\":\"id\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"logo\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"name\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}],\"default\":null},{\"name\":\"update\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}]}],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
@@ -40,12 +40,12 @@ public class LeagueStandings extends org.apache.avro.specific.SpecificRecordBase
     return new BinaryMessageDecoder<LeagueStandings>(MODEL$, SCHEMA$, resolver);
   }
 
-  /** Serializes this League to a ByteBuffer. */
+  /** Serializes this LeagueStandings to a ByteBuffer. */
   public java.nio.ByteBuffer toByteBuffer() throws java.io.IOException {
     return ENCODER.encode(this);
   }
 
-  /** Deserializes a League from a ByteBuffer. */
+  /** Deserializes a LeagueStandings from a ByteBuffer. */
   public static LeagueStandings fromByteBuffer(
       java.nio.ByteBuffer b) throws java.io.IOException {
     return DECODER.decode(b);
@@ -229,33 +229,33 @@ public class LeagueStandings extends org.apache.avro.specific.SpecificRecordBase
   }
 
   /**
-   * Creates a new League RecordBuilder.
-   * @return A new League RecordBuilder
+   * Creates a new LeagueStandings RecordBuilder.
+   * @return A new LeagueStandings RecordBuilder
    */
   public static com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings.Builder newBuilder() {
     return new com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings.Builder();
   }
 
   /**
-   * Creates a new League RecordBuilder by copying an existing Builder.
+   * Creates a new LeagueStandings RecordBuilder by copying an existing Builder.
    * @param other The existing builder to copy.
-   * @return A new League RecordBuilder
+   * @return A new LeagueStandings RecordBuilder
    */
   public static com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings.Builder newBuilder(com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings.Builder other) {
     return new com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings.Builder(other);
   }
 
   /**
-   * Creates a new League RecordBuilder by copying an existing League instance.
+   * Creates a new LeagueStandings RecordBuilder by copying an existing LeagueStandings instance.
    * @param other The existing instance to copy.
-   * @return A new League RecordBuilder
+   * @return A new LeagueStandings RecordBuilder
    */
   public static com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings.Builder newBuilder(com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings other) {
     return new com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings.Builder(other);
   }
 
   /**
-   * RecordBuilder for League instances.
+   * RecordBuilder for LeagueStandings instances.
    */
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<LeagueStandings>
     implements org.apache.avro.data.RecordBuilder<LeagueStandings> {
@@ -310,7 +310,7 @@ public class LeagueStandings extends org.apache.avro.specific.SpecificRecordBase
     }
 
     /**
-     * Creates a Builder by copying an existing League instance
+     * Creates a Builder by copying an existing LeagueStandings instance
      * @param other The existing instance to copy.
      */
     private Builder(com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings other) {
