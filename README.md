@@ -85,3 +85,13 @@ Tracing is provided with Zipkin.
   docker compose down
 ```
 
+#### Envrionment Variables
+```
+export EUREKA_USERNAME=eureka
+export EUREKA_PASSWORD= password
+export DISCOVERY_SERVER_HOSTNAME=https://8761-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
+export MONGO_INITDB_ROOT_USERNAME=admin
+export MONGO_INITDB_ROOT_PASSWORD=password \
+export FOOTBALL_DB_PASSWORD=football
+export APP_CONFIG_DB_PASSWORD=app_config
+````
