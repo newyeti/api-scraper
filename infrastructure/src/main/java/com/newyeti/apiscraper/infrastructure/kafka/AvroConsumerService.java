@@ -29,7 +29,7 @@ public class AvroConsumerService<K, V> implements AvroConsumerPort<K, V> {
         K key = consumerRecord.key();
         V payload = consumerRecord.value();
         if (Objects.isNull(payload)) {
-            log.error("received 'null' payload=League on topic={}");
+            log.error("received 'null' on topic={}");
         } else {
             process(key, payload);
         }

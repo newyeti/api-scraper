@@ -10,6 +10,7 @@ db.createUser({
   pwd: '$FOOTBALL_DB_PASSWORD',
   roles: [{ role: 'readWrite', db: 'football' }],
 });
+db.createCollection('league')
 db.createCollection('standings')
 
 db = db.getSiblingDB('app_config')

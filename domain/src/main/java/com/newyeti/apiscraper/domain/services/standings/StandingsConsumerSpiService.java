@@ -2,17 +2,17 @@ package com.newyeti.apiscraper.domain.services.standings;
 
 import org.springframework.stereotype.Service;
 
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import com.newyeti.apiscraper.domain.port.spi.BusinessServiceSpi;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class StandingsConsumerSpiService implements BusinessServiceSpi<League>{
+public class StandingsConsumerSpiService implements BusinessServiceSpi<LeagueStandings>{
     
     @Override
-    public void postProcessReceivedMessage(League league) {
+    public void postProcessReceivedMessage(LeagueStandings leagueStandings) {
         log.info("do something here after message is received.");
     }
 
