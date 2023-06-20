@@ -4,7 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import com.newyeti.apiscraper.domain.port.spi.standings.CreateStandingsJpaPort;
 import com.newyeti.apiscraper.domain.services.standings.StandingsConsumerSpiService;
 import com.newyeti.apiscraper.infrastructure.kafka.AvroConsumerService;
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class StandingsAvroConsumerService extends AvroConsumerService<String, League> {
+public class StandingsAvroConsumerService extends AvroConsumerService<String, LeagueStandings> {
     
     private final CreateStandingsJpaPort createStandingsJpaPort;
     private final StandingsConsumerSpiService standingsConsumerSpiService;
@@ -22,14 +22,14 @@ public class StandingsAvroConsumerService extends AvroConsumerService<String, Le
     @KafkaListener(topics = "${avro.consumer.topics.standings}", 
         groupId = "${avro.consumer.groupId}", 
         errorHandler = "avroConsumerErrorHandler")
-    public void receive(ConsumerRecord<String, League> consumerRecord) {
+    public void receive(ConsumerRecord<String, LeagueStandings> consumerRecord) {
        super.receive(consumerRecord);
     }
 
     @Override
-    public void process(String key, League league) {   
-        createStandingsJpaPort.save(key, league);
-        standingsConsumerSpiService.postProcessReceivedMessage(league);
+    public void process(String key, LeagueStandings leagueStandings) {   
+        createStandingsJpaPort.save(key, leagueStandings);
+        standingsConsumerSpiService.postProcessReceivedMessage(leagueStandings);
     }
 
 }

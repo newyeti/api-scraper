@@ -3,7 +3,7 @@ package com.newyeti.apiscraper.infrastructure.kafka;
 
 import java.util.Map;
 
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 
 import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
@@ -14,7 +14,7 @@ public class CustomKafkaAvroDeserializer extends KafkaAvroDeserializer {
     public CustomKafkaAvroDeserializer() throws Exception{
         super();
         super.schemaRegistry = new MockSchemaRegistryClient();
-        super.schemaRegistry.register("apiscraper.standings.avro.topic.v1", League.getClassSchema());   
+        super.schemaRegistry.register("apiscraper.standings.avro.topic.v1", LeagueStandings.getClassSchema());   
     }
 
     public CustomKafkaAvroDeserializer(SchemaRegistryClient client) {

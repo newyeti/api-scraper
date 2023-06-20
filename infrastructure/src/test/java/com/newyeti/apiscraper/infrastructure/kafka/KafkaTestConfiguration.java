@@ -17,22 +17,22 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 
-import com.newyeti.apiscraper.domain.model.avro.schema.League;
+import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 
 public class KafkaTestConfiguration {
     @Bean
-        ConcurrentKafkaListenerContainerFactory<String, League> kafkaListenerContainerFactory(ConsumerFactory<String, League> consumerFactory) {
-            ConcurrentKafkaListenerContainerFactory<String, League> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        ConcurrentKafkaListenerContainerFactory<String, LeagueStandings> kafkaListenerContainerFactory(ConsumerFactory<String, LeagueStandings> consumerFactory) {
+            ConcurrentKafkaListenerContainerFactory<String, LeagueStandings> factory = new ConcurrentKafkaListenerContainerFactory<>();
             factory.setConsumerFactory(consumerFactory);
             factory.setCommonErrorHandler(new DefaultErrorHandler());
             return factory;
         }
 
         @Bean
-        public ConsumerFactory<String, League> consumerFactory() throws Exception{
-            ErrorHandlingDeserializer<League> errorHandlingDeserializer
+        public ConsumerFactory<String, LeagueStandings> consumerFactory() throws Exception{
+            ErrorHandlingDeserializer<LeagueStandings> errorHandlingDeserializer
                 = new ErrorHandlingDeserializer(new CustomKafkaAvroDeserializer());
             return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), errorHandlingDeserializer);
         }
@@ -53,7 +53,7 @@ public class KafkaTestConfiguration {
         }
 
         @Bean
-        public ProducerFactory<String, League> producerFactory() {
+        public ProducerFactory<String, LeagueStandings> producerFactory() {
             Map<String, Object> configProps = new HashMap<>();
             configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaContainerTestConfiguration.kafka.getBootstrapServers());
             configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -63,17 +63,13 @@ public class KafkaTestConfiguration {
         }
 
         @Bean
-        public KafkaTemplate<String, League> kafkaTemplate() {
+        public KafkaTemplate<String, LeagueStandings> kafkaTemplate() {
             return new KafkaTemplate<>(producerFactory());
         }
 
         @Bean
-        public AvroProducerService<League> avroProducer() {
+        public AvroProducerService<LeagueStandings> avroProducer() {
             return new AvroProducerService<>(kafkaTemplate());
         }
 
-        // @Bean
-        // public StandingsAvroConsumerService standingsAvroConsumerService() {
-        //     return new StandingsAvroConsumerService(null, null);
-        // }
 }
