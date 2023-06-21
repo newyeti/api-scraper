@@ -1,6 +1,5 @@
 package com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
