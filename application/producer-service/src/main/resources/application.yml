@@ -32,6 +32,25 @@ kafka:
     send:
       enabled: false
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+
+logging:
+  pattern:
+    level: "%5p app_name=[${spring.producer.name:} trace_id=%mdc{trace_id:-} span_id=%mdc{span_id:-} trace_flags=%mdc{trace_flags} %p]"
+
 ---
 
 spring:
@@ -50,25 +69,6 @@ spring:
       
 server:
   port: 7001
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  tracing:
-    sampling:
-      probability: 1.0
-  metrics:
-    distribution:
-      percentiles-histogram:
-        http:
-          server:
-            requests: true
-
-logging:
-  pattern:
-    level: "%5p app_name=[${spring.producer.name:} trace_id=%X{trace_id:-} span_id=%X{span_id:-} trace_flags=%mdc{trace_flags} %p]"
 
 ---
 
@@ -110,27 +110,6 @@ spring:
   data:
     mongodb:
       uri: mongodb://football:football@mongo:27017/football
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  tracing:
-    sampling:
-      probability: 1.0
-  metrics:
-    tags:
-      application: beakon-service
-    distribution:
-      percentiles-histogram:
-        http:
-          server:
-            requests: 'true'
-
-logging:
-  pattern:
-    level: "trace_id=%mdc{trace_id:-} span_id=%mdc{span_id:-} trace_flags=%mdc{trace_flags} %p"
 
 kafka:
   producer:

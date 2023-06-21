@@ -169,7 +169,7 @@
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>jib-maven-plugin</artifactId>
-				<version>3.3.1</version>
+				<version>${jib.maven.plugin.version}</version>
 				<configuration>
 					<from>
 						<image>sachindramaharjan/jre-alpine-curl:19.0.2_7-jre-alpine</image>
