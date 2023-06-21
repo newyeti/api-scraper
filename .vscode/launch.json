@@ -12,19 +12,19 @@
       },
       {
         "type": "java",
-        "name": "Application",
+        "name": "ProducerApplication",
         "request": "launch",
-        "mainClass": "com.newyeti.apiscraper.application.Application",
-        "projectName": "application",
+        "mainClass": "com.newyeti.apiscraper.producer.ProducerApplication",
+        "projectName": "producer",
         "vmArgs": "-Dspring.profiles.active=dev"
       },
       {
         "type": "java",
-        "name": "BeakonApplication",
+        "name": "ConsumerApplication",
         "request": "launch",
-        "mainClass": "com.newyeti.apiscraper.adapter.beakon.BeakonApplication",
+        "mainClass": "com.newyeti.apiscraper.consumer.ConsumerApplication",
         "vmArgs": "-Dspring.profiles.active=dev",
-        "projectName": "beakon"
+        "projectName": "consumer"
       },
       {
         "type": "java",

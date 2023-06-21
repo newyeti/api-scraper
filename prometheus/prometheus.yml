@@ -3,17 +3,17 @@ global:
   evaluation_interval: 10s
 
 scrape_configs:
-  - job_name: 'beakon-service'
+  - job_name: 'apiscraper-producer-service'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['beakon-service:4000']
+      - targets: ['apiscraper-producer-service:4000']
         labels:
-          application: 'beakon-service'
-  - job_name: 'injester-service'
+          application: 'apiscraper-producer-service'
+  - job_name: 'apiscraper-consumer-service'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['injester-service:4100']
+      - targets: ['apiscraper-consumer-service:4100']
         labels:
-          application: 'injester-service'
+          application: 'apiscraper-producer-service'
           
   

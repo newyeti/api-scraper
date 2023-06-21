@@ -1,9 +1,6 @@
-package com.newyeti.apiscraper.infrastructure.jpa.mongo.standings.entity;
+package com.newyeti.apiscraper.producer.rest.standings.dto;
 
 import java.util.List;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -17,20 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Document("standings")
-public class LeagueStandingsEntity {
-    
-    @Id
-    String id;
-
-    int leagueId;
+public class LeagueStandingsDto {
+    int id;
     String name;
     String country;
     String logo;
     String flag;
     int season;
-    List<StandingsEntity> standings;
-    String uuid;
-    String updatedOn;
-
+    List<List<StandingsDto>> standings;
 }
