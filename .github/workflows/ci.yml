@@ -70,7 +70,7 @@ jobs:
             "id": "confluent",
             "name": "Confluent mirror",
             "mirrorOf": "confluent",
-            "url": "http://packages.confluent.io/maven/",
+            "url": "http://packages.confluent.io/maven/"
           }]
         output_file: .m2/maven_settings.xml
 
