@@ -1,0 +1,76 @@
+---
+name: Build and Push Config Service docker image to GCP
+
+on:
+  push: 
+    branches: ["main"]
+  
+jobs:
+  build-push-gcp:
+    runs-on: ubuntu-latest
+    
+    permissions: 
+      contents: write
+    
+    if: contains(github.event.head_commit.message, 'gcp')
+    env:
+      IMAGE_NAME: config-server
+      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+        project_id: ${{ env.PROJECT_ID }}
+        version: '>= 416.0.0'
+
+    - name: 'Use gcloud CLI'
+      run: 'gcloud info'
+
+    - name: 'Get Git Tag from commit message'
+      id: determine-git-tag
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+      run: |-
+        GIT_TAG_TYPE="patch"
+        if [[ "${COMMIT_MESSAGE}" == *"major.version"* ]]; then
+          echo "Found major version in commit message"
+          GIT_TAG_TYPE="major"
+        elif [[ "${COMMIT_MESSAGE}" == *"minor.version"* ]]; then
+          echo "Found minor version in commit message"
+          GIT_TAG_TYPE="minor"
+        else
+          echo "No major/minor version found. Using default tag 'patch'"
+          GIT_TAG_TYPE="patch"
+        fi
+
+        echo "Git Tag Type="$GIT_TAG_TYPE
+        echo "GIT_TAG_TYPE=${GIT_TAG_TYPE}" >> $GITHUB_ENV
+        exit 0
+        
+    - name: Automatic Tagging of Releases
+      id: increment-git-tag
+      run: |
+        bash ./scripts/git_update.sh -v $GIT_TAG_TYPE
+    
+    - name: Configure Docker Client
+      run: |-
+        gcloud auth configure-docker --quiet
+        gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+    
+    - name: Push Docker Image to Artifact Registry
+      run: mvn -Denv=gcp --file pom.xml clean compile jib:build
