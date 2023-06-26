@@ -59,6 +59,7 @@ jobs:
     - name: Configure maven settings.xml
       uses: s4u/maven-settings-action@v2.8.0
       with:
+        override: false
         mirrors: '[{
             "id": "maven-default-http-blocker"
             "name": "Pseudo repository to mirror external repositories initially using HTTP.",
@@ -68,7 +69,7 @@ jobs:
           },
           {
             "id": "confluent"
-            "name": "Nexus public mirror",
+            "name": "Confluent mirror",
             "mirrorOf": "confluent",
             "url": "http://packages.confluent.io/maven/",
           }]'
