@@ -61,13 +61,13 @@ jobs:
       with:
         mirrors: >
           [{
-            "id": "maven-default-http-blocker"
+            "id": "maven-default-http-blocker",
             "name": "Pseudo repository to mirror external repositories initially using HTTP.",
             "mirrorOf": "external:http:*",
             "url": "http://0.0.0.0/"
           },
           {
-            "id": "confluent"
+            "id": "confluent",
             "name": "Confluent mirror",
             "mirrorOf": "confluent",
             "url": "http://packages.confluent.io/maven/",
