@@ -57,10 +57,10 @@ jobs:
         cache: maven
     
     - name: Configure maven settings.xml
-      uses: s4u/maven-settings-action@v2.8.0
+      uses: whelk-io/maven-settings-xml-action@v20
       with:
-        override: false
-        mirrors: '[{
+        mirrors: >
+          [{
             "id": "maven-default-http-blocker"
             "name": "Pseudo repository to mirror external repositories initially using HTTP.",
             "mirrorOf": "external:http:*",
@@ -72,7 +72,8 @@ jobs:
             "name": "Confluent mirror",
             "mirrorOf": "confluent",
             "url": "http://packages.confluent.io/maven/",
-          }]'
+          }]
+        output_file: .m2/maven_settings.xml
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -81,6 +82,6 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Push Docker Image to Docker Hub
-      run: mvn -Denv=dev --file pom.xml clean compile jib:build
+      run: mvn -Denv=dev -s .m2/maven_settings.xml --file pom.xml clean compile jib:build
 
 
