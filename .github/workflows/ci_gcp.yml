@@ -73,4 +73,4 @@ jobs:
         gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
     
     - name: Push Docker Image to Artifact Registry
-      run: mvn -Denv=gcp -s maven-settings.xml --file pom.xml clean compile jib:build
+      run: mvn -Denv=gcp --file pom.xml clean compile jib:build
