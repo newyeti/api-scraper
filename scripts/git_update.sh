@@ -64,5 +64,5 @@ else
   echo "Already a tag on this commit"
 fi
 
-echo "GIT_TAG=${GIT_TAG_TYPE}" >> $GITHUB_ENV
+echo "GIT_TAG=${NEEDS_TAG}" >> $GITHUB_ENV
 
