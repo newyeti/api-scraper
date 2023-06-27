@@ -1,5 +1,5 @@
 ---
-name: Build and Push Config Service docker image to GCP
+name: Build and Push docker image to GCP
 
 on:
   push: 
@@ -12,7 +12,9 @@ jobs:
     permissions: 
       contents: write
     
-    if: contains(github.event.head_commit.message, fromJSON('["release", "bump", "gcp"]'))
+    if: contains(github.event.head_commit.message, 'release') ||
+      contains(github.event.head_commit.message, 'bump') ||
+      contains(github.event.head_commit.message, 'gcp')
 
     env:
       IMAGE_NAME: config-server
@@ -79,4 +81,4 @@ jobs:
         output_file: .m2/maven_settings.xml
 
     - name: Push Docker Image to Artifact Registry
-      run: mvn -Denv=gcp -s m2/maven_settings.xml --file pom.xml clean compile jib:build
+      run: mvn -Denv=gcp -s .m2/maven_settings.xml --file pom.xml clean compile jib:build
