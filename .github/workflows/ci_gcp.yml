@@ -13,9 +13,11 @@ jobs:
       contents: write
     
     if: contains(github.event.head_commit.message, 'gcp')
+
     env:
       IMAGE_NAME: config-server
       PROJECT_ID: ${{ secrets.PROJECT_ID }}
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -46,21 +48,7 @@ jobs:
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |-
-        GIT_TAG_TYPE="patch"
-        if [[ "${COMMIT_MESSAGE}" == *"major.version"* ]]; then
-          echo "Found major version in commit message"
-          GIT_TAG_TYPE="major"
-        elif [[ "${COMMIT_MESSAGE}" == *"minor.version"* ]]; then
-          echo "Found minor version in commit message"
-          GIT_TAG_TYPE="minor"
-        else
-          echo "No major/minor version found. Using default tag 'patch'"
-          GIT_TAG_TYPE="patch"
-        fi
-
-        echo "Git Tag Type="$GIT_TAG_TYPE
-        echo "GIT_TAG_TYPE=${GIT_TAG_TYPE}" >> $GITHUB_ENV
-        exit 0
+        bash ./scripts/git_version.sh
         
     - name: Automatic Tagging of Releases
       id: increment-git-tag
@@ -91,4 +79,4 @@ jobs:
         output_file: .m2/maven_settings.xml
 
     - name: Push Docker Image to Artifact Registry
-      run: mvn -Denv=gcp -s .m2/maven_settings.xml --file pom.xml clean compile jib:build
+      run: mvn -Denv=gcp -s m2/maven_settings.xml --file pom.xml clean compile jib:build
