@@ -33,8 +33,27 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    
+    - name: Configure maven settings.xml
+      uses: whelk-io/maven-settings-xml-action@v20
+      with:
+        mirrors: >
+          [{
+            "id": "maven-default-http-blocker",
+            "name": "Pseudo repository to mirror external repositories initially using HTTP.",
+            "mirrorOf": "external:http:*",
+            "url": "http://0.0.0.0/"
+          },
+          {
+            "id": "confluent",
+            "name": "Confluent mirror",
+            "mirrorOf": "confluent",
+            "url": "http://packages.confluent.io/maven/"
+          }]
+        output_file: .m2/maven_settings.xml
+
     - name: Build with Maven
-      run: mvn -Denv=dev -s --file pom.xml clean compile jib:dockerBuild
+      run: mvn -Denv=dev -s m2/maven_settings.xml -file pom.xml clean compile jib:dockerBuild
   
   build-push-dockerhub:
     
