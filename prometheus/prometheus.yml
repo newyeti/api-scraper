@@ -15,5 +15,3 @@ scrape_configs:
       - targets: ['apiscraper-consumer-service:4100']
         labels:
           application: 'apiscraper-producer-service'
-          
-  
