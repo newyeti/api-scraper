@@ -52,10 +52,10 @@ Tracing is provided with Zipkin.
 ### Build image only
 ```  
   # Local build
-  make build-image
+  make dockerBuild
   
   # Gitpod build
-  gitpod-build-image
+  make gdockerBuild
 ```
 
 ### Build image and push it to registry
@@ -64,9 +64,8 @@ Tracing is provided with Zipkin.
   make build
   
   # Gitpod build
-  gitpod-build
+  make gbuild
 ```
-
 ### Run docker containers defined in docker-compose.yml
 ```
   make up
@@ -95,3 +94,44 @@ export MONGO_INITDB_ROOT_PASSWORD=password \
 export FOOTBALL_DB_PASSWORD=football
 export APP_CONFIG_DB_PASSWORD=app_config
 ````
+
+## Continuous Integration
+
+### Github Actions
+#### Environment Variables
+
+```
+# Github Repository Secrets
+DOCKERHUB_TOKEN : DockerHub Token
+DOCKERHUB_USERNAME : DockerHub Username
+PROJECT_ID : GCP Project Id
+SERVICE_ACCOUNT_KEY : Service Account Key
+
+# GIT Tag 
+GIT_TAG_TYPE: ["patch", "minor", "major"]
+GIT_TAG: Git tag version
+```
+
+#### Workflow
+
+##### Continuous Integration
+```
+Trigger: 
+- Push to develop branch
+- Pull request to develop and main branches
+```
+
+##### Build and Push Image to Registry
+```
+Trigger:
+- Push to main branch
+
+Note: 
+Commit message should contain one of the following strings 
+  - to push artifact to Google Artifact Registry
+      "bump", "gcp", "release"
+  - to add git tags
+    major.version - major release
+    minor.version - minor release
+    patch - empty or patch
+```
