@@ -72,5 +72,23 @@ jobs:
         gcloud auth configure-docker --quiet
         gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
     
+    - name: Configure maven settings.xml
+      uses: whelk-io/maven-settings-xml-action@v20
+      with:
+        mirrors: >
+          [{
+            "id": "maven-default-http-blocker",
+            "name": "Pseudo repository to mirror external repositories initially using HTTP.",
+            "mirrorOf": "external:http:*",
+            "url": "http://0.0.0.0/"
+          },
+          {
+            "id": "confluent",
+            "name": "Confluent mirror",
+            "mirrorOf": "confluent",
+            "url": "http://packages.confluent.io/maven/"
+          }]
+        output_file: .m2/maven_settings.xml
+
     - name: Push Docker Image to Artifact Registry
-      run: mvn -Denv=gcp --file pom.xml clean compile jib:build
+      run: mvn -Denv=gcp -s .m2/maven_settings.xml --file pom.xml clean compile jib:build
