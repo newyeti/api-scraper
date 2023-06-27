@@ -81,4 +81,4 @@ jobs:
         output_file: .m2/maven_settings.xml
 
     - name: Push Docker Image to Artifact Registry
-      run: mvn -Denv=gcp -s m2/maven_settings.xml --file pom.xml clean compile jib:build
+      run: mvn -Denv=gcp -s .m2/maven_settings.xml --file pom.xml clean compile jib:build
