@@ -12,7 +12,9 @@ jobs:
     permissions: 
       contents: write
     
-    if: contains(fromJSON('["release", "bump", "gcp"]'), github.event.head_commit.message)
+    if: contains(github.event.head_commit.message, 'release') ||
+      contains(github.event.head_commit.message, 'bump') ||
+      contains(github.event.head_commit.message, 'gcp')
 
     env:
       IMAGE_NAME: config-server
