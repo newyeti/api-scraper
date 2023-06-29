@@ -110,3 +110,36 @@ logging:
   pattern:
     level: "trace_id=%mdc{trace_id:-} span_id=%mdc{span_id:-} trace_flags=%mdc{trace_flags} %p"
 
+---
+
+spring:
+  config:
+    import: configserver:${CONFIG_SERVER_URI}
+    activate:
+      on-profile:
+      - docker
+  cloud:
+    config:
+        enabled: true
+    discovery:
+      enabled: true
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAPER_SERVER}
+    template:
+      default-topic: "apiscraper.standings.avro.topic.v1"
+    consumer:
+      group-id: api-scraper
+      auto-offset-reset: latest
+      key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+      value-deserializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
+      properties:
+        specific: 
+          avro:
+            reader: true
+        schema:
+          registry:
+            url: ${SCHEMA_REGISTRY_URI}
+  
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}

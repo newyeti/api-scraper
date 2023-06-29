@@ -26,6 +26,7 @@
       <properties>
         <docker.registry>registry.hub.docker.com/${env.DOCKERHUB_USERNAME}</docker.registry>
         <git.tag>${env.GIT_TAG}</git.tag>
+        <from.image>sachindramaharjan/newyeti-jre-alipine:v0.1.1</from.image>
       </properties>
     </profile>
     <profile>
@@ -39,6 +40,7 @@
       <properties>
         <docker.registry>us-central1-docker.pkg.dev/${env.PROJECT_ID}/images</docker.registry>
         <git.tag>${env.GIT_TAG}</git.tag>
+        <from.image>us-central1-docker.pkg.dev/${env.PROJECT_ID}/images/newyeti-jre-alipine:v0.1.1</from.image>
       </properties>
     </profile>
   </profiles>
@@ -261,10 +263,10 @@
         <version>3.3.1</version>
         <configuration>
           <from>
-            <image>eclipse-temurin:19.0.2_7-jre-alpine</image>
+            <image>${from.image}</image>
           </from>
           <to>
-            <image>registry.hub.docker.com/sachindramaharjan/newyeti-${project.artifactId}</image>
+            <image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
           </to>
         </configuration>
       </plugin>

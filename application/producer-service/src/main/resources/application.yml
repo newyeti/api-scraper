@@ -26,7 +26,6 @@ football-api:
   apiKeys: 
     - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
 
-
 kafka:
   producer:
     send:
@@ -110,6 +109,40 @@ spring:
   data:
     mongodb:
       uri: mongodb://football:football@mongo:27017/football
+
+kafka:
+  producer:
+    send:
+      enabled: true
+
+---
+
+spring:
+  config:
+    import: configserver:${CONFIG_SERVER_URI}
+    activate:
+      on-profile:
+      - gcp
+  cloud:
+    config:
+        enabled: true
+    discovery:
+      enabled: false
+  kafka:
+    bootstrap-servers: ${KAKFA_BOOTSTRAP_SERVER}
+    template:
+      default-topic: "apiscraper.standings.avro.topic.v1"
+    producer:
+      key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
+      value-serializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
+      properties:
+        schema:
+          registry:
+            url: ${SCHEMA_REGISTRY_URI}
+  
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
 
 kafka:
   producer:

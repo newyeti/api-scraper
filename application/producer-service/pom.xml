@@ -179,7 +179,7 @@
             <mainClass>com.newyeti.apiscraper.producer.ProducerApplication</mainClass>
           </container>
           <from>
-            <image>eclipse-temurin@sha256:dde223014bd6917ea00d9eb370add424dc5dfcbcfcb8e8efac15a050563d312e</image>
+            <image>${from.image}</image>
           </from>
           <to>
             <image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
