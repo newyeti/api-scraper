@@ -16,6 +16,20 @@
 
   <profiles>
     <profile>
+      <id>local</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>local</value>
+        </property>
+      </activation>
+      <properties>
+        <docker.registry>registry.hub.docker.com/sachindramaharjan</docker.registry>
+        <git.tag>latest</git.tag>
+        <from.image>sachindramaharjan/newyeti-jre-alipine:v0.1.1</from.image>
+      </properties>
+    </profile>
+    <profile>
       <id>dev</id>
       <activation>
         <property>
