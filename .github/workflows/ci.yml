@@ -99,7 +99,9 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Push Docker Image to Docker Hub
-      run: mvn -Denv=dev -s .m2/maven_settings.xml --file pom.xml clean compile jib:build
+    - name: Push Producer-Service Docker Image to Docker Hub
+      run: mvn -Denv=dev -s .m2/maven_settings.xml --file application/producer-service/pom.xml clean compile jib:build
 
+    - name: Push Consumer-Service Docker Image to Docker Hub
+      run: mvn -Denv=dev -s .m2/maven_settings.xml --file application/consumer-service/pom.xml clean compile jib:build
 
