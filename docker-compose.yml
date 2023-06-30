@@ -312,7 +312,7 @@ services:
 
   apiscraper-producer-service:
     container_name: apiscraper-producer-service 
-    image: sachindramaharjan/newyeti-apiscraper-producer:latest
+    image: sachindramaharjan/newyeti-producer:latest
     pull_policy: always
     restart: always
     ports:
@@ -342,7 +342,7 @@ services:
 
   apiscraper-consumer-service:
     container_name: apiscraper-consumer-service 
-    image: sachindramaharjan/newyeti-apiscraper-consumer:latest
+    image: sachindramaharjan/newyeti-consumer:latest
     pull_policy: always
     restart: always
     ports:
