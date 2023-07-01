@@ -181,6 +181,7 @@
             <image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
           </to>
 					<container>
+						<skip>false</skip>
 						<environment>
 							<JAVA_OPTS>-Xms512m -Xmx1024m</JAVA_OPTS>
 							<ENTRYPOINT>com.newyeti.apiscraper.consumer.ConsumerServiceApplication</ENTRYPOINT>
