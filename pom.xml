@@ -100,7 +100,7 @@
         <groupId>com.newyeti.apiscraper</groupId>
         <artifactId>common</artifactId>
         <version>${project.version}</version>
-        <scope>import</scope>
+        <!-- <scope>import</scope> -->
       </dependency>
       <dependency>
         <groupId>com.newyeti.apiscraper</groupId>
@@ -276,6 +276,7 @@
         <artifactId>jib-maven-plugin</artifactId>
         <version>3.3.1</version>
         <configuration>
+          <skip>true</skip>
           <from>
             <image>${from.image}</image>
           </from>

@@ -342,7 +342,7 @@ services:
 
   apiscraper-consumer-service:
     container_name: apiscraper-consumer-service 
-    image: sachindramaharjan/newyeti-consumer:latest
+    image: sachindramaharjan/newyeti-apiscraper-consumer:latest
     pull_policy: always
     restart: always
     ports:
