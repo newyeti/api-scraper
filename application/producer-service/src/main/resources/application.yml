@@ -130,8 +130,15 @@ spring:
       enabled: false
   kafka:
     bootstrap-servers: ${KAKFA_BOOTSTRAP_SERVER}
+    properties:
+      security:
+        protocal: SASL_SSL
+      sasl: 
+        mechanism: SCRAM-SHA-256
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="${CLOUDKARAFKA_USERNAME}" password="${CLOUDKARAFKA_PASSWORD}"
     template:
-      default-topic: "apiscraper.standings.avro.topic.v1"
+      default-topic: "${CLOUDKARAFKA_USERNAME}-apiscraper.standings.avro.topic.v1"
     producer:
       key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
       value-serializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
