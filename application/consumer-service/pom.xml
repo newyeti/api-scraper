@@ -171,16 +171,15 @@
 				<artifactId>jib-maven-plugin</artifactId>
 				<version>${jib.maven.plugin.version}</version>
 				<configuration>
+					<skip>false</skip>
+					<from>
+						<image>${from.image}</image>
+					</from>
+					<to>
+						<image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
+					</to>
 					<container>
-            <mainClass>com.newyeti.apiscraper.consumer.ConsumerServiceApplication</mainClass>
-          </container>
-          <from>
-            <image>${from.image}</image>
-          </from>
-          <to>
-            <image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
-          </to>
-					<container>
+						<mainClass>com.newyeti.apiscraper.consumer.ConsumerServiceApplication</mainClass>
 						<environment>
 							<JAVA_OPTS>-Xms512m -Xmx1024m</JAVA_OPTS>
 							<ENTRYPOINT>com.newyeti.apiscraper.consumer.ConsumerServiceApplication</ENTRYPOINT>
