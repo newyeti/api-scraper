@@ -100,4 +100,4 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Push Docker Image to Docker Hub
-      run: mvn -Denv=dev -s .m2/maven_settings.xml --file pom.xml clean compile jib:build
+      run: ./mvnw -Denv=dev -s .m2/maven_settings.xml --file pom.xml clean package jib:build
