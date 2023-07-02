@@ -177,12 +177,12 @@
 				<version>${jib.maven.plugin.version}</version>
 				<configuration>
 					<skip>false</skip>
-          <from>
-            <image>${from.image}</image>
-          </from>
-          <to>
-            <image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
-          </to>
+					<from>
+						<image>${from.image}</image>
+					</from>
+					<to>
+						<image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
+					</to>
 					<container>
 						<mainClass>com.newyeti.apiscraper.producer.ProducerApplication</mainClass>
 						<environment>
