@@ -55,6 +55,9 @@ endif
 up:
 	docker compose up -d 
 
+force-up:
+	docker-compose up --build --force-recreate --renew-anon-volumes
+
 ## Stop docker containers defined in docker-compose.yml
 down:
 	docker compose down
