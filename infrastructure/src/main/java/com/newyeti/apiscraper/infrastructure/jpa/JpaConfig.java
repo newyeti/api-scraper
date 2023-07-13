@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.consumer.config;
+package com.newyeti.apiscraper.infrastructure.jpa;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;

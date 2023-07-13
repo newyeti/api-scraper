@@ -58,17 +58,20 @@ public class LeagueStandingsController {
         ApiResponseDto result = callRapidApi(requestDto);
             
         if (result != null && !CollectionUtils.isEmpty(result.getResponse())) {
-            log.info("API Call: GET request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
+            log.info("API Call: POST request=/standings season={} league={} status=SUCCESS", requestDto.getSeason(), requestDto.getLeague());
             ApiResponseDto.Response response = result.getResponse().get(0);
             LeagueStandings leagueStandings = leagueStandingsMapper.toLeagueStandings(response.getLeagueStandingsDto());
 
             if(appConfig.isKafkaSendEnabled()) {
-                log.debug("Kafka Call: Sending API response to Kafka topic.");
-                createStandingsApi.create(leagueStandings, kafkaConfig.getStandingsTopic(), 
+                log.info("Kafka Call: Sending API response to Kafka topic.");
+                createStandingsApi.send(leagueStandings, kafkaConfig.getStandingsTopic(), 
                     UUID.randomUUID().toString());
+            } else {
+                log.info("Kafka not enabled. Saving in database.");
+                createStandingsApi.create(UUID.randomUUID().toString(), leagueStandings);
             }
         } else {
-            log.info("API Call: GET request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
+            log.info("API Call: POST request=/standings season={} league={} status=FAILED", requestDto.getSeason(), requestDto.getLeague());
             handleError();
         }
 

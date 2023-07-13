@@ -99,7 +99,7 @@ management:
       probability: 1.0
   metrics:
     tags:
-      application: beakon-service
+      application: consumer-service
     distribution:
       percentiles-histogram:
         http:

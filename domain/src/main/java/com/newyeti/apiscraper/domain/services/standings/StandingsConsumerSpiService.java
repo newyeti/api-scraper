@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StandingsConsumerSpiService implements BusinessServiceSpi<LeagueStandings>{
     
     @Override
-    public void postProcessReceivedMessage(LeagueStandings leagueStandings) {
+    public void postProcess(LeagueStandings leagueStandings) {
         log.info("do something here after message is received.");
     }
 
