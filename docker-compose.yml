@@ -320,6 +320,7 @@ services:
     networks:
       - infra-network
       - monitoring-network
+      - db-network
     depends_on:
       - config-server
       - api-gateway
@@ -337,7 +338,9 @@ services:
       - OTEL_TRACES_EXPORTER=otlp
       - OTEL_EXPORTER_OTLP_TRACES_INSECURE=true
       - MANAGEMENT_METRICS_TAGS_APPLICATION=apiscraper-producer-service
-      #- SPRING_APPLICATION_JSON={"logging.level.org.springframework.cloud.gateway":"DEBUG","logging.level.org.springframework.boot.autoconfigure.web":"DEBUG", "logging.level.web":"DEBUG"}
+      - SPRING_APPLICATION_JSON={"kafka.producer.send.enabled":"true", 
+          "data.mongodb.uri":"mongodb://football:${FOOTBALL_DB_PASSWORD}@mongo:27017/football"}
+    
     logging: *default-logging
 
   apiscraper-consumer-service:

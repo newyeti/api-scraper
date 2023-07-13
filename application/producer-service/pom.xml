@@ -20,8 +20,7 @@
 		<!-- Internal Dependecies  -->
 		<dependency>
 			<groupId>com.newyeti.apiscraper</groupId>
-      <artifactId>common</artifactId>
-			<version>1.0-SNAPSHOT</version>
+      		<artifactId>common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.newyeti.apiscraper</groupId>
@@ -30,12 +29,6 @@
 		<dependency>
 			<groupId>com.newyeti.apiscraper</groupId>
 			<artifactId>infrastructure</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-data-mongodb</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- External Dependencies -->
