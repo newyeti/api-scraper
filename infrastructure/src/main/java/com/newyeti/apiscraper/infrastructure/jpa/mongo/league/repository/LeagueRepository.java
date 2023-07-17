@@ -6,4 +6,5 @@ import com.newyeti.apiscraper.infrastructure.jpa.mongo.league.entity.LeagueEntit
 
 public interface LeagueRepository extends MongoRepository<LeagueEntity, String>{
     int countByLeagueId(int leagueId);
+    LeagueEntity findByLeagueId(int leagueId);
 }
