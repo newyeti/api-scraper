@@ -64,7 +64,7 @@ spring:
       enabled: false
   data:
     mongodb:
-      uri: mongodb//:localhost:27017/football
+      uri: ${MONGODB_URI}
       
 server:
   port: 7001

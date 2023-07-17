@@ -12,6 +12,8 @@ public interface LeagueJpaMapper {
     
     @Mapping(target = "leagueId", source = "id")
     @Mapping(target = "id", source = "id", ignore = true)
+    @Mapping(target = "seasons", 
+        expression = "java(java.util.Collections.singletonList(leagueStandings.getSeason()))")
     LeagueEntity toLeagueEntity(LeagueStandings leagueStandings);
 
 }

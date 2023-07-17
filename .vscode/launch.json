@@ -16,7 +16,7 @@
         "request": "launch",
         "mainClass": "com.newyeti.apiscraper.producer.ProducerApplication",
         "projectName": "producer",
-        "vmArgs": "-Dspring.profiles.active=dev"
+        "vmArgs": "-Dspring.profiles.active=dev -DMONGODB_URI=mongodb+srv://devuser:devpassword@uefa-cluster-0.rj6sj7h.mongodb.net/football"
       },
       {
         "type": "java",
