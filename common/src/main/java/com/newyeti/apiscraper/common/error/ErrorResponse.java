@@ -8,7 +8,5 @@ import lombok.Data;
 @Data
 @Builder
 public class ErrorResponse {
-
     List<Error> errors;
-
 }
