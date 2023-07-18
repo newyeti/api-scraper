@@ -174,6 +174,8 @@ public class LeagueStandingsController {
 
     @WithSpan
     private void addErrorInResponse(Error error, ResponseDto responseDto) {
+        initErrorsInReponse(responseDto);
+
         synchronized(this){
             responseDto.getErrors().add(error);
         }
@@ -181,13 +183,25 @@ public class LeagueStandingsController {
 
     @WithSpan
     private void addErrorsInResponse(List<Error> errors, ResponseDto responseDto) {
+        initErrorsInReponse(responseDto);
+        
         synchronized(this){
             responseDto.getErrors().addAll(errors);
         }
     }
 
+    private void initErrorsInReponse(ResponseDto responseDto) {
+        if(CollectionUtils.isEmpty(responseDto.getErrors())) {
+            responseDto.setErrors(new ArrayList<>());
+        }
+    }
+
     @WithSpan
     private void addSuccessInResponse(SuccessResponseDto successResponseDto, ResponseDto responseDto){
+        if(CollectionUtils.isEmpty(responseDto.getSuccess())) {
+            responseDto.setSuccess(new ArrayList<>());
+        }
+
         synchronized(this){
             responseDto.getSuccess().add(successResponseDto);
         }
@@ -201,8 +215,6 @@ public class LeagueStandingsController {
 
     private ResponseDto getResponseDto() {
         return ResponseDto.builder()
-            .success(new ArrayList<>())
-            .errors(new ArrayList<>())
             .build();
     }
 
