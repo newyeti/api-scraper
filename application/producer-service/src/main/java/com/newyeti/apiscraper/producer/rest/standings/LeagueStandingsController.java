@@ -2,6 +2,7 @@ package com.newyeti.apiscraper.producer.rest.standings;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -78,12 +79,12 @@ public class LeagueStandingsController {
      * @param requestDto RequestDto.league is a list of comman separated values
      * @return
      */
-    @PostMapping(value = "/{season}/pullAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/{season}/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @Observed(name = "controller.standings.pullAll", 
-        contextualName = "controller.standings.pullAll",
-        lowCardinalityKeyValues = {"api", "standings", "action", "pullAll"})
-    public ResponseDto pullAllData(@PathVariable("season") int season) {
+    @Observed(name = "controller.standings.pull.season", 
+        contextualName = "controller.standings.pull.season",
+        lowCardinalityKeyValues = {"api", "standings", "action", "pull"})
+    public ResponseEntity<ResponseDto> pullAllData(@PathVariable("season") int season) {
         Optional<SettingsModel> settings = getSettingsApi.getSettings(season);
         ResponseDto responseDto = getResponseDto();
         if(!settings.isPresent()) {
@@ -91,29 +92,26 @@ public class LeagueStandingsController {
                             .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
                             .source(new Error.Source("season"))
                             .reason("request body")
-                            .message(String.format("Season: {} is not available.",
+                            .message(String.format("Season: %s is not available.",
                                 String.valueOf(season)))
                             .build(),
                         responseDto);
+        } else {
+            SettingsModel settingsModel = settings.get();
+            settingsModel.getLeagues().parallelStream()
+                .forEach((leagueId) -> {
+                    try{
+                        SuccessResponseDto successResponseDto = processRequest(String.valueOf(season), leagueId);
+                        addSuccessInResponse(successResponseDto, responseDto);
+                    } catch(ServiceException ex) {
+                        addErrorsInResponse(ex.getErrors(), responseDto);
+                    }
+                });
         }
 
-        SettingsModel settingsModel = settings.get();
-        settingsModel.getLeagues().parallelStream()
-            .forEach((leagueId) -> {
-                try{
-                    SuccessResponseDto successResponseDto = processRequest(String.valueOf(season), leagueId);
-                    addSuccessInResponse(successResponseDto, responseDto);
-                } catch(ServiceException ex) {
-                    addErrorsInResponse(ex.getErrors(), responseDto);
-                }
-            });
-        
-        if (responseDto.getErrors().size() > 0) {
-            throw new ServiceException(HttpStatus.BAD_REQUEST, responseDto.getErrors());
-        }
-        
-        return responseDto;
-        
+        return ResponseEntity.status(
+                responseDto.getErrors().size() > 0 ? HttpStatus.BAD_REQUEST : HttpStatus.OK)
+            .body(responseDto);
     }
 
     @WithSpan
