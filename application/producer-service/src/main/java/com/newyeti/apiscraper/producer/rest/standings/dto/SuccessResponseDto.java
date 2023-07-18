@@ -13,6 +13,5 @@ public class SuccessResponseDto {
     
     private String season;
     private String league;
-    private String status;
     
 }

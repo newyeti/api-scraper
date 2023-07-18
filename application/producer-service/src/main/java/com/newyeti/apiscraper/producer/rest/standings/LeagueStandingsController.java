@@ -1,6 +1,5 @@
 package com.newyeti.apiscraper.producer.rest.standings;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.util.CollectionUtils;
@@ -20,7 +19,6 @@ import com.newyeti.apiscraper.producer.rest.standings.dto.ApiResponseDto;
 import com.newyeti.apiscraper.producer.rest.standings.dto.RequestDto;
 import com.newyeti.apiscraper.producer.rest.standings.dto.ResponseDto;
 import com.newyeti.apiscraper.producer.rest.standings.dto.SuccessResponseDto;
-import com.newyeti.apiscraper.producer.rest.standings.dto.ApiResponseDto.Response;
 import com.newyeti.apiscraper.producer.rest.standings.mapper.LeagueStandingsMapper;
 import com.newyeti.apiscraper.producer.kafka.KafkaConfig;
 import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
@@ -37,11 +35,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.security.Provider.Service;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -72,7 +67,7 @@ public class LeagueStandingsController {
             SuccessResponseDto successResponseDto = processRequest(requestDto.getSeason(), requestDto.getLeague());
             addSuccessInResponse(successResponseDto, responseDto);
         } catch(ServiceException ex) {
-
+            addErrorsInResponse(ex.getErrors(), responseDto);
         }
         
         return responseDto;
@@ -109,10 +104,13 @@ public class LeagueStandingsController {
                     SuccessResponseDto successResponseDto = processRequest(String.valueOf(season), leagueId);
                     addSuccessInResponse(successResponseDto, responseDto);
                 } catch(ServiceException ex) {
-                    log.error(leagueId, ex);
                     addErrorsInResponse(ex.getErrors(), responseDto);
                 }
             });
+        
+        if (responseDto.getErrors().size() > 0) {
+            throw new ServiceException(HttpStatus.BAD_REQUEST, responseDto.getErrors());
+        }
         
         return responseDto;
         
@@ -136,7 +134,7 @@ public class LeagueStandingsController {
                 createStandingsApi.create(UUID.randomUUID().toString(), leagueStandings);
             }
         } else {
-            log.info("API Call: POST request=/standings season={} league={} status=FAILED", season, league);
+            log.error("API Call: POST request=/standings season={} league={} status=FAILED", season, league);
             ErrorResponse errorResponse = initErrorResponse();
             addError(Error.builder()
                             .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
@@ -152,7 +150,6 @@ public class LeagueStandingsController {
         return SuccessResponseDto.builder()
             .league(league)
             .season(season)
-            .status("success")
             .build();
 
     }
