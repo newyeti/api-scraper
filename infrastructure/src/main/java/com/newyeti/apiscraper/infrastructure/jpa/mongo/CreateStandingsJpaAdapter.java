@@ -1,10 +1,13 @@
 package com.newyeti.apiscraper.infrastructure.jpa.mongo;
 
 import java.time.Instant;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import com.newyeti.apiscraper.domain.model.avro.schema.LeagueStandings;
 import com.newyeti.apiscraper.domain.port.spi.standings.CreateStandingsJpaPort;
@@ -42,12 +45,23 @@ public class CreateStandingsJpaAdapter implements CreateStandingsJpaPort{
     }
 
     private void saveLeagueDocument(LeagueStandings leagueStandings) {
-        if(leagueRepository.countByLeagueId(leagueStandings.getId()) <= 0) {
+        LeagueEntity leagueEntity = leagueRepository.findByLeagueId(leagueStandings.getId());
+        if(ObjectUtils.isEmpty(leagueEntity)) {
             log.info("league not found....saving league with id={}, name={}", 
             leagueStandings.getId(), leagueStandings.getName());
-            LeagueEntity leagueEntity = leagueJpaMapper.toLeagueEntity(leagueStandings);
+            leagueEntity = leagueJpaMapper.toLeagueEntity(leagueStandings);
             leagueEntity.setUpdatedOn(Instant.now().toString());
             leagueRepository.save(leagueEntity);
+        } else {
+            List<Integer> seasons = leagueEntity.getSeasons();
+            
+            if (ObjectUtils.isEmpty(seasons)){
+                leagueEntity.setSeasons(Collections.singletonList(leagueStandings.getSeason()));
+            } else if (!leagueEntity.getSeasons().contains(leagueStandings.getSeason())) {
+                seasons.add(leagueStandings.getSeason());
+                Collections.sort(seasons, Collections.reverseOrder());
+                leagueRepository.save(leagueEntity);
+            }
         }
     }
 

@@ -24,7 +24,7 @@ football-api:
   baseUrl: "https://api-football-v1.p.rapidapi.com/v3"
   apiHost: "api-football-v1.p.rapidapi.com"
   apiKeys: 
-    - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
+    - ${RAPID_API_KEY_1}
 
 kafka:
   producer:
@@ -64,7 +64,7 @@ spring:
       enabled: false
   data:
     mongodb:
-      uri: mongodb//:localhost:27017/football
+      uri: mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DATABASE}
       
 server:
   port: 7001
@@ -105,11 +105,9 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
-  
   data:
     mongodb:
       uri: mongodb://football:football@mongo:27017/football
-
 kafka:
   producer:
     send:
@@ -146,12 +144,10 @@ spring:
         schema:
           registry:
             url: ${SCHEMA_REGISTRY_URI}
-  
   data:
     mongodb:
-      uri: ${MONGODB_URI}
-
+      uri: mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DATABASE}
 kafka:
   producer:
     send:
-      enabled: true
+      enabled: false
