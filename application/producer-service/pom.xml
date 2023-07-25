@@ -82,6 +82,12 @@
 			<artifactId>lombok-mapstruct-binding</artifactId>
       	</dependency>
 
+		<!-- Caching -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
 		<!-- Observability and Monitoring -->
 		<dependency>
 			<groupId>io.micrometer</groupId>

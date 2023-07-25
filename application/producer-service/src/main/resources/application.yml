@@ -9,7 +9,15 @@ spring:
       enabled: false
     config:
       enabled: false
-
+  cache:
+    type: redis
+  data:
+    redis:
+      host: gusc1-sought-glider-30297.upstash.io
+      port: 30297
+      password: 948ad8cff81847d2a5f4daeaad30906f
+      ssl: true
+      
 avro:
   consumer:
     topics:
@@ -23,8 +31,8 @@ avro:
 football-api:
   baseUrl: "https://api-football-v1.p.rapidapi.com/v3"
   apiHost: "api-football-v1.p.rapidapi.com"
-  apiKeys: 
-    - ${RAPID_API_KEY_1}
+  apiKeys: ${RAPID_API_KEYS}
+  maxRequestPerDay: 100
 
 kafka:
   producer:

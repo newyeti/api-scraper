@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newyeti.apiscraper.producer.config.AppConfig;
+import com.newyeti.apiscraper.producer.handler.ApiKeyHandler;
 import com.newyeti.apiscraper.common.http.HttpClient;
 import com.newyeti.apiscraper.common.exception.ServiceException;
 import com.newyeti.apiscraper.common.error.Error;
@@ -36,6 +37,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +57,7 @@ public class LeagueStandingsController {
     private final ObservationRegistry observationRegistry;
     private final CreateStandingsApi createStandingsApi;
     private final GetSettingsApi getSettingsApi;
+    private final ApiKeyHandler apiKeyHandler;
 
     @PostMapping(value = "/pull", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -159,10 +162,12 @@ public class LeagueStandingsController {
             .observe( () -> {
                  return httpClient
                     .get(uriBuilder -> uriBuilder
-                    .path("/standings")
-                    .queryParam("season", season)
-                    .queryParam("league", league)
-                    .build(), ApiResponseDto.class)
+                        .path("/standings")
+                        .queryParam("season", season)
+                        .queryParam("league", league)
+                        .build(), 
+                        apiKeyHandler.getApiKey(String.valueOf(LocalDate.now())),
+                        ApiResponseDto.class)
                     .block();
             });
     }
