@@ -25,7 +25,7 @@
           "-DRAPID_API_KEYS=",
           "-DREDIS_HOST=gusc1-sought-glider-30297.upstash.io",
           "-DREDIS_PORT=30297",
-          "-DREDIS_PASSWORD="
+          "-DREDIS_PASSWORD=948ad8cff81847d2a5f4daeaad30906f"
         ]
       },
       {

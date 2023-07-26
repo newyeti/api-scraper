@@ -37,9 +37,6 @@ public class ApiClientConfig {
     private static AtomicInteger counter = new AtomicInteger(0);
 
     public List<String> getApiKeys() {
-        System.out.println("baseUrl:" + baseUrl);
-        System.out.println("apiHost:" + apiHost);
-        System.out.println("apiKeys:" + apiKeys);
         return Arrays.asList(apiKeys.split(","));
     }
 
