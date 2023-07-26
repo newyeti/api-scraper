@@ -1,9 +1,6 @@
-package com.newyeti.apiscraper.infrastructure.jpa.mongo.league.entity;
-
-import java.util.List;
+package com.newyeti.apiscraper.infrastructure.jpa.mongo.settings.entity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,25 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Document("league")
-public class LeagueEntity {
+@Document("settings")
+public class SettingsEntity {
     
     @Id
     String id;
-
-    int leagueId;
-    String name;
-    String country;
-    String logo;
-    String flag;
-
-    @Transient
     int season;
+    String leagues;
     
-    String uuid;
-    String updatedOn;
-    
-    List<Integer> seasons;
 }
-
-

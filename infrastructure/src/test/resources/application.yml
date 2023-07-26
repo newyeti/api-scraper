@@ -1,3 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile:
+      - test
+
 avro:
   consumer:
     topics:
@@ -8,3 +14,4 @@ kafka:
   producer:
     send:
       enabled: true
+

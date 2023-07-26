@@ -20,7 +20,7 @@
 		<!-- Internal Dependecies  -->
 		<dependency>
 			<groupId>com.newyeti.apiscraper</groupId>
-			<artifactId>common</artifactId>
+      		<artifactId>common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.newyeti.apiscraper</groupId>
@@ -29,12 +29,6 @@
 		<dependency>
 			<groupId>com.newyeti.apiscraper</groupId>
 			<artifactId>infrastructure</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-data-mongodb</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- External Dependencies -->
@@ -87,6 +81,12 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok-mapstruct-binding</artifactId>
       	</dependency>
+
+		<!-- Caching -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
 
 		<!-- Observability and Monitoring -->
 		<dependency>
@@ -175,16 +175,15 @@
 				<artifactId>jib-maven-plugin</artifactId>
 				<version>${jib.maven.plugin.version}</version>
 				<configuration>
+					<skip>false</skip>
+					<from>
+						<image>${from.image}</image>
+					</from>
+					<to>
+						<image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
+					</to>
 					<container>
-            <mainClass>com.newyeti.apiscraper.producer.ProducerApplication</mainClass>
-          </container>
-          <from>
-            <image>eclipse-temurin@sha256:dde223014bd6917ea00d9eb370add424dc5dfcbcfcb8e8efac15a050563d312e</image>
-          </from>
-          <to>
-            <image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
-          </to>
-					<container>
+						<mainClass>com.newyeti.apiscraper.producer.ProducerApplication</mainClass>
 						<environment>
 							<JAVA_OPTS>-Xms512m -Xmx1024m</JAVA_OPTS>
 							<ENTRYPOINT>com.newyeti.apiscraper.producer.ProducerApplication</ENTRYPOINT>

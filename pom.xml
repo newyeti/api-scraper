@@ -16,6 +16,20 @@
 
   <profiles>
     <profile>
+      <id>local</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>local</value>
+        </property>
+      </activation>
+      <properties>
+        <docker.registry>registry.hub.docker.com/sachindramaharjan</docker.registry>
+        <git.tag>latest</git.tag>
+        <from.image>sachindramaharjan/newyeti-jre-alipine:v0.1.1</from.image>
+      </properties>
+    </profile>
+    <profile>
       <id>dev</id>
       <activation>
         <property>
@@ -26,6 +40,7 @@
       <properties>
         <docker.registry>registry.hub.docker.com/${env.DOCKERHUB_USERNAME}</docker.registry>
         <git.tag>${env.GIT_TAG}</git.tag>
+        <from.image>sachindramaharjan/newyeti-jre-alipine:v0.1.1</from.image>
       </properties>
     </profile>
     <profile>
@@ -39,6 +54,7 @@
       <properties>
         <docker.registry>us-central1-docker.pkg.dev/${env.PROJECT_ID}/images</docker.registry>
         <git.tag>${env.GIT_TAG}</git.tag>
+        <from.image>us-central1-docker.pkg.dev/${env.PROJECT_ID}/images/newyeti-jre-alipine:v0.1.1</from.image>
       </properties>
     </profile>
   </profiles>
@@ -84,7 +100,7 @@
         <groupId>com.newyeti.apiscraper</groupId>
         <artifactId>common</artifactId>
         <version>${project.version}</version>
-        <scope>import</scope>
+        <!-- <scope>import</scope> -->
       </dependency>
       <dependency>
         <groupId>com.newyeti.apiscraper</groupId>
@@ -260,11 +276,12 @@
         <artifactId>jib-maven-plugin</artifactId>
         <version>3.3.1</version>
         <configuration>
+          <skip>true</skip>
           <from>
-            <image>eclipse-temurin:19.0.2_7-jre-alpine</image>
+            <image>${from.image}</image>
           </from>
           <to>
-            <image>registry.hub.docker.com/sachindramaharjan/newyeti-${project.artifactId}</image>
+            <image>${docker.registry}/newyeti-${project.artifactId}:${git.tag}</image>
           </to>
         </configuration>
       </plugin>

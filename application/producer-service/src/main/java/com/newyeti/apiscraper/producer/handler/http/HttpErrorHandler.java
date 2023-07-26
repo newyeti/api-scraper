@@ -1,4 +1,4 @@
-package com.newyeti.apiscraper.common.handler;
+package com.newyeti.apiscraper.producer.handler.http;
 
 import java.util.ArrayList;
 import java.util.List;

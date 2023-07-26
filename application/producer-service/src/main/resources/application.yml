@@ -9,7 +9,15 @@ spring:
       enabled: false
     config:
       enabled: false
-
+  cache:
+    type: redis
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+      ssl: true
+      
 avro:
   consumer:
     topics:
@@ -19,13 +27,11 @@ avro:
     topic:
       standings: apiscraper.standings.avro.topic.v1
 
-
 football-api:
   baseUrl: "https://api-football-v1.p.rapidapi.com/v3"
   apiHost: "api-football-v1.p.rapidapi.com"
-  apiKeys: 
-    - "U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk"
-
+  apiKeys: ${RAPID_API_KEYS}
+  maxRequestPerDay: 100
 
 kafka:
   producer:
@@ -65,7 +71,7 @@ spring:
       enabled: false
   data:
     mongodb:
-      uri: mongodb//:localhost:27017/football
+      uri: mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DATABASE}
       
 server:
   port: 7001
@@ -106,12 +112,49 @@ spring:
         schema:
           registry:
             url: http://schema-registry:8081
-  
   data:
     mongodb:
       uri: mongodb://football:football@mongo:27017/football
-
 kafka:
   producer:
     send:
       enabled: true
+
+---
+
+spring:
+  config:
+    import: configserver:${CONFIG_SERVER_URI}
+    activate:
+      on-profile:
+      - gcp
+  cloud:
+    config:
+        enabled: true
+    discovery:
+      enabled: false
+  kafka:
+    bootstrap-servers: ${KAKFA_BOOTSTRAP_SERVER}
+    properties:
+      security:
+        protocal: SASL_SSL
+      sasl: 
+        mechanism: SCRAM-SHA-256
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="${CLOUDKARAFKA_USERNAME}" password="${CLOUDKARAFKA_PASSWORD}"
+    template:
+      default-topic: "${CLOUDKARAFKA_USERNAME}-apiscraper.standings.avro.topic.v1"
+    producer:
+      key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
+      value-serializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
+      properties:
+        schema:
+          registry:
+            url: ${SCHEMA_REGISTRY_URI}
+  data:
+    mongodb:
+      uri: mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DATABASE}
+kafka:
+  producer:
+    send:
+      enabled: false

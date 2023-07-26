@@ -36,7 +36,6 @@ public class ServiceException extends RuntimeException{
     }
 
     public ServiceException(HttpStatus httpStatus, List<Error> errors) {
-        
         this.httpStatus = httpStatus;
         this.errors = errors;
     }

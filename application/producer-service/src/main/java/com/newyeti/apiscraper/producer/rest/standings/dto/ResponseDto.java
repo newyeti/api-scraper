@@ -1,16 +1,17 @@
 package com.newyeti.apiscraper.producer.rest.standings.dto;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.newyeti.apiscraper.common.error.Error;
+
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseDto {
-    
-    private String status;
-    
+    List<SuccessResponseDto> success;
+    List<Error> errors;
 }
