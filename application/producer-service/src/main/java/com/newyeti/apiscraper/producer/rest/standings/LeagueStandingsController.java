@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newyeti.apiscraper.producer.config.AppConfig;
-import com.newyeti.apiscraper.producer.handler.ApiKeyHandler;
-import com.newyeti.apiscraper.common.http.HttpClient;
+import com.newyeti.apiscraper.producer.handler.http.ApiKeyHandler;
+import com.newyeti.apiscraper.producer.handler.http.ApiKeyStruct;
+import com.newyeti.apiscraper.producer.http.HttpClient;
 import com.newyeti.apiscraper.common.exception.ServiceException;
 import com.newyeti.apiscraper.common.error.Error;
 import com.newyeti.apiscraper.common.error.ErrorResponse;
@@ -157,6 +159,24 @@ public class LeagueStandingsController {
 
     @WithSpan
     private ApiResponseDto callRapidApi(String season, String league) {
+        ApiKeyStruct apiKeyStruct = apiKeyHandler.getApiKey(apiKeyHandler.getDateKey(), 
+            Integer.valueOf(apiKeyHandler.getCurrentApiKeyIndex(apiKeyHandler.getDateKey())));
+       
+        if(apiKeyStruct == null || !StringUtils.hasLength(apiKeyStruct.getApiKey())) {
+            ErrorResponse errorResponse = initErrorResponse();
+            addError(Error.builder()
+                            .code(String.valueOf(HttpStatus.FORBIDDEN.value()))
+                            .source(new Error.Source("apikey"))
+                            .reason("api key")
+                            .message(String.format("api key is not available/valid.",
+                                season, league))
+                            .build(),
+                        errorResponse);
+            throw new ServiceException(HttpStatus.FORBIDDEN, errorResponse.getErrors());
+        }
+
+        log.debug("Using API Key: {}", apiKeyStruct.getApiKey());
+        
         return Observation.createNotStarted("league.standings.api", observationRegistry)
             .contextualName("league-standings-external-api-call")
             .observe( () -> {
@@ -166,7 +186,7 @@ public class LeagueStandingsController {
                         .queryParam("season", season)
                         .queryParam("league", league)
                         .build(), 
-                        apiKeyHandler.getApiKey(String.valueOf(LocalDate.now())),
+                        apiKeyStruct,
                         ApiResponseDto.class)
                     .block();
             });

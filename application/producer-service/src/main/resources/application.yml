@@ -13,9 +13,9 @@ spring:
     type: redis
   data:
     redis:
-      host: gusc1-sought-glider-30297.upstash.io
-      port: 30297
-      password: 948ad8cff81847d2a5f4daeaad30906f
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
       ssl: true
       
 avro:
@@ -26,7 +26,6 @@ avro:
   producer:
     topic:
       standings: apiscraper.standings.avro.topic.v1
-
 
 football-api:
   baseUrl: "https://api-football-v1.p.rapidapi.com/v3"
