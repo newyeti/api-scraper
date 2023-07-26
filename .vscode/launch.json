@@ -19,13 +19,13 @@
         "vmArgs": [
           "-Dspring.profiles.active=dev",
           "-DMONGODB_USERNAME=devuser",
-          "-DMONGODB_PASSWORD=devpassword",
+          "-DMONGODB_PASSWORD=",
           "-DMONGODB_HOST=uefa-cluster-0.rj6sj7h.mongodb.net",
           "-DMONGODB_DATABASE=football",
-          "-DRAPID_API_KEYS=d449529368msh69f30acee47f6f0p1c4735jsn009552b076ae,U4y3LniAIdmsh1SryySGibO7k8ELp1syFPvjsnpHOQNWAvpJAk,",
+          "-DRAPID_API_KEYS=",
           "-DREDIS_HOST=gusc1-sought-glider-30297.upstash.io",
           "-DREDIS_PORT=30297",
-          "-DREDIS_PASSWORD=948ad8cff81847d2a5f4daeaad30906f"
+          "-DREDIS_PASSWORD="
         ]
       },
       {
