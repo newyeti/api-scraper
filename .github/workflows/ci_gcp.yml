@@ -111,7 +111,7 @@ jobs:
       run: |-
         echo "test" >> "credentials.json"
         pwd
-        cat credential.json
+        cat credentials.json
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
