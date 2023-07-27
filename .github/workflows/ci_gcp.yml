@@ -98,7 +98,7 @@ jobs:
         terraform_wrapper: false
     - name: Create credential file
       run: |-
-        echo ${{ secrets.TF_VAR_CREDENTIAL_FILE }} >> "credentials.json"
+        echo "${{ secrets.TF_VAR_CREDENTIAL_FILE }}" >> "credentials.json"
         pwd
         cat credentials.json
 
