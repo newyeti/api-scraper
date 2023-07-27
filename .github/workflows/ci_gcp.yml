@@ -96,6 +96,11 @@ jobs:
         cli_config_credentials_token: ${{ secrets.TERRAFORM_SA_CREDENTIAL }}
         terraform_version: 1.5.1
         terraform_wrapper: false
+    - name: Create credential file
+      run: |-
+        echo ${{ secrets.TF_VAR_CREDENTIAL_FILE }} >> "credentials.json"
+        pwd
+        cat credentials.json
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -106,12 +111,6 @@ jobs:
 #     - name: Terraform Format
 #       working-directory: ./gcp
 #       run: terraform fmt -check
-
-    - name: Create credential file
-      run: |-
-        echo "test" >> "credentials.json"
-        pwd
-        cat credentials.json
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
