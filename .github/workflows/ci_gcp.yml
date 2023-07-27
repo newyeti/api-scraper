@@ -109,8 +109,7 @@ jobs:
 
     - name: Create credential file
       run: |-
-        echo ${{secrets.TF_VAR_CREDENTIAL_FILE}} >> credentials.json
-        cat credentials.json
+        echo "test" > credentials.json
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
