@@ -65,3 +65,6 @@ else
 fi
 
 echo "GIT_TAG=${NEW_TAG}" >> $GITHUB_ENV
+echo "PS_GIT_TAG=${NEW_TAG}" >> $GITHUB_ENV
+
+exit 0
