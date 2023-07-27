@@ -110,11 +110,11 @@ jobs:
     - name: Terraform Plan
       working-directory: ./gcp
       run: |
-        terraform plan -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'PS_GIT_TAG=$PS_GIT_TAG'
+        terraform plan -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'ps_git_tag=$GIT_TAG'
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       working-directory: ./gcp
-      run: terraform apply -auto-approve -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'ps_git_tag=$PS_GIT_TAG'
+      run: terraform apply -auto-approve -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'ps_git_tag=$GIT_TAG'
 
