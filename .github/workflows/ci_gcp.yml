@@ -31,57 +31,57 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
+    # - id: 'auth'
+    #   uses: 'google-github-actions/auth@v1'
+    #   with:
+    #     credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
 
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v1'
-      with:
-        project_id: ${{ env.PROJECT_ID }}
-        version: '>= 416.0.0'
+    # - name: 'Set up Cloud SDK'
+    #   uses: 'google-github-actions/setup-gcloud@v1'
+    #   with:
+    #     project_id: ${{ env.PROJECT_ID }}
+    #     version: '>= 416.0.0'
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
+    # - name: 'Use gcloud CLI'
+    #   run: 'gcloud info'
 
-    - name: 'Get Git Tag from commit message'
-      id: determine-git-tag
-      env:
-        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      run: |-
-        bash ./scripts/git_version.sh
+    # - name: 'Get Git Tag from commit message'
+    #   id: determine-git-tag
+    #   env:
+    #     COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+    #   run: |-
+    #     bash ./scripts/git_version.sh
         
-    - name: Automatic Tagging of Releases
-      id: increment-git-tag
-      run: |
-        bash ./scripts/git_update.sh -v $GIT_TAG_TYPE
+    # - name: Automatic Tagging of Releases
+    #   id: increment-git-tag
+    #   run: |
+    #     bash ./scripts/git_update.sh -v $GIT_TAG_TYPE
     
-    - name: Configure Docker Client
-      run: |-
-        gcloud auth configure-docker --quiet
-        gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+    # - name: Configure Docker Client
+    #   run: |-
+    #     gcloud auth configure-docker --quiet
+    #     gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
     
-    - name: Configure maven settings.xml
-      uses: whelk-io/maven-settings-xml-action@v20
-      with:
-        mirrors: >
-          [{
-            "id": "maven-default-http-blocker",
-            "name": "Pseudo repository to mirror external repositories initially using HTTP.",
-            "mirrorOf": "external:http:*",
-            "url": "http://0.0.0.0/"
-          },
-          {
-            "id": "confluent",
-            "name": "Confluent mirror",
-            "mirrorOf": "confluent",
-            "url": "http://packages.confluent.io/maven/"
-          }]
-        output_file: .m2/maven_settings.xml
+    # - name: Configure maven settings.xml
+    #   uses: whelk-io/maven-settings-xml-action@v20
+    #   with:
+    #     mirrors: >
+    #       [{
+    #         "id": "maven-default-http-blocker",
+    #         "name": "Pseudo repository to mirror external repositories initially using HTTP.",
+    #         "mirrorOf": "external:http:*",
+    #         "url": "http://0.0.0.0/"
+    #       },
+    #       {
+    #         "id": "confluent",
+    #         "name": "Confluent mirror",
+    #         "mirrorOf": "confluent",
+    #         "url": "http://packages.confluent.io/maven/"
+    #       }]
+    #     output_file: .m2/maven_settings.xml
 
-    - name: Push Docker Image to Artifact Registry
-      run: ./mvnw -Denv=gcp -s .m2/maven_settings.xml --file pom.xml clean package jib:build
+    # - name: Push Docker Image to Artifact Registry
+    #   run: ./mvnw -Denv=gcp -s .m2/maven_settings.xml --file pom.xml clean package jib:build
 
     - name: Checkout terraform project
       uses: actions/checkout@v2
@@ -107,13 +107,16 @@ jobs:
 #       working-directory: ./gcp
 #       run: terraform fmt -check
 
+    - name: Create credential file
+      run: |-
+        echo echo ${{secrets.TF_VAR_CREDENTIAL_FILE}} >> credentials.json
+        cat credentials.json
+
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       working-directory: ./gcp
-      run: |-
-        echo ${{secrets.TF_VAR_CREDENTIAL_FILE}} >> credentials.json
-        cat credential.json
-        #terraform plan -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'PS_GIT_TAG=$PS_GIT_TAG'
+      run: |
+        terraform plan -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'PS_GIT_TAG=$PS_GIT_TAG'
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
