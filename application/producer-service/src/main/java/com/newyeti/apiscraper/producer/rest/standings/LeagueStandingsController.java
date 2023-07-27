@@ -115,7 +115,9 @@ public class LeagueStandingsController {
         }
 
         return ResponseEntity.status(
-                responseDto.getErrors().size() > 0 ? HttpStatus.BAD_REQUEST : HttpStatus.OK)
+                !CollectionUtils.isEmpty(responseDto.getErrors()) && 
+                    responseDto.getErrors().size() > 0 ? 
+                        HttpStatus.BAD_REQUEST : HttpStatus.OK)
             .body(responseDto);
     }
 
