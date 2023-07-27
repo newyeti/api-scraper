@@ -111,9 +111,11 @@ jobs:
     - name: Terraform Plan
       working-directory: ./gcp
       run: |
+        echo ${{secrets.TF_VAR_CREDENTIAL_FILE}} >> credentials.json
+
         terraform plan -input=false \
           -var 'project=${{ secrets.PROJECT_ID }}' \
-          -var 'credential_file=${{secrets.TF_VAR_CREDENTIAL_FILE}}' \
+          -var 'credential_file=credentials.json' \
           -var 'PS_GIT_TAG'=$PS_GIT_TAG
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
