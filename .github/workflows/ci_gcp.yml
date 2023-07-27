@@ -96,11 +96,11 @@ jobs:
         cli_config_credentials_token: ${{ secrets.TERRAFORM_SA_CREDENTIAL }}
         terraform_version: 1.5.1
         terraform_wrapper: false
-        
+
     - name: Create credential file
       working-directory: ./gcp
       run: |-
-        echo "${{ secrets.TF_VAR_CREDENTIAL_FILE }}" >> "credentials.json"
+        echo "${{ secrets.TF_VAR_CREDENTIAL_FILE }}" | base64 -d >> "credentials.json"
         pwd
         cat credentials.json
 
