@@ -110,7 +110,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       working-directory: ./gcp
-      run: |
+      run: |-
         echo ${{secrets.TF_VAR_CREDENTIAL_FILE}} >> credentials.json
         terraform plan -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'PS_GIT_TAG=$PS_GIT_TAG'
 
