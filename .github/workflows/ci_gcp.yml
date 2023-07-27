@@ -110,6 +110,8 @@ jobs:
     - name: Create credential file
       run: |-
         echo "test" > credentials.json
+        pwd
+        cat credential.json
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
