@@ -1,9 +1,11 @@
 package com.newyeti.apiscraper.producer.handler.http;
 
 import java.time.LocalDate;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.newyeti.apiscraper.producer.config.ApiClientConfig;
