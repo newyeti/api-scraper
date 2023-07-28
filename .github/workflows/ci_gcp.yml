@@ -6,7 +6,7 @@ on:
     branches: ["main"]
   
 jobs:
-  build-push-gcp:
+  build:
     runs-on: ubuntu-latest
     
     permissions: 
@@ -82,12 +82,14 @@ jobs:
 
     - name: Push Docker Image to Artifact Registry
       run: ./mvnw -Denv=gcp -s .m2/maven_settings.xml --file pom.xml clean package jib:build
+    
+    outputs:
+      gitTagName: ${{ steps.build.outputs.GIT_TAG }}
 
   deploy_to_gcp_cloud_run:
-
-    runs-on: ubuntu-latest
-    needs: build-push-gcp
-
+    needs: build
+    runs-on: [ubuntu-latest, "{{ needs.build.outputs.gitTagName }}"]
+  
     steps:
     - name: Checkout terraform project
       uses: actions/checkout@v2
@@ -116,11 +118,12 @@ jobs:
     - name: Terraform Plan
       working-directory: ./gcp
       run: |
-        terraform plan -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'ps_git_tag=${{ env.GIT_TAG }}'
+        echo "New Git Tag is ${{ needs.build.outputs.gitTagName }}"
+        terraform plan -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'ps_git_tag=${{ needs.build.outputs.gitTagName }}'
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       working-directory: ./gcp
-      run: terraform apply -auto-approve -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'ps_git_tag=${{ env.GIT_TAG }}'
+      run: terraform apply -auto-approve -input=false -var 'project=${{ secrets.PROJECT_ID }}' -var 'credential_file=credentials.json' -var 'ps_git_tag=${{ needs.build.outputs.gitTagName }}'
 
