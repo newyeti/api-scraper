@@ -84,7 +84,7 @@ jobs:
       run: ./mvnw -Denv=gcp -s .m2/maven_settings.xml --file pom.xml clean package jib:build
     
     outputs:
-      GIT_TAG: ${{ steps.build.outputs.GIT_TAG }}
+      GIT_TAG: ${{ steps.increment-git-tag.outputs.GIT_TAG }}
 
   deploy_to_gcp_cloud_run:
     needs: build
