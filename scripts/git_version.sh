@@ -14,6 +14,6 @@ else
 fi
 
 echo "Git Tag Type="$GIT_TAG_TYPE
-echo "GIT_TAG_TYPE=${GIT_TAG_TYPE}" >> $GITHUB_ENV
+echo "GIT_TAG_TYPE=${GIT_TAG_TYPE}" >> $GITHUB_OUTPUT
 
 exit 0
