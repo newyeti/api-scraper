@@ -66,4 +66,6 @@ fi
 
 echo "GIT_TAG=${NEW_TAG}" >> $GITHUB_ENV
 
+echo "GIT_TAG=${NEW_TAG}" >> $GITHUB_OUTPUT
+
 exit 0
